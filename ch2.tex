@@ -1,0 +1,338 @@
+\section{Covers, spines, and anodynes}
+
+We will prove some important technical lemmas, which will be absolutely critical to constructing a cartesian-closed model category of weak \(\omega\)-categories.   
+
+\subsection{Rezk Covers}
+
+Ara's theory proves that the objects of \(\Theta\) are in canonical bijection with globular patterns, and further, that the colimit of the globular pattern associated with an object \([t]\in \Theta\), when taken in \(\Theta\) is \([t]\). There is another way to form the colimit of the globular pattern, namely, in the category of presheaves on \(\Theta\).  Then given a globular pattern \(\eta_t\) associated with an object \([t]\in \Theta\), we define its \dfn{spine} to be the colimit of \(h_{\eta_t}\), where \(h_{(\cdot)}\) is the Yoneda embedding.  By the universal property, the spine admits a unique map into the functor \(h_t\) represented by \([t]\).  It is easy to see by induction that the map is injective.  This next definition gives a generalization of the notion of a ``sequential map'' between objects of \(\Delta\).  
+
+\begin{defn}
+We say that a map \([s]\to [t]\in \Theta\) is \dfn{spinal} if it sends the spine of \([s]\), written \(\Sp[s]\) into the spine \(\Sp[t]\) of \([t]\).  The monic spinal maps are precisely those maps arising from \(\Theta_0\), so this agrees with our earlier definition.
+\end{defn}
+
+\begin{defn} We say that a subpresheaf \(T\subseteq \Theta[t]\) (where \(\Theta[t]\) denotes the functor \(\Hom_{\Theta}(\cdot,[t])\)) is a \dfn{Rezk Cover} provided that:
+\begin{enumerate}
+\item [(i)] We have \(\Sp[t]\subseteq T\), and
+\item [(ii)] The inclusion map \(T\hookrightarrow \Theta[t]\) has the right lifting property with respect to the set of all cospinal maps.    
+\end{enumerate}
+\end{defn}
+
+\begin{prop}\label{covprops} The following properties hold:
+\begin{enumerate}
+\item [(i)] Every epimorphism in \(\Theta\) is spinal.
+\item [(ii)] The pullback of a cover along a spinal map is a cover.
+\item [(iii)] Given two objects \([s]\) and \([t]\), \(S\to \Theta[s]\) and \(T\to \Theta[t]\) two covers, and a pair of spinal maps \([p]\to [s]\) and \([p]\to [t]\), the pullback of the map \(S\times T \hookrightarrow \Theta[s]\times \Theta[t]\) along the map \(\Theta[p]\to \Theta[s]\times\Theta[t]\) is a cover of \([p]\).  
+\item [(iv)] The inclusion of the spine is a cover
+\item [(v)] The identity map is a cover 
+\end{enumerate} 
+\end{prop}
+\begin{proof}
+We leave the proof of these facts to the reader.  
+\end{proof}
+\subsection{Products of covers are anodyne}
+We quickly recall a proposition of Cisinski regarding the behavior of pullbacks under the canonical homotopy colimits with respect to a regular localizer \(W\).  We will state it without proof, and we encourage any uneasy readers to check it in its original source:
+\begin{prop}[\cite{cisinski-book}*{Prop. 3.4.46}]\label{fibcolim} Let \((A,W)\) be a small category equipped with a regular \(A\)-localizer. Then given a morphism \(S\to T\) of presheaves on \(A\), we recall the canonical pullback functor
+\[\rho_T:A\downarrow T \to \psh{A}, \qquad (a,h_a\to T)\mapsto S\times_T h_a.\]
+Then the morphism \(\hocolim^W\rho\to S\), induced by the projection maps \(S\times_T h_a\to S\), belongs to \(W\).
+\end{prop}
+\begin{lemma}\label{coversweak} Any \(\Theta\)-localizer containing the spine inclusions contains the Rezk covers. 
+\end{lemma}
+\begin{proof}
+Fix a localizer \(W\) of \(\Theta\) containing the spine inclusions, and let \(S\hookrightarrow \Theta[s]\) be a proper \((S\neq \Theta[s])\) cover of an object \([s]\) in \(\Theta\).  By the \(2\)-for-\(3\) property of localizers, it suffices to show that the inclusion \(\Sp[s]\hookrightarrow S\) belongs to \(W\).
+
+Let \(P_S\) denote the category whose objects are the injective spinal maps \(f_p:[p]\hookrightarrow [s]\) that factor through \(S\), and whose morphisms \(([p],f_p)\to ([p'],f_{p'})\) are maps \(g:[p]\to [p']\) such that \(f_p=f_{p'}\circ g\).  We see that this category is isomorphic to the full subcategory of \(\overcat{\Theta}{S}\) spanned by the monomorphisms \(f_p:\Theta_{p}\hookrightarrow S\) such that the composite \(\Theta_{p}\hookrightarrow S\hookrightarrow \Theta[s]\) is a spinal monomorphism.  To every object of \(P_s\), we assign a cartesian rectangle:
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ Pb_2 & \Sp[s] \\
+   Pb_1 &  S \\
+	 \Theta[p] & \Theta[s] \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge (b-1-2)
+        edge (b-2-1)
+(b-2-1) edge (b-2-2)
+        edge (b-3-1)
+(b-3-1) edge node[auto]{\(\scriptstyle f_p\)} (b-3-2)
+(b-1-2) edge (b-2-2)
+(b-2-2) edge (b-3-2);
+\end{tikzpicture}
+\end{equation*}
+However, since \([p]\to [s]\) factors through \(S\), we see that \(Pb_1=h_p\). We also see that \(Pb_2\) is precisely \(\Sp[p]\), since \(f_p\) is spinal and injective. Therefore, we reduce the rectangle above to a cartesian square \(X_{[p]}\):
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ \Sp[p] & \Sp[s] \\
+   \Theta[p] &  S \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge (b-1-2)
+        edge (b-2-1)
+(b-2-1) edge (b-2-2)
+(b-1-2) edge (b-2-2);
+\end{tikzpicture}
+\end{equation*}
+This square is clearly functorial in \(P_S\).  Since \(\Theta\) is regular squelettique, the localizer \(W\) is necessarily regular, but since \(W\) is regular, \eqref{fibcolim} tells us that for the canonical functor
+\[\rho_S:\overcat{\Theta}{S}\to \cellset, \qquad (\theta,h_\theta\to S)\mapsto \Sp[s] \times_S h_\theta,\]
+we have that the canonical map \(\hocolim^W \rho_S \to \Sp[s]\) belongs to \(W\).  However, we know that that the inclusion  \(\Sd(S)\hookrightarrow \overcat{\Theta}{S}\) of the full subcategory spanned by the monomorphisms is homotopy cofinal, since \(\Theta\) is skelettique regular, which implies that the natural map \(\hocolim^W \eval[1]{\rho_S}_{\Sd(S)}\to \hocolim^W \rho_S\) belongs to \(W\).  Then we have reduced the problem of a weak equivalence \(\hocolim^W\eval[1]{\rho_S}_{P_S} \to \Sp[s]\) to showing that \(\hocolim^W\eval[1]{\rho_S}_{P_S}\to \hocolim^W \eval[1]{\rho_S}_{\Sd(S)}\) belongs to W.  This fact will certainly follow if \(P_S\) is indeed homotopy-cofinal in \(\Sd(S)\).  We will digress for a few moments:
+
+Since for each object \([p]\to [s]\) of \(P_S\), the lefthand map is a spine inclusion and therefore a weak equivalence, we know by the universal property of homotopy colimits that the canonical map \(\hocolim^W\eval[1]{\rho_S}_{P_S}\to \hocolim^W\eval[1]{\pi_S}_{P_S}\) belongs to \(W,\) where \(\pi_S\) is the obvious forgetful functor \(\overcat{\Theta}{S}\to \cellset\).
+
+Then we would also like to show that the natural map \(\hocolim^W\eval[1]{\pi_S}_{P_S}\to S\) belongs to \(W\).  Similar to the top part of the diagram, we may first reduce this by regularity to the statement that \(\hocolim^W\eval[1]{pi_S}_{P_S}\to \hocolim^W{\pi_S}\) belongs to \(W\), and because \(\Theta\) is skelettique regular, we can further reduce the problem using the cofinality of \(\Sd(S)\) in \(\overcat{\Theta}{S}\), which implies that it suffices to prove that the natural map \(\hocolim^W\eval[1]{\pi_S}_{P_S}\to \hocolim^W\) belongs to \(W\).  As with the top morphism in the diagram, a proof that \(P_S\) is homotopy cofinal in \(\Sd(S)\) will imply that the map in question belongs to \(W\).  
+
+For any injective \(\alpha_q:[q]\hookrightarrow S\), it follows from \eqref{spinalfactor} that there exists a unique factorization of \([q]\hookrightarrow S\hookrightarrow [s]\) into a cospinal map followed by a spinal map \([q]\hookrightarrow [t]\hookrightarrow [s]\), which admits a unique monomorphic lifting \([t]\to S\) making the whole diagram commute.  However, the map \([t]\to S\) belongs to \(P_S\) by inspection, and it is initial in \(\overcat{([q],\alpha_q)}{P_S}\).  This implies that for all \(\alpha_q:[q]\hookrightarrow S\) in \(\operatorname{Sd}_\Theta(S)\), \(\overcat{([q],\alpha_q)}{P_S}\) has a contractible nerve, and therefore \(P_S\hookrightarrow \operatorname{Sd}_\Theta(S)\) is homotopy cofinal.  
+\end{proof}
+The next lemma establishes our ability to write \([t]\) as an object \([n_t](t_1,\dots,t_n),\) of \(\Delta \wr \Theta\), where each \(t_i\) has height strictly smaller than \([t]\).   
+\begin{prop} There exists an isomorphism of categories \(\xi:\Delta \wr \Theta\cong \Theta\).
+\end{prop}  
+\begin{proof}
+Recall that in \eqref{segfun} we defined a functor \(F_\Delta:\Delta\to \Gamma\), by applying the general construction from \eqref{infwreath} to \(\Delta\) equipped with this functor, we constructed the functor \(T_{\Delta,[0],F_\Delta}:\mathbf{N}\to \Cat\)  given by the diagram
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (a) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ \Delta^{\wr 0} & \Delta^{\wr 1} & \Delta^{\wr 2} & \dots & \Delta^{\wr n} & \Delta^{\wr n+1} & \dots \\};
+\path[right hook->, font=\scriptsize]
+(a-1-1) edge node[auto]{\(\scriptstyle \iota_0\)} (a-1-2)
+(a-1-2) edge node[auto]{\(\scriptstyle \iota_1\)} (a-1-3)
+(a-1-3) edge node[auto]{\(\scriptstyle \iota_2\)} (a-1-4)
+(a-1-4) edge node[auto]{\(\scriptstyle \iota_{n-1}\)} (a-1-5)
+(a-1-5) edge node[auto]{\(\scriptstyle \iota_n\)} (a-1-6)
+(a-1-6) edge node[auto]{\(\scriptstyle \iota_{n+1}\)} (a-1-7);
+\end{tikzpicture},
+\end{equation*}
+where \(\iota_0:\Delta^{\wr 0}=\ast\to \Delta\) is the functor \([0]:\ast\to \Delta\) classifying the object \([0]\) and \(\iota_{n+1}:\Delta^{\wr n+1}\to \Delta^{\wr n+2}\) is the functor \(\id_\Delta \wr \iota_n\).  Taking the colimit of this diagram, we obtain the category \(\Theta=C(\Delta,[0],F_\Delta)\).  Let \(s:\mathbb{N}\to \mathbb{N}\) be the functor sending \(n\mapsto n+1\).  This functor is clearly cofinal, so the diagrams \(T_{\Delta,[0],F_\Delta}\) and \(s^\ast T_{\Delta,[0],F_\Delta}\) necessarily have isomorphic colimits.  However, \(s^\ast T_{\Delta,[0],F_\Delta}=\Delta \wr T_{\Delta,[0],F_\Delta}\) by construction.  
+
+Then it suffices to show that the functor \(\mathcal{C}\mapsto \Delta\wr \mathcal{C}\) preserves linear colimits.   To see this, note that given a functor \(\Lambda:\mathbf{N}\to \Cat\), we may describe its colimit as the category specified as follows: The set of objects is the quotient of the set of pairs \((x,n)\), where \(x\) is an object of \(\Lambda(n)\) by the equivalence relation \((x,n)\sim(y,m)\) if and only if there exists a natural integer \(p\geq \operatorname{max}(n,m)\) such that \(\Lambda_n^p(x)=\Lambda_m^p(y)\) (where \(\Lambda_i^j:\Lambda(i)\to \Lambda(j)\) is the image of the unique map \(i<j\) in \(\mathbf{N}\)).  We denote the equivalence class of \((x,n)\) by \(\langle x,n\rangle\).  The set of morphisms \(f:\langle x,n\rangle\to \langle y,m\rangle\) is given by the quotient of the set \[\coprod_{i\in \mathbf{N}}\coprod_{(a,i)\in \langle x,n\rangle\\ (b,i)\in \langle y,m\rangle}\Hom_{\Lambda(i)}(a,b)\] modulo the equivalence relation \((f,i)\sim (g,j)\) exactly when there exists \(k\geq\operatorname{max}(i,j)\) such that \(\Lambda_i^k(f)=\Lambda_j^k\).  
+
+Then an object of \(\colim(\Delta\wr T_{\Delta,[0],F_\Delta})\) is an equivalence class of pairs \[\langle [n](x_1,\dots,x_n),i\rangle \] where each \(x_i\) belongs to \(F(i)\), while an object of \(\Delta\wr\colim(T_{\Delta,[0],F_\Delta})\) is of the form \[[n](\langle x_1,i_1 \rangle,\dots,\langle x_n,i_n \rangle).\] 
+
+We see that for any two equivalent families that \[[n]((x_1,i_1),\dots,(x_n,i_n))\sim [n]((y_1,j_1),\dots,(y_n,j_n)),\] since there exists an element \([n]((z_1,k_1),\dots,(z_n,k_n)\) such that \(k_\ell\geq \operatorname{max}(i_\ell,j_\ell)\) for each \(1\leq \ell\leq n\) and such that \(\Lambda_{i_\ell}^{k_\ell}(x_\ell)=\lambda_{j_\ell}^{k_\ell}(y_\ell)\).  
+
+Then by letting \(k=\operatorname{max}_{1\leq \ell\leq n}(k_\ell)\), we see that \[[n]((\Lambda_{k_1}^k(z_1)),\dots,(\Lambda_{k_n}^k(z_k)))\] is also a representative.  
+
+So the map sending the set of pairs \(([n](x_1,\dots,x_n),i)\) to  the set of objects of the form \([n]((y_1,j_1),\dots,(y_n,j_n))\) by the rule \[([n](x_1,\dots,x_n),i)\mapsto [n]((x_1,i),\dots,(x_n,i))\] is compatible with the equivalence relation and also descends to a bijection on equivalence classes.  We leave it to the reader to show that the induced map on \(\Hom\)-sets is also bijective, since the proof is basically identical but notation-heavy.
+\end{proof}
+
+
+\begin{thm}\label{mainthm}
+Given a \(\Theta\)-localizer \(W\) containing the spine inclusions, two objects \([s]\) and \([t]\) of \(\Theta\), and two covers \(S\to \Theta[s]\) and \(T\to \Theta[t]\), the map \(S\times T\to \Theta[s]\times \Theta[t]\) belongs to \(W\).  
+\end{thm}
+\begin{proof}
+We define the category \(R_{s,t}\) to be the full subcategory of \(\Sd_{\Theta}(\Theta[s]\times \Theta[t])\) 
+spanned by those maps \(\iota_p:\Theta[p]\hookrightarrow\Theta[s]\times \Theta[t]\) such that the composites 
+\([p]\to [s]\) and \([p]\to [t]\) are both epimorphic.  For each such \(\iota_p\), we functorially assign a cartesian square
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ c[p] & S\times T \\
+   \Theta[p] &  \Theta[s]\times \Theta[t] \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge (b-1-2)
+        edge (b-2-1)
+(b-2-1) edge (b-2-2)
+(b-1-2) edge (b-2-2);
+\end{tikzpicture}.
+\end{equation*}
+
+It follows from \eqref{covprops} that \(c[p]\to \Theta[p]\) is a cover of \([p]\) and therefore a \(W\)-equivalence by the previous lemma.  Then \(\hocolim^W_{R_{s,t}} c[p] \to \hocolim^W_{R_{s,t}} \Theta[p]\) is a \(W\)-equivalence, so by the fact about pullbacks and regular localizers mentioned in the proof of the previous lemma, it suffices to show that \(\hocolim^W_{R_{s,t}}\Theta[p]\to \Theta[s]\times\Theta[t]\) is a \(W\)-equivalence.  To prove this, it suffices to show that \(R_{s,t}\) is homotopy cofinal in \(\Sd_\Theta(\Theta[s]\times \Theta[t])\).  Given a monomorphism \(\alpha_q:\Theta[q]\to \Theta[s]\times \Theta[t]\), we let \(R_{s,t,\alpha_q}=\overcat{([q],\alpha_q)}{R_{s,t}}\).  
+
+From the first description of the category \(\Theta\), we may write \[[x]=[n_x]([x_1],\dots, [x_{n_x}])\] where the height of the \([x_i]\) for \(1\leq i\leq n_x\) is strictly less than the height of \([x]\).  Then for an object \([x]\) in \(\Theta\), we will write \([n_x]\) for the corresponding object of \(\Delta\), and call this the \dfn{\(\Delta\)-collapse} of \([x]\).  Conversely, given an object \([m]\) of \(\Delta\), we write \([m]_0\) for the corresponding object of \(\Theta\).  Both of these associations are functorial, and the first is left adjoint to the second.
+
+%Describe notation for collapse and cocollapse
+
+Then we write \(Q_{s,t}\) to be the full subcategory of \(Sd_\Delta(\Delta[n_s]\times \Delta[n_t])\) spanned by those maps \(\gamma:\Delta[e]\to \Delta[n_s]\times \Delta[n_t]\) such that the composites \([e]\to [n_s]\) and \([e]\to [n_t]\) are both epimorphic.  Similarly, given \[\alpha_q:\Theta[q]\to \Theta[s]\times \Theta[t],\] we write \[n_{\alpha_q}:\Delta[n_q]\to \Delta[n_s]\times \Delta[n_t]\] for the induced map, and we denote the coslice \[\overcat{([n_q],n_{\alpha_q})}{Q_{s,t}}\] by \[Q_{s,t,\alpha_q}.\]  
+
+Consider the set \(K=\{S,E,SE\}\), and define a graded set of \dfn{southeasterly paths}, \(\mathfrak{Q}=\coprod_i=1^\infty K^i\) with the obvious grading map \(\ell:\mathfrak{Q}\to \mathbf{N}\).  We define a relation on \(\mathfrak{Q}\) where, given a pair of elements \(a,b\in \mathfrak{Q}\), we say that \(a\prec b\) if \(\ell(a)=\ell(b)-1\) and if there exists a natural number \(1\leq i \leq \ell(a)\) such that:
+\begin{enumerate}
+\item[(i)] The element \(a_i = SE\)
+\item[(ii)] We have that \(b_i \neq b_{i+1}\)
+\item[(iii)] The elements \(b_i,b_{i+1}\) are in the subset \(\{S,E\}\subset K\).
+\item[(iv)] We have that \(a_j=b_j\) for all \(j > i+1\) or \(j<i\).  
+\end{enumerate}
+Taking the transitive, reflexive closure of this relation gives us a partial order structure on \(\mathfrak{Q}\), since it is clearly antisymmetric.
+We define a pair of functions \(d_S,d_T:\mathfrak{Q}\to \mathbf{N}\), where \(d_S\) (respectively \(d_E\)) counts the number of occurrences of the letter \(S\) (respectively the letter \(E\)), including occurrences in \(SE\). For any element \(a\) of \(\mathfrak{Q}\), we call the pair \((d_S(a),d_E(a))\) the terminus of \(a\).  
+
+We can see that \(Q_{s,t}\)  is isomorphic as a poset to the full subposet of \(\mathfrak{Q}\) consisting of the southeasterly paths with terminus \((n_s, n_t)\).  
+
+Let \(\beta_p:\Theta[p] \to \Theta[s] \times \Theta[t]\) be an element of \(R_{s,t}\) lying, naturally, over the map \(n_{\beta_p}:\Delta[n_p]\to \Delta[n_s]\times \Delta[n_t]\) in \(Q_{s,t}\).  By our identification of \(Q_{s,t}\) with the poset of southeasterly paths \(\mathfrak{Q}_{n_s,n_t}\) having terminus \((n_s,n_t)\), we obtain a factorization of any map in \(Q_{s,t}\) into a unique sequence of primitive maps corresponding to the \(\prec\) relation defined above.  Consider the case of a morphism \(f:n_{\beta_p} \to \xi\) of \(Q_{s,t}\) such that under the isomorphism with paths, this witnesses one of the generating relations \(\prec\) such that the path \(n_{\beta_p}\) is obtained by composing a corner of \(\xi\) to a diagonal, that is to say, that \(f\) embeds \(\Delta[n_p]\) as an inner facet of \(\Delta[n_p+1]\) (of course such that \(\xi \circ f = n_{\beta_p}\)).
+
+Then we contend that there is a unique object \(\beta_{p^\prime}:\Theta[p^\prime] \to \Theta[s]\times \Theta[y] \) living over \(\xi\) together with a unique morphism \(\phi:\beta_p \to \beta_{p^\prime}\) lying over \(f\).  
+
+As a map of simplices, \(f\) is the inclusion of an inner face, that is to say, an inclusion \(\delta^i:[n_p]\to [n_p+1]\).   Assume that \(S\) comes first. Let \(k_S=f_S([i-1]([p_1],\dots,[p_{i-1}]))+1\) and \(k_E=f_E([i-1]([p_1],\dots,[p_{i-1}]))+1\).  Then depending on the direction of the corner in \(\xi\) (that is, if we travel south first or east first) we let \([p^\prime]\) be 
+\begin{align*}
+[n_p+1]([p_1],\dots,[p_{i-1}],[s_{k_S}],[t_{k_E}],[p_{i+1}],\dots, [p_{n_p}]) \intertext{or} [n_p+1]([p_1],\dots,[p_{i-1}],[t_{k_E}],[s_{k_S}],[p_{i+1}],\dots, [p_{n_p}])
+\end{align*}
+respectively. We obtain totally determined epimorphic maps \([p^\prime]\to [s]\) and \([p^\prime]\to [t]\) by collapsing the the \([1]([t_{k_E}])\) and mapping the \([1]([s_{k_S}])\) on identically to the part of \([s]\) to which it corresponds (and vice versa).  Moreover, it's clear that the induced map \(\beta_{p^\prime}\) into the product is a monomorphism, and even moreover, we see that \([p]\) embeds via \(\phi\) into the \(i\)th simplicial face of \([p^\prime]\) in a way that respects \(\beta_p\) and lives over \(f\).  
+
+Then we show that \(\phi\) is opcartesian, but this is immediate since by construction, \([p^\prime]\) and its structure map are initial with respect to lying over \(\xi\) and accepting a map originating from \(\beta_p\).  Moreover, the uniqueness of the construction shows that it is preserved under composition.
+
+Therefore we see that the collapse functor induces a Grothendieck opfibration from \(R_{s,t}\) to \(Q_{s,t}\).  In fact, the opfibration is stable under coslicing in a way such that the same statement holds for the induced functor  \(R_{s,t,\alpha_q}\) to \(Q_{s,t,\alpha_q}\).  The proof is a tedious check that we leave as an exercise for the reader. 
+
+It follows from \cite{maltsiniotishomotopy}*{2.1.10} that if \(Q_{s,t,\alpha_q}\) (resp. \(Q_{s,t}\)) is weakly contractible, and if \(R_{s,t,\alpha_q}\to Q_{s,t,\alpha_q}\) (resp. \(R_{s,t}\to Q_{s,t}\)) has weakly contractible fibres, then \(R_{s,t,\alpha}\) (resp. \(R_{s,t}\)) is weakly contractible.  However, by \cite{rezk-theta-n-spaces}*{6.12 and 6.13}, we see that \(Q_{s,t,\alpha_q}\) (resp. \(Q_{s,t}\) is weakly contractible.  
+
+In what follows, we will treat the case for \(R_{s,t,\alpha_q}\).  The proof in the case of \(R_{s,t}\) is similar but easier, since it is merely considering the case without the additional constraint of a map \(\alpha_q\).  
+
+Then we would like to prove that the fibres are indeed weakly contractible. Let \(\alpha_{qs}=\pi_s\alpha_q\) and \(\alpha_{qt}=\pi_t\alpha_q\) be the induced maps \(\Theta[q]\to \Theta[s]\) and \(\Theta[q]\to \Theta[t]\).   Then given an object an object \[\Delta[n_q]\xrightarrow{\eta_0} \Delta[e] \xrightarrow{\lambda_{n_s}\times \lambda_{n_t}} \Delta[n_t]\times \Delta[n_s]\] in  \(Q_{s,t,\alpha_q}\), we see that an object of the fibre is given by an object \[\Theta[q]\xrightarrow{\eta} \Theta[p] \xrightarrow{\lambda_s\times\lambda_t} \Theta[s]\times\Theta[t]\] factoring \(\alpha_q\) lying over the point in \(Q_{s,t,\alpha_q}\). 
+
+First, we note that \(\alpha_q\) is given by a pair of families of morphisms \(h^\alpha_{ij}[q_i]\to [s_j]\) for pairs \(i,j\) with \(n_{\alpha_{qs}}(i-1)<j<n_{\alpha_{qs}}(i)\) and \(k^\alpha_{il}[q_i]\to [t_l]\) for pairs \(i,l\) with \(n_{\alpha_{qt}}(i-1)<l<n_{\alpha_{qt}}(i)\) such that the induced maps \[h^\alpha_{ij}\times k^\alpha_{il}: \Theta[q_i]\to \Theta[s_j]\times \Theta[t_l]\] are monic for all appropriate \(i,j,l\).    
+
+Then an object \[\Theta[q]\overset{\eta}{\hookrightarrow} \Theta[p] \xrightarrow{\lambda_s\times\lambda_t} \Theta[s]\times\Theta[t]\] in the fiber over \[\Delta[n_q]\overset{\eta_0}{\to} \Delta[e] \xrightarrow{\lambda_{n_s}\times \lambda_{n_t}} \Delta[n_t]\times \Delta[n_s]\] is given by the data:
+\begin{enumerate}
+\item[(i)] A family of objects \(([p_1],\dots,[p_e])\) of \(\Theta\) 
+\item[(ii)] A family of monomorphisms \(\varepsilon_{ii^\prime}: [q_i]\to [p_{i^\prime}]\) for each pair \(i,i^\prime\) such that \(\eta_0(i-1)< i^\prime\leq \eta_0(i)\)
+\item[(iii)] A family of epimorphisms \(f_{i^\prime j}: [p_{i^\prime}]\to [s_j]\) for each pair \(i^\prime,j\) such that \(\lambda_{n_s}(i^\prime-1)<j\leq \lambda_{n_s}(i^\prime)\) (resp. a family of epimorphisms \(g_{i^\prime l}:[p_{i^\prime}]\to [t_l]\) for each pair \(i^\prime,l\) such that \(\lambda_{n_t}(i^\prime-1)<l\leq \lambda_{n_t}(i^\prime)\)) .
+\end{enumerate}
+satisfying the conditions:
+\begin{enumerate}
+\item[(a)] The product maps \(f_{ij}\times g_{il}:\Theta[p_i]\to \Theta[s_j]\times \Theta[t_l]\) are injective
+\item[(b)] The triple \((\varepsilon_{ii^\prime}, f_{i^\prime j}, g_{i^\prime l})\) gives a factorization \((f_{i^\prime j}\times g_{i^\prime l}) \circ \varepsilon_{ii^\prime}=h^\alpha_{ij}\times k^\alpha_{il}\) for \(\eta_0(i-1)< i^\prime \leq \eta_0(i)\).  
+\end{enumerate}
+
+When \(i^\prime\leq \eta_0(0)\) or \(\eta_0(n_q)<j\), the pair \((f_{i^\prime j},g_{i^\prime l})\) specifies 
+a unique object of \(R_{s_j,t_l}\).  When \(\eta_0(i-1)< i^\prime \leq \eta_0(i)\), the triple 
+\((\varepsilon_{ii^\prime}, f_{i^\prime j}, g_{i^\prime l})\) specifies a unique object of 
+\(R_{s_j,t_l,h^\alpha_{ij}\times k^\alpha_{il}}\).  Then we may identify the fibre with 
+a product of categories of the form \(R_{s_j,t_l}\) and 
+\(R_{s_j,t_l,h^\alpha_{ij}\times k^\alpha_{il}}\), which we call the product decomposition of the fibre.  
+In the case of \(R_{s,t}\), the product decomposition of the fibre is simply expressed as a product of categories 
+of the form \(R_{s_l,t_k}\).  
+
+We perform well-founded induction on the poset of pairs of natural numbers by letting 
+\(A\subseteq \mathbf{N}\times \mathbf{N}\) be the subset of pairs \(a,b\), such that 
+for all pairs \([s_0]\) and \([t_0]\) where \(\heit([s_0])=a\) and \(\heit([t_0]=b\), 
+the category \(R_{s_0,t_0}\) has a weakly contractible nerve, and for all injective 
+maps \(\alpha:\Theta[q_0]\hookrightarrow \Theta[s_0]\times \Theta_[t_0]\), we have 
+that \(R_{s_0,t_0,\alpha}\) has a weakly contractible nerve.  Since \(\mathbf{N}\times \mathbf{N}\) 
+is well-founded, let \(B=\mathbf{N}\times\mathbf{N} - A\), which by wellfoundedness 
+has a minimal element \(a,b\).   Let \([s],[t]\) be a pair such that 
+\((\heit([s_]),\heit([t])\) is a minimal element of \(B\) and for which 
+the inductive hypothesis fails.  Then the fibres of \(R_{s,t,\alpha}\) (resp. \(R_{s,t}\)) over 
+\(Q_{s,t,\alpha}\) (resp. \(Q_{s,t}\)) for some monomorphism \(\alpha:\Theta[q]\to \Theta[s]\times \Theta[t]\) 
+admit the aforementioned product decomposition, and since 
+\((\heit([s_i]),\heit([t_j]))<(\heit([s]),\heit([t]))\) for any \(i,j\) we see that the 
+fibres are products of categories with contractible nerves, and are therefore themselves 
+contractible by the continuity of the nerve functor.   Then this implies that \(R_{s,t},\alpha_q\) is weakly contractible for all objects \([s], [t]\) of \(\Theta\) and all appropriate maps \(\alpha_q\).  Then this implies that \(B=\emptyset\), which proves the claim.
+\end{proof}
+
+This establishes Theorem \eqref{mainthm}.  We immediately deduce \emph{a fortiori} (since the identity map is a cover) the following corollary:
+
+\begin{cor} If \(W\) is a \(\Theta\)-localizer containing the set of spine inclusions, then for any spine inclusion \(f:\Sp[t]\hookrightarrow \Theta[t]\) and any object \(s\) of \(\Theta\),  the map \(\Theta[s]\times f: \Theta[s]\times \Sp[t]\hookrightarrow \Theta[s]\times \Theta[t]\) belongs to \(W\).
+\end{cor}
+
+This corollary may be sharpened using the fact that \(\Theta\) is regular squelettique.
+
+\begin{prop}\label{cartesianness} If \(W\) is a \(\Theta\)-localizer containing the set of spine inclusions, then for any spine inclusion \(f:\Sp[t]\hookrightarrow \Theta[t]\) and any presheaf \(X\) on \(\Theta\), then the map \(X\times f: X\times \Sp[t]\hookrightarrow X\times \Theta[t]\).
+\end{prop}
+\begin{proof} By \cite{cisinski-book}*{Proposition 8.2.8}, which states that any class of presheaves on a regular squelettique category saturated by monomorphisms and containing the representable presheaves is necessarily the class of all presheaves, it suffices to show that the collection \(C\) of presheaves \(X\) such that \(X\times f\) belongs to \(W\) contains the representable functors and is saturated by monomorphisms.  However, the previous corollary implies the first claim, so it suffices to prove the second. 
+
+To prove that \(C\) is saturated by monomorphisms, notice that any pushout square in which one leg is a monomorphism is a homotopy pushout for the minimal localizer and therefore induces a weak equivalence between the pushouts.  Similarly, any transfinite composition of monomorphisms is a homotopy colimit for the minimal localizer and therefore preserves weak equivalences.  Lastly, closure under retracts follows immediately from the fact that \(W\) is closed under retracts.  This establishes that every presheaf belongs to the aforementioned class \(C\), which establishes the proposition.
+\end{proof}
+
+\section{The spine-generated model structure}
+Joyal and Cisinski conjectured that a particular a model structure (see \cite{joyal-quategory}) on \(\cellset\), the category of cellular sets, is a model for the weak \(\omega\)-category of weak \(\omega\)-categories, analogous to the Joyal model structure on the category of simplicial sets.  In the absence of a complete description of the ``\(n\)-dimensional inner horns'', they were able to construct the model structure using the technology of localizers developed by Cisinski in \cite{cisinski-book}. Their definition is as follows:
+
+Let \(\mathsf{W}_{\Sp}=\mathsf{W}(S)\) be the \(\Theta\)-localizer generated by the set \(S\) of spine inclusions \(\Sp[t]\hookrightarrow \Theta[t]\) for all \([t]\) in \(\Theta\).   It follows from \eqref{cartesianness} that \(\mathsf{W}(S)\) contains \[\operatorname{cart}(S)=\{X\times f: f\in S\wedge X\in \operatorname{Ob}(\widehat{\Theta})\},\] and therefore, by \cite{cisinski-book}*{Corollary 1.4.19}, we have that \(\mathsf{W}_{\Sp}\) is a \dfn{cartesian \(\Theta\)-localizer}, that is to say, for any morphism \(f:X\to Y\) belonging to \(\mathsf{W}_{\Sp}\) and any presheaf \(Z\) on \(\Theta\), the induced map \(Z\times f\) belongs to \(\mathsf{W}_{\Sp}\).   
+
+By \cite{cisinski-book}*{Theorem 1.4.3}, we see that there exists a unique model structure on \(\widehat{\Theta}\) where the weak equivalences are precisely the elements of \(W_{\Sp}\), and the cofibrations are precisely the monomorphisms.  Since \(\mathsf{W}_{\Sp}\) is cartesian, it follows easily that the aforementioned model structure is cartesian-closed (in the sense that the cartesian product is a left-Quillen bifunctor).  
+
+It follows from the cartesianness of \(\mathsf{W}_{\Sp}\) that \(\mathsf{W}_{\Sp}\)-fibrant objects are are precisely those cellular sets \(X\), which are fibrant in the minimal Cisinski model structure, such that for every spine inclusion \(\Sp[t]\hookrightarrow \Theta[t]\), the induced map \(X^{\Theta[t]}\to X^{\Sp[t]}\) is a trivial fibration.
+
+\subsection{A disproof of the Cisinski-Joyal conjecture}
+This isn't the end of the story.  Cisnski and Joyal conjectured in \cite{joyal-quategory} that the fibrant objects in this category model a higher category of weak \(\omega\)-categories.  In fact, this is not so. We sketch below the following explicit counterexample:
+
+\begin{thm} Let \([1]\to [1](G_2)\) be the map of strict \(\omega\)-categories obtained from the inclusion \(\ast \to G_2\).  This map is a strict \(\omega\)-equivalence of strict \(\omega\)-categories.  However, the image of this map under the \(\Theta\)-nerve does not belong to \(\mathsf{W}_{\Sp}\).
+\end{thm}
+\begin{proof}We first note that \(\mathfrak{N}([1](X))\) is necessarily \(\mathsf{W}_{\Sp}\)fibrant for any strict \(\omega\)-category \(X\).  To see this, we first notice that such an object is minimally fibrant, since \(\mathfrak{N}([1](X))^J\cong \mathfrak{N}([1](X)^{G_2})\), which follows from the fact that the category of strict \(\omega\)-categories is cartesian-closed and embeds fully and faithfully in \(\cellset\).  However, we notice that \([1](X)^G_2\) is isomorphic to \([1](X)\), since a functor \(Z\to [1](X)^{G_2}\) is given by precisely the data of a natural \(1\)-isomorphisms between two functors \(Z\to [1](X)\).  However, since the only \(1\)-isomorphisms in this category are identities, there is exactly one such functor for each functor \(Z\to [1](X)\), which means that they are isomorphic.  
+
+It is also easy to see that for any strict \(\omega\)-category \(X\), the map induced by a spine inclusion \(\Sp[t]\hookrightarrow \Theta[t]\), that is, \(\mathfrak{N}(X)^{\Theta[t]}\to \mathfrak{N}(X)^{\Sp[t]}\), is an isomorphism, which again follows from the fact that the category of strict \(\omega\)-categories is cartesian-closed, together with the characterization of the nerves of strict \(\omega\)-categories as those presheaves sending the objects \([t]\), which are globular sums in \(\Theta\), to globular products in the category of sets.  
+
+Since \(\mathfrak{N}([1])\to \mathfrak{N}([1](G_2))\) is a map between fibrant-cofibrant objects, it is necessarily a strong deformation retract, but we know that \((-)\times J\) is a functorial cylinder, since the map \(J\to e\) is a trivial fibration.  If the map is a strong deformation retract, then this can be exhibited by means of a \(J\)-homotopy between the maps in question.
+
+However, such a homotopy \(\mathfrak{N}([1](G_2))\times J \to \mathfrak{N}([1](G_2))\) necessarily lies in the image of the \(\Theta\)-nerve, which means that it corresponds exactly to a natural isomorphism between the functors maps.  However, we know that such a map cannot exist, because \([1](G_2)\) contains no nontrivial isomorphisms and is not isomorphic to \([1]\).  Therefore, the map on nerves cannot be a \(\mathsf{W}_{\Sp}\)-equivalence.
+\end{proof}
+In particular, this implies that the model structure generated by this localizer cannot be repaired without adding new weak equivalences.  That is to say, there is absolutely no way to fix it by adjusting only the fibrations and cofibrations, which answers Joyal's original conjecture in the negative.
+
+However, all hope is not lost.  The question, then, is how to enlarge \(\mathsf{W}_{\Sp}\). The two obvious ways are to attempt to stabilize the localizer under suspension and find a reasonable set of generators, or to find a new cylinder functor whose homotopy relation encodes a weaker notion of equivalence than strict isomorphism. With youthful na\"ivet\'e, we run headlong into a trap by asking what happens if we simply stabilize \(\mathsf{W}_{\Sp}\) under suspension.
+
+\section{Stable $J$-homotopy and Stably isofibrant cellular sets}
+In this section, we will give a stabilized model structure using the theory discussed in \eqref{weakenrichment}.  Given its close relationship with Rezk's theory of \(\Theta\)-enrichment, it will come as no surprise to the reader that the approach we take will be equivalent to the limiting case \((n=\infty)\)of the definition of a weak \(n\)-category discussed by Rezk in \cite{rezk-theta-n-spaces}.  We will also prove that, to end up with a definition of a weak \(\omega\)-category that extends the homotopy theory of strict \(\omega\)-categories discussed in \cite{lmw}, we must localize still further.
+
+\subsection{The $\Theta$-localizer $\W_{\operatorname{StabIso}}$}
+We let \(\W_0=\W_\Sp\) be the na\"ive Cisinski-Joyal \(\Theta\)-localizer.  Since \(\Theta \cong \Delta\wr\Theta\), we will show that \(\W_0\) is strongly generated by the set of spine inclusions \(\Sp[t]\hookrightarrow \Theta[t]\) together with the single map \(j:J\to e\).  
+\begin{lemma}\label{spinescontaincores} 
+The \(\Theta\)-localizer \(\W_0\), viewed as a \(\Delta\wr \Theta\)-localizer, contains the Segal core inclusions. 
+\end{lemma} 
+\begin{proof}
+First, we note that the maps of the form \(\Delta_1[\Sp[s]]\hookrightarrow \Delta_1[\Theta[s]]\) belong to \(\W_0\) by merit of the fact that \(\Delta_1[\Sp[s]]\) is precisely the spine of \(\Delta_1[\Theta[s]]\).
+
+Then we notice that for any two objects \(s,t\) of \(\Theta\), we can show that the inclusion \[\Delta_1[\Sp[s]]\coprod_{\{0\}} \Delta_1[\Sp[t]]\hookrightarrow \Delta_1[\Theta[s]]\coprod_{\{0\}} \Delta_1[\Theta[t]\] belongs to \(\W_0\) by merit of the fact that it is a composite of pushouts of trivial cofibrations.  
+
+By induction, this implies that for any family \(t=(t_1,\dots,t_n)\) of objects in \(\Theta\), if we let \(\Sp[t]=(\Sp[t_1],\dots,\Sp[t_n])\), the canonical map \[\Sc_n[\Sp[t]]\hookrightarrow \Sc_n[t]\] also belongs to \(\W_0\).  However, it is easy to see that \(\Sc_n[\Sp[t]]=\Sp[\Delta_n[t]]\), and therefore that the composite of the two maps  \[\Sc_n[\Sp[t]]\hookrightarrow \Sc_n[t]\hookrightarrow \Delta_n[t]\] is a spine inclusion, which also belongs to \(\W_0\).  Therefore, by \(3\)-for-\(2\), it follows that \(\Sc_n[t]\hookrightarrow \Delta_n[t]\) belongs to \(\W_0\).  
+\end{proof}
+Then by the second assertion in \eqref{weakcats}, we obtain the following corollary:
+\begin{cor}The localizer \(\W_0\) is strongly generated by the small set \[\Sp \cup \{j:J\to e\},\] where \(\Sp\) denotes the set of all spine inclusions \(\Sp[t]\hookrightarrow \Theta[t]\).  
+\end{cor} 
+Then we define an increasing sequence of localizers using the isomorphisms \[\Theta\cong \Delta\wr \Theta \cong \dots \cong \Delta^{\wr n}\wr \Theta.\]
+\begin{defn} For \(n>0\), using the main theorem of \eqref{weakenrichment}, we define \(\W_n\),  the \(n\)-suspended Cisinski-Joyal localizer by the formula \[\W_n=(\W_{n-1})_\wr.\]
+\end{defn}
+\begin{note}We will denote the n-fold iterate of the suspension \(\Delta_1[-]\) by \((\Delta_1)^n[-]\) (or sometimes also by \(D_n[-]\)), where \((\Delta_1)^0[-]\) denotes the identity functor.  We make note of this, since the notation could also mean the suspension along the \(n\)-fold cartesian power of the simplicial set \(\Delta_1\).  We will denote that functor instead by \((\Delta_1^n)[-]\).
+\end{note}
+\begin{lemma} For all \(n\geq 0\), \(\W_n\subseteq \W_{n+1}\).  
+\end{lemma}
+\begin{proof}We see from \eqref{weakenrichment} that \(\W_{n+1}\) is strongly generated by \[S_{n+1}=\Sc \cup \{j\} \cup \Delta_1[S_n],\] so by running the proof of \eqref{spinescontaincores} in reverse, we see that \(\W_n\) contains the full set of spines \(\Sp\).  Then the only strong generators in this class not belonging to \(\Sp\) are the maps of the form \(\Delta_1^k[j]:\Delta_1^k[J]\to \Delta_1^k[e]\) for all \(0\leq k\leq n+1\).  This proves the claim.
+\end{proof}
+\begin{defn}We define a new \(\Theta\)-localizer \[\W_{\operatorname{StabIso}}=\bigcup_{n\geq 0} \W_n,\] and we call the model structure it generates the \dfn{isostable Joyal model structure} for cellular sets.  
+\end{defn}
+\begin{prop} The \(\Theta\)-localizer \(\W_{\operatorname{StabIso}}\) is cartesian and strongly generated by the set of maps \[S_\omega=\Sp\cup \{(\Delta_1)^n[j]:n\geq 0\}.\]
+\end{prop}
+\begin{proof} This follows from the previous lemma together with \eqref{weakenrichment}.
+\end{proof}
+Then we obtain the following corollary:
+\begin{cor} The \(\Theta\)-localizer \(\W_{\operatorname{StabIso}}\) is stable under the weak enrichment process.  That is, \((\W_{\operatorname{StabIso}})_\wr=\W_{\operatorname{StabIso}}\).
+\end{cor}
+This gives \(\W_{\operatorname{StabIso}}\) the following stability property:
+\begin{prop}If \(f:A\to B\) is an arrow belonging to \(\W_{\operatorname{StabIso}},\) then we have that \(\Delta_1[f]:\Delta_1[A]\to \Delta_1[B]\) also belongs to \(\W_{\operatorname{StabIso}}\).  
+\end{prop}
+\begin{proof}Since the functor \(\Delta_1[-]\) is a parametric left adjoint that preserves cofibrations, the left-adjoint factor \(D_1:\cellset \to \overcat{\Delta_1[\emptyset]}{\cellset}\) is a cofibration-preserving left-adjoint.  It follows from the main theorem of \eqref{weakenrichment} that \(\Delta_1[J\times X] \to \Delta_1[X]\) belongs to \(\W_{\operatorname{StabIso}}\) for every cellular set \(X\).
+
+Since \(\Delta_1[J\times X]\to \Delta_1[X]\) belongs to \(\W_{\operatorname{StabIso}}\) for every cellular set \(X\), the associated maps between bipointed objects \(D_1[J\times X]\to D_1[X]\) are weak equivalences for the coslice model structure on \(\overcat{\Delta_1[\emptyset]}{\cellset}\), which means that \(D_1^{-1}(\overcat{\Delta_1[\emptyset]}{\W_{\operatorname{StabIso}}})\) is a weakly saturated class of maps such that every object admits a cylinder, so by \cite{cisinski-book}*{Proposition 1.4.13}, it is a \(\Theta\)-localizer.  Moreover, it contains \(S_\omega\), which is a set of strong generators for \(\W_{\operatorname{StabIso}}\), so it contains \(\W_{\operatorname{StabIso}}\), which implies the proposition.   
+\end{proof}
+\subsection{Stable $J$-homotopy and its failure to model $\omega$-equivalence}\label{stablefailure}
+We will now proceed to prove that \(\W_{\operatorname{StabIso}}\) still fails to capture the full notion of \(\omega\)-equivalence of strict \(\omega\)-categories. To do this, consider the following: Let \(J_i\) be the unique contractible groupoid containing \(i+1\) objects. This associaction determines an obvious functor \(\Delta\to \cat{Gpd}\), where  \([i]\mapsto J_i\).  Embedding the \(J_i\) into the category of strict \(\omega\)-categories, we define \(E_i=Q(J_i)\), where \(Q\) is the functor sending a strict \(\omega\)-category \(X\) to its universal polygraph resolution.  This gives a cosimplicial object in the category of strict \(\omega\)-categories.
+\begin{lemma} The presheaf \(P=\mathfrak{N}_\Theta(E_1)\) is not trivially fibrant in the category of cellular sets. 
+\end{lemma}
+\begin{proof} Since \(E_1\) is fibrant and contractible in the category of strict \(\omega\)-categories, we can choose two maps \(\eta_0, \eta_1: \partial D_1 \to E_1\) such that \(s(\eta_0) = t(\eta_1)\), and \(t(\eta_0) = s(\eta_1)\), where \(s(\eta_0)\neq s(\eta_1)\).  Using its fibrancy and contractibility, we extend these to maps \(D_1 \to P\), and by merit of the conditions earlier imposed, we obtain a map \(\sigma:\Lambda^1[2]\to P\).  However, this must lift to a map \(\sigma^\prime:\Delta[2] \to P\) because \(P\) is nerve of a strict \(\omega\)-category. Moreover, \(d_1(\sigma^\prime)\) is the composite of two non-identity maps in a strict \(\omega\)-category freely generated by polygraph, and is therefore a nondegenerate edge.  Then consider the extension of \(\sigma\) to \(\partial\Delta[2]\) with a degenerate edge at the face opposite the first vertex.  However, this clearly does not admit a lift to a full simplex, since it would contradict the uniqueness of the original simplex we found.  Then it is not trivially fibrant.  
+\end{proof}
+If it is fibrant for the stabilized Cisinski-Joyal model structure, then it cannot be weakly contractible, which implies that the model structure is still wrong and needs to be localized still further.
+\begin{thm} The cellular set \(P\) is not weakly contractible with respect to \(\W_{\operatorname{StabIso}}\).
+\end{thm}
+\begin{proof} Because \(\W_{\operatorname{StabIso}}\) is a cartesian localizer generated by a set of monomorphisms \(S\), showing that \(P\) is fibrant amounts to proving that \(P^f\) is a trivial fibration for all \(f \in S\). If \(f\in S\) is a spine inclusion, we see that \(P^f\) is an isomorphism, since \(P\) is the nerve of a strict \(\omega\)-category.  We also know that the map is a trivial fibration when \(f=j:\Theta[0] \hookrightarrow J\).  It suffices, then, to prove the cases where \(f=D_k[j]:D_k\hookrightarrow D_k[J]\).  That is, it suffices to show that \(P\) has the right lifting property with respect to all maps of the form \[D_k[J] \times \partial\Theta[t] \cup D_k \times \Theta[t] \hookrightarrow D_k[J] \times \Theta[t].\]  If we consider what it means to give a map \(D_k[J]\times \Theta[t] \to P\), this involves giving a map from each shuffle of \(D_k[J]\) with \(\Theta[t]\) and asking them to agree on intersections.
+Explicitly, if \([t]=[n_t]([t_1],\dots, [t_{n_t}])\), 
+the shuffles are exactly the objects 
+\(U_i=[n_t+1](\dots, [t_i], D_{k-1}[J],[t_{i+1}],\dots)\).  
+However, since \(P\) contains no strictly invertible non-identity cells (as it is obtained from an \(\omega\)-polygraph), it follows that a map \(U_i \to P\) would factor through \(V_i=[n_t+1](\dots, [t_i], D_{k-1},[t_{i+1}],\dots)\).  However, these are precisely the shuffles of 
+\(D_{k}\) with \(\Theta[t]\).   Then we can simply choose the lifting in the obvious way, by mapping each \(U_i\) back onto \(V_i\) and back through the map \(D_k\times \Theta[t]\).  This proves the theorem.
+\end{proof}
+\section{A cartesian presentation for weak $\omega$-categories}
+%For reasons that will become apparent later, we define a new simpler object to take the place of \(P\).  Notice that the definition of an \(\omega\)-equivalence in a strict \(\omega\)-category determines a pair of objects and a pair of maps.  Unraveling the definition to the next level, we see that it determines a pair of \(2\)-cells \(gf\leftrightarrows \id_{x_0}\) and a pair of \(2\)-cells \(fg \leftrightarrows \id_{x_1}\). Continually unraveling the definition, we eventually end up with a particular polygraph.  We call the strict \(\omega\)-category that it generates \(\CMcal{T}\), and we call its \(\Theta\)-nerve just \(T\).    We will construct a special cellular subset \(I\subseteq T\) with the separated segment property that has a more reasonable explicit description in terms of cellular sets.  Assume for the following discussion that we have already defined \(I\).
+
+%Let \(S=\Sp \cup \{\iota \tim\}\) be the set comprising the map \(\iota\) together with the all of the spine inclusions.  By abuse of notation, let \(S\) also denote \(S\times \Delta_0\).  
+Consider the inclusion \(\iota:\Theta[0]\to P\) of one of the vertices into \(P\).   Recall that the category of simplicial presheaves on \(\Theta\) is canonically simplicially enriched by the formula \(\HMap_\Delta(X,Y)=(X^Y)[0]\), and that this is well-behaved with respect to the model structure.  
+
+\begin{lemma}
+If X is stably Segal, and if \(\HMap_\Delta(\iota \times D_n, X): \HMap_\Delta(P\times D_n,X) \to \HMap_\Delta(\Theta[0]\times D_n, X)\) is a trivial fibration for all \(n\geq 0\), then so too is \(X^\iota:X^P\to X\). 
+\end{lemma}
+\begin{proof}
+To begin with, \(X^\iota\) is a trivial fibration if and only if \(\HMap_\Delta(\Theta[s],X^\iota)\) is a trivial fibration for all discrete representables \(\Theta[s]\), which is equivalent to asking that \(\HMap_\Delta(\iota, X^{\Theta[s]})\) is a trivial fibration for all choices of \([s]\).  However, we have trivial fibrations, \(\HMap_\Delta(I,X^{\Theta[s]}) \to \HMap_\Delta(I,X^{\Sp[s]})\) and \(\HMap_\Delta(\Theta[0],X^{\Theta[s]}) \to \HMap_\Delta(\Theta[0],X^{\Sp[s]})\) because \(X\) is stably Segal.  However, \(\Sp[s]\) decomposes as the colimit over a globular sum diagram whose maps are cofibrations between disks, so \(X^{\Sp[s]}\) is isomorphic to the limit over a coglobular product diagram, where the maps are fibrations between objects of the form \(X^{D_i}\).  Then this limit is a homotopy limit of a globular product diagram with entries \(X^{D_i}\).  Then \(\HMap_\Delta(p,X^{\Sp[s]}) \) is a trivial fibration if and only if \(\HMap_\Delta(\iota,X^{D_i})\) for each appropriate \(D_i\).  The result follows by adjunction.
+\end{proof}
+
+Using this, we may form the \(\Theta\)-localizer \(\W_1=\W(\Sp \cup \{\iota \times D_n\}_{n\in \mathbf{N}})\).  The set of arrows \(\Sp \cup \{\iota \times D_n\}_{n\in \mathbf{N}} \cup \{j\}\) forms a set of strong regular generators for \(\W_1\).  As before, we form the suspension stabilization of this localizer using the above class of strong generators and call this localizer \(\W_\omega\).  We see that \(\W_\omega\) is cartesian and suspension stable.  
+
+Ultimately, we do not end up with a presentation as nice as the one in \cite{rezk-theta-n-spaces} or the equivalent one in \cite{ara-new} for \(n\)-categories with \(n\) finite.  This stems from our current inability to prove a version of Rezk's theorem showing that \(J\) is a model for a homotopy equivalence.  This stalls us at the step where we reduce to showing that an object local with respect to \(\iota\) is local with respect to \(\iota\times D_n\) for each \(n\geq 0\).  We state a conjecture, which would give a nicer presentation:
+\begin{conj}\label{genconjecture} If X is stably Segal, and if \(\HMap_\Delta(\iota, X): \HMap_\Delta(P,X) \to \HMap_\Delta(\Theta[0], X)\) is a trivial fibration, then so too are \(X^\iota:X^P\to X\) and \(X^j:X^J\to X\).  
+\end{conj}
+The resulting presentation would then only depend on suspending the strong generators \(\Sp \cup \{\iota\}\), which would give a presentation that is \emph{as nice} as the ones described for \((\infty,n)\)-categories when \(n\) is finite.  
+
+However, we will now describe a completely different approach to the construction of a similar model structure, which may be equivalent.  If it is, then it gives us a powerful new way to deal with the theory.

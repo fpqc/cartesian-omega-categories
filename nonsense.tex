@@ -1,0 +1,617 @@
+We will argue that \(\W_{\operatorname{Rezk}}\) still does not model the theory of weak \(\omega\)-categories and \(\omega\)-pseudofunctors between them and that further localizations must be undertaken to approach the ideal theory.
+
+We begin with a remark on notation:
+\begin{rem} In keeping with the globular theme of this subsection, we will denote the \(n\)-fold suspension of a cellular set \(X\) by \(D_n[X]\).
+\end{rem}
+
+Let \(e_f:D_n\to X\) be an \(n\)-disk in a \(\W_{\operatorname{Rezk}}\)-fibrant object \(X\) classifying an \(n\)-cell \(f:s(f)\to t(f)\) in \(X\).  We will say that \(f\) is an \dfn{\((n,1)\)-equivalence} if there exists an \(n\)-cell \(g:t(f)\to s(f)\) together with two suspended \(2\)-simplices \(D_{n-1}[\Delta_2]\to X\) classifying the homotopies \(\id_{s(f)} \sim g\circ_{n-1}^n f\) and \(\id_{t(f)} \sim f\circ_{n-1}^n g\) together with the appropriate coherence maps.  We note that this is asking for \(f\) to have very strict form of homotopy inverse, where the composites \(f\circ g\) and \(g\circ f\) become \emph{equal} to identities in the homotopy categories of the mapping objects where they live. 
+
+This means that morally, the homotopy theory modeled by the \(\Theta\)-localizer \(\W_{\operatorname{Rezk}}\) is the theory of weak \(\omega\)-categories with ``\((\omega,1)\)-pseudofunctors'' between them.  From this point of view, we can see that the unstable localizer \(\W_{\Sp}\) models a homotopy theory of weak \(\omega\)-categories with ``\((1,1)\)-pseudofunctors'' between them.  
+
+The homotopy theory generalizing the homotopy theory of strict \(\omega\)-categories described in \cite{lmw} is, in the informal sense described above, the theory of weak \(\omega\)-categories with ``\((\omega,\omega)\)-pseudofunctors'' between them.  To describe this homotopy theory, it appears that we must introduce a new cylinder object to model these weaker notions of equivalence.
+We will introduce some more machinery in the next bit and use it to make these notions precise and prove that \(\W_{\operatorname{Rezk}}\) models exactly the homotopy theory that we claimed.
+\section{Absolute equivalences and weak homotopies} 
+We will describe a very general notion of equivalence and use it to construct a homotopy theory that generalizes the homotopy theory developed in \cite{lmw} to weak \(\omega\)-categories.
+\subsection{Absolute equivalences}
+We recall the following definition from \cite{lmw}. The notions are defined by mutal coinduction:
+\begin{defn} For a pair of parallel \(n\)-cells \(x_0\parallel x_1\) in a strict \(\omega\)-category \(X\):
+\begin{enumerate}
+\item[(i)] We say that the two cells are \dfn{equivalent}, denoted by \(x_0 \sim x_1\), if there exists a reversible \(n+1\)-cell \(u:x_0 \xrightarrow{\sim} x_1\);
+\item[(ii)] We say that the \(n+1\)-cell \(u:x_0\to x_1\) is \dfn{reversible}, denoted by \(x\xrightarrow{\sim} x_1\) if there exists another \(n+1\)-cell \(v:x_1\to x_0\) such that \(u\circ^{n+1}_n v \sim \id_{x_0}\)  and \(v\circ^{n+1}_n u \sim \id_{x_1}\).
+\end{enumerate}
+\end{defn}
+
+We say that a \(1\)-cell of a cellular set is reversible if its image in the homotopy strict \(\omega\)-category is reversible. 
+
+For any cellular set \(X\), we define the subobject \(X_E \subseteq X^{D_1}\) to be the limit \[\varprojlim X^{D_1}\to \operatorname{coSk}^0(X^{D_1}) \leftarrow \operatorname{Rev}(X),\] where \(\operatorname{coSk}^0(X^{D_1})=(X^{D_1})_0\) and \(\operatorname{Rev}(X)\) is the set of reversible \(1\)-cells in \(X\).  
+
+
+
+We recall from \cite{cisinski-book}*{Example 2.3.13} the construction of a special cosimplicial cellular set:
+\begin{lemma} Let \(\gamma: \Theta\to \cat{Cat}\) be the functor defined on objects by the formula \[[t]\mapsto \overcat{\Theta}{[t]}\] and extending to morphisms by sending a map \(f:[s]\to [t]\) to the functor \[\gamma(f):\overcat{\Theta}{[s]}\to \overcat{\Theta}{[t]}\] obtained by composing the structure maps with \(f\). This functor extends uniquely to a colimit-preserving functor \(\gamma_!\cellset \to \cat{Cat},\) which admits a right adjoint \(\gamma^\ast:\cat{Cat}\to \cellset.\)  Restricting \(\gamma^\ast\) to \(\Delta\), we obtain a cosimplicial cellular set \(R_\gamma:\Delta\to \cellset\) with the following properties:
+\begin{enumerate}
+\item [(i)] The cellular set \(R_\gamma(\Delta_0)\) is the terminal object of \(\cellset\).
+\item [(ii)] The cellular set \(R_\gamma(\Delta_1)\) is the subobject classifier \(L\) of \(\cellset\).
+\item [(iii)] The terminal map \(R_\gamma(\Delta_n)\to \Theta[0]\) is an \(L\)-homotopy equivalence.
+\end{enumerate}   
+\end{lemma}
+\begin{proof} The first assertion is obvious.  To prove the second assertion, we note that \(R_\gamma(\Delta_1)_t=\cat{Cat}(\overcat{\Theta}{[t]},\Delta_1)\).  However, we will show that the elements of \(\cat{Cat}(\overcat{\Theta}{[t]},\Delta_1)\) are in bijection with the set of all sieves in \(\overcat{\Theta}{[t]},\) which will imply the claim because the sieves in \(\overcat{\Theta}{[t]}\) correspond exactly to subobjects of \(\Theta[t]\).  
+
+Given a sieve \(S\) in \(\overcat{\Theta}{[t]},\) we define a map on objects \(F_S:\ob(\overcat{\Theta}{[t]}) \to \ob(\Delta_1)\) sending the objects belonging to \(S\) to the object \(0\) and all other objects to \(1\).  This map on objects determines a unique functor by the sieve property of \(S\) together with the fact that there is exactly one compatible choice of target for each arrow.  Conversely, given a functor \(F:\overcat{\Theta}{[t]} \to \Delta_1,\) we see readily that \(S_F=F^{-1}(0)\) is a sieve.  These operations are readily seen to be mutually inverse, which implies the second claim.
+
+We prove the third claim as follows: From the fact that \(R_\gamma=\eval[1]{\gamma^\ast}_{\Delta}\) is the restriction of a right adjoint, we recognize that \(R_\gamma(\Delta_1)\times R_\gamma(\Delta_n)\cong \gamma^\ast(\Delta_1\times \Delta_n\).  However, since \(\Delta_n\) is \(\Delta_1\)-contractible, the image of these \(\Delta_1\) homotopy-equivalences under \(R_\gamma\) give \(R_\gamma(\Delta_1)\) homotopy-equivalences between \(R_\gamma(\Delta_n)\) and \(R_\gamma(\Delta_0)\).  However \(R_\gamma(\Delta_0)=\Theta[0]\), which implies the final claim.
+\end{proof}
+\begin{defn}We define a functor \(R:\Theta\times \Delta\to \cellset\) by the formula \(\Theta[t]\times \Delta[n] \mapsto \Theta[t]\times R_\gamma(\Delta[n])\).  This gives rise to an adjoint pair of functors \(R_!:\psh{\Theta\times \Delta}\rightleftarrows \cellset:R^\ast\).  Composing adjoints, we obtain an adjunction \[\mathcal{P}^\Delta=\mathcal{P}R_!: \psh{\Theta\times \Delta} \rightleftarrows \cat{Str-\omega\-Cat}: R^\ast\mathfrak{N}=\mathfrak{N}^\Delta.\]
+\end{defn}
+\begin{defn}We define the fundamental strict \(\omega\)-category \(\Pi_0(X)\) to be the strict \(\omega\)-category \(\mathcal{P}^\Delta(X)\).  
+\end{defn}
+\begin{prop} 
+If \(X\) is a stable Segal space, then for every \(n\)-cell \(D_n\to \Pi_0(X)\) of its homotopy \(\omega\)-category, there exists  is a strict \(\omega\)-category.  
+\end{prop}
+\begin{proof} It will suffice to show \(\Pi_0(X)\) is a \(\Theta\)-model.  That is, for every object \([t]\) of \(\Theta\), the induced map \(\Hom(\Theta[t],\Pi_0(X))\to \Hom(\Sp[t], \Pi_0(X)\) is bijective.  
+\end{proof} 
+We will describe, for every stable Segal space \(X\), a strict \(\omega\)-category \(\Pi(X)\) that will allow us to give a precise definition of an \((n,m)\)-equivalence. 
+
+
+
+
+
+\subsection{Higher intertwiners}
+\begin{defn} We define for each \(n>0\) an intertwiner \[V^n:\Delta^{\wr n}\wr \psh{\Theta}\to \psh{\Delta^{\wr n}\wr\Theta}\cong \psh{\Delta}\] by taking the left Kan extension of the functor \[\Delta^{\wr n}\wr Y_\Theta:\Delta^{\wr n}\wr \Theta \hookrightarrow \Delta^{\wr n}\wr \cellset\] along the Yoneda embedding\[Y_{\Delta^{\wr n}\wr \Theta}:\Delta^{\wr n}\wr \Theta \hookrightarrow\psh{\Delta^{\wr n}\wr \Theta}.\]  
+\end{defn}
+\begin{defn} We define a distinguished family of objects of \(\Theta\) as follows: We let \([\frac{n}{k},m]\) for \(n>k\geq 0\) denote the unique object of \(\Theta\) defined by the globular pattern
+\[D_{n}\leftarrow D_{i_1}\to \dots \leftarrow D_{i_{m-1}} \to D_{n},\] where \(i_1=\dots=i_{m-1}=k\).  We call the object \([\frac{n}{k},m]\) the \dfn{\(n,k\)-composition scheme of length \(m\)}.  If \([\frac{n}{k},m]\) is a composition scheme and \(A=(A_1,\dots,A_m)\) is a family of presheaves of length \(n\), by abuse of notation, we write \(V^n[\frac{n}{k},m](A_1,\dots,A_m)\) as \(\Theta_{\frac{n}{k},m}[A]\).    
+
+We can identify \(\Theta[\frac{n}{k},m]\) with \(\Theta_{\frac{n}{k},m}[e]\), and for any subobject \(U\) of \(\Theta[\frac{n}{k},m]\), we can define \[U[A]=\varprojlim(U \hookrightarrow \Theta[\frac{n}{k},m] \leftarrow \Theta_{\frac{n}{k},m}[A]).\]
+\end{defn}
+
+\begin{prop} The functor \(\Theta_{\frac{n}{k},p+1+q}[A_1,\dots,A_p,-,B_1,\dots,B_q]\) is a parametric left-adjoint and preserves monomorphisms.
+\end{prop}
+\begin{proof} We may immediately assume that \(k=0\), since \[\Theta_{\frac{n}{k},p+1+q}[A_1,\dots,A_p,-,B_1,\dots,B_q]=D_k[\Theta_{\frac{n-k}{0},p+1+q}[A_1,\dots,A_p,-,B_1,\dots,B_q]],\] and \(D_k[-]\) already satisfies these properties.  However, then we also notice that \[\Theta_{\frac{n-k}{0},p+1+q}[A_1,\dots,A_p,-,B_1,\dots,B_q]=\Delta_{p+1+q}[D_{n-k-1}[A_1],\dots, D_{n-k-1}[A_p], D_{n-k-1}[-], D_{n-k-1}[B_1],\dots, D_{n-k-1}[B_q]],\] but by a change of variables, letting \(A^\prime_i=D_{n-k-1}[A_i]\) and \(B^\prime_j=D_{n-k-1}[B_j]\), it will suffice to show that the proposition holds for the functor \[\Delta_{p+1+q}[A^\prime_1,\dots,A^\prime_p,D_{n-k-1}[-],B^\prime_1,\dots, A^\prime_q,\] but this is a composite of monomorphism-preserving parametric left-adjoints, so it is itself, in particular, a monomorphism-preserving parametric left-adjoint.
+\end{proof}
+\subsection{Higher mapping objects}
+\begin{defn}
+If \(X\) is a stable Segal space, and \(f:\Theta_{\frac{n}{k},m}[\emptyset]\to X\) is a map classifying a family of \(m\) \(k\)-composable pairs of parallel \(n-1\)-cells \(a_i\parallel b_i\), we define a simplicial presheaf on \(\Theta^{\times m}\) by letting, for a family \(t=(t_1,\dots,t_m)\) of objects in \(\Theta\), \[M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))_t=\varprojlim(e\xrightarrow{f}\Map(\Theta_{\frac{n}{k},m}[\emptyset],X) \leftarrow \Map(\Theta_{\frac{n}{k},m}[t],X)).\]  We call \(M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))\) the \dfn{\(f\)-mapping object}.  
+
+In the special case where \(m=1\), \([\frac{n}{k},m]=D_n\), and since \(V^n[D_n](A)\) is the \(n\)-fold suspension of \(A\), we see that these are the simple higher mapping objects. 
+
+If \(U\) is a subobject of \(\Theta[\frac{n}{k},m],\) we define \[M^U_X((a_1,b_1),\dots,(a_m,b_m))_t = \varprojlim(e\xrightarrow{f}\Map(U[\emptyset],X) \leftarrow \Map(U[t],X)).\]
+\end{defn}
+\begin{prop}If \(X\) is a stable Segal space, then the diagram
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ \Map(\Theta_{\frac{n}{k},m}[t],X) & \Map(\Sp_{\frac{n}{k},m}[t],X) \\
+\Map(\Theta_{\frac{n}{k},m}[\emptyset],X) &  \Map(\Sp_{\frac{n}{k},m}[\emptyset],X) \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge  (b-1-2)
+        edge  (b-2-1)
+(b-2-1) edge  (b-2-2)
+(b-1-2) edge  (b-2-2);
+\end{tikzpicture}
+\end{equation*}
+is homotopy-cartesian with respect to \(\W_\infty\), naturally in \(t=(t_1\dots,t_m)\).    
+\end{prop}
+\begin{proof} 
+This will follow from the fact that the map \[f^{\frac{n}{k}}_A:\Sp_{\frac{n}{k},m}[A]\hookrightarrow \Sp_{\frac{n}{k},m}[A]\] is a trivial cofibration for all families of simplicial presheaves \(A=(A_1,\dots,A_m)\) on \(\Theta\), which we will now prove.  First, notice that we may reduce to the case where \(k=0\), since for \(k>0\), \(f^{\frac{n}{k}}_A=D_k[f^{\frac{n-k}{0}}[A],\) and the class of maps generated by the spines is stable under \(k\)-fold suspension.  However, we can now see that this map is just \[\Sc_m[D_{n-k-1}[A_1],\dots, D_{n-k-1}[A_m]]\hookrightarrow \Delta_m[D_{n-k-1}[A_1],\dots, D_{n-k-1}[A_m]],\] and by changing variables, we deduce this from the simpler result for Segal cores.
+
+Since \(X\) is fibrant, the horizontal maps in the diagram are both trivial fibrations, which implies that the diagram is homotopy-cartesian.  
+\end{proof}
+\begin{cor} 
+If \(X\) is a stable Segal space, for any map \(f:\Theta_{\frac{n}{k},m}[\emptyset]\to X\) classifying a family of \(m\) \(k\)-composable pairs of of parallel \(n-1\)-cells \(a_i\parallel b_i\), the natural map, \[M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))_t\to M^{\Sp_{\frac{n}{k}}}_X((a_1,b_1),\dots,(a_m,b_m))_t,\] is an objectwise weak homotopy equivalence.
+\end{cor} 
+\begin{proof}
+From the diagram in the proposition, we can build a homotopy-cartesian cube by taking the fibres of the map classifying \(f\) in \(\Map(\Sp_{\frac{n}{k},m}[\emptyset],X)\) and forming all of the obvious pullbacks.  These pullbacks are all homotopy pullbacks, since they are being taken in the category of simplicial sets and all of the maps appearing in the square from the proposition are fibrations.  
+
+Since the map classifying \(f\) factors through \(\Map(\Theta_{\frac{n}{k},m}[\emptyset],X)\) by definition, we can factor it through the fibre of the map \[\Map(\Theta_{\frac{n}{k},m}[\emptyset],X)\to \Map(\Sc_{\frac{n}{k},m}[\emptyset],X)\] over \(f\).  Taking the fibre \[M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))_t=\varprojlim(e\xrightarrow{f}\Map(\Theta_{\frac{n}{k},m}[\emptyset],X) \leftarrow \Map(\Theta_{\frac{n}{k},m}[t],X)),\] we see that the induced commutative square at the initial commutative square is a homotopy pullback, as is the face of the cube parallel to the face in the proposition. Pasting homotopy pullbacks, we see that the natural map \[M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))_t\to M^{\Sp_{\frac{n}{k}}}_X((a_1,b_1),\dots,(a_m,b_m))_t\] is a homotopy pullback of the identity map of the terminal object.
+\end{proof}
+\begin{rem} We could change the formula for the mapping object ever so slightly to ensure that the map \[M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))_t\to M^{\Sp_{\frac{n}{k}}}_X((a_1,b_1),\dots,(a_m,b_m))_t\] is an objectwise trivial fibration.  The formula given here is weakly equivalent to this modified form when \(X\) is a stable Segal space, but it has some nice properties that we will use to simplify some proofs later. 
+\end{rem}
+\begin{defn} If \(X\) is a stable Segal space, and \(f:\Sp_{\frac{n}{k},m}[\emptyset]\to X\) is a map classifying a family of \(m\) \(k\)-composable pairs of parallel \(n-1\)-cells \(a_i\parallel b_i\), we define a simplicial presheaf on \(\Theta^{\times m}\) by letting, for a family \(t=(t_1,\dots,t_m)\) of objects in \(\Theta\), \[B^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))_t=\varprojlim(e\xrightarrow{f}\Map(\Sp_{\frac{n}{k},m}[\emptyset],X) \leftarrow \Map(\Theta_{\frac{n}{k},m}[t],X)).\]  We call \(B^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))\) the \dfn{variant \(f\)-mapping object}.   
+\end{defn}
+\begin{note} As long as \(X\) is a stable Segal space, maps \(\Sp_{\frac{n}{k},m}[\emptyset]\to X\) extend to maps \(\Theta_{\frac{n}{k},m}[\emptyset]\to X\), so there is no problem caused by asking that \(f\) originates at  from \(\Sp_{\frac{n}{k},m}[\emptyset]\).
+\end{note}
+We pull these \(\Theta^{\times m} \times \Delta\) presheaves back along the diagonal functor \(\operatorname{diag}_m:C\to C^{\times m}\), where the induced map 
+\[\operatorname{diag}_m^* M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))\to \operatorname{diag}_m^* M^{\Sp_{\frac{n}{k}}}_X((a_1,b_1),\dots,(a_m,b_m))\] is still a \(\W_\infty\)-equivalence.  Moreover, we have an isomorphism \[\operatorname{diag}_m^* M^{\Sp_{\frac{n}{k}}}_X((a_1,b_1),\dots,(a_m,b_m))\cong M_X(a_1,b_1)\times \dots \times M_X(a_m,b_m)\] because \(\operatorname{diag}_m^*\) preserves pullbacks, and the fibres of the map \[\operatorname{diag}_m^*(\Map(\Sp_{\frac{n}{k},m}[-],X))\to \Map(\Sp_{\frac{n}{k},m}[\emptyset],X)\] are determined by products of compatible simple mapping spaces.  That is, if \((a_1,b_1),\dots,(a_m,b_m)\) is a \(k\)-composable family of \(m\) pairs of parallel \(n-1\)-cells, the fibre over the point classifying this family already takes the compatibility into account, so it is determined only by the mapping spaces themselves.
+
+In particular, this means that we have a levelwise weak homotopy equivalence \[\eta^m_{\frac{n}{k}}:\operatorname{diag}_m^* M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m))\xrightarrow{\sim} M_X(a_1,b_1)\times \dots \times M_X(a_m,b_m).\] There is also a canonical map induced by the inclusion of the cospine of \(\Theta[\frac{n}{k},m]\), which gives a map \[\operatorname{diag}_m^* g^m_{\frac{n}{k}}:M^{\frac{n}{k}}_X((a_1,b_1),\dots,(a_m,b_m)) \to M^{\operatorname{coSp}_{\frac{n}{k}}}_X((a_1,b_1),\dots,(a_m,b_m)).\]  This object does not admit an especially nice description as a mapping object between specified cells, since the form that it takes depends on the relationship between \(n\) and \(k\).  However, in the case where \(k=n-1\), we can describe it as \(M_X(a_1,b_n),\) which makes sense since in that case, \(a_j=b_{j-1}\) for \(j>1\).  
+
+The main point, however, is that it is the correct target for a composition operation.  We define the composition operation \[\circ^n_k(m)_f:M_X(a_1,b_1)\times \dots \times M_X(a_m,b_m) \to M^{\operatorname{coSp}_{\frac{n}{k}}}_X((a_1,b_1),\dots,(a_m,b_m))\] in the homotopy category of simplicial presheaves on \(\Theta\) by precomposing \(g^m_{\frac{n}{k}}\) with the homotopy inverse of the levelwise weak homotopy equivalence \(\eta^m_{\frac{n}{k}}\).     
+
+There are also natural identity morphisms arising as follows: There exists a unique surjective map \(D_n[A]\to D_{n-1}\) for any simplicial presheaf \(A\) on \(\Theta\).  This induces a commutative diagram 
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ \Map(D_{n-1},X) & \Map(D_n[t],X) \\
+\Map(D_{n-1},X) &  \Map(D_n[\emptyset],X) \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge  (b-1-2)
+        edge[-,double equal sign distance]  (b-2-1)
+(b-2-1) edge  (b-2-2)
+(b-1-2) edge  (b-2-2);
+\end{tikzpicture}
+\end{equation*}
+such that those points \(e\to \Map(D_n[\emptyset],X)\) classifying degenerate parallel pairs \(f\parallel f\) of \(n-1\)-cells factor uniquely through \(\Map(D_{n-1},X)\). Given such a point, \(s_f:e\to \Map(D_{n-1},X) \to \Map(D_n[\emptyset],X)\), the commutativity of the diagram implies that the diagram
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ e &\Map(D_{n-1},X) & \Map(D_n[t],X) \\
+e& \Map(D_{n-1},X) &  \Map(D_n[\emptyset],X) \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge[-,double equal sign distance]  (b-2-1)
+				edge  (b-1-2)
+(b-2-1) edge  (b-2-2)
+(b-1-2) edge  (b-1-3)
+        edge[-,double equal sign distance]  (b-2-2)
+(b-2-2) edge  (b-2-3)
+(b-1-3) edge  (b-2-3);
+\end{tikzpicture}
+\end{equation*}
+is commutative as well.  In particular, this gives a canonical point of \(M_X(f,f)\), which we will use to construct the fundamental \(\omega\)-category.
+\begin{lemma}Let \(X\) be a stable Segal space. If \(f,g:\Sp_{\frac{n}{k},m}[\emptyset]\to X\) are two maps classifying a \(k\)-composable family of \(m\) parallel pairs of \(n-1\)-cells of \(X\) such that \(f\) and \(g\) represent the same morphism in \(\ho_{\W_\iota}\psh{\Theta\times \Delta}(\Sp_{\frac{n}{k},m},X),\) then the mapping objects they define are weakly equivalent.  
+\end{lemma}
+\begin{proof} This follows immediately from the fac that the defining pullbacks are all homotpy pullbacks.
+\end{proof}
+\begin{lemma} If \(X\) is a stable Segal space and \(f,g:D_n\to X\) are two parallel \(n\)-cells representing the same morphism in \(\ho_{\W_\iota}\psh{\Theta\times \Delta}(D_n,X),\)  
+\end{lemma}
+
+
+
+\section{Modeling homotopy with tensors}
+In the theory of strict \(\omega\)-categories, there is a biclosed monoidal product, developed by Crans in \cite{cransthtens}, that extends the tensor product of \(2\)-categories of Gray.  This tensor product has the exquisite property of being additive in dimension, or as we have called it in this paper, height.  This is no trivial matter, since the cartesian product fails abysmally in this regard.  That is to say, the cartesian product is only additive in the horizontal, or simplicial dimension, but many higher-categorical constructions rely on the acquisition of new cells of higher height, rather than commutativity of cells in fixed height.  
+
+It can be determined from Berger's density theorem \cite{berger-cellular-nerve} together with the work of Day in \cite{dayconvolution} that this Crans-Gray tensor product can be extended to the category of cellular sets.  
+
+Using this tensor product, we will construct a localizer, which we will later show to be equivalent to a tensor-closed and cartesian-closed localizer.
+
+\subsection{The tensor product}
+It follows from \cite{brown-steiner} that the category of strict \(\omega\)-categories is equivalent to the category of \(\omega\)-fold categories, that is to say, strict \(\omega\)-categories based on the category of cubical sets with connections.  Further, there exists an extension of the canonical tensor product of cubical sets to a biclosed tensor product of cubical strict \(\omega\)-categories.  By the universal property of the cube category \(\Box\), we can identify this functor uniquely by its image, which consists simply of the free cubical \(\omega\)-categories on the representable cubical sets. 
+
+By transport of structure, this endows the usual category of strict \(\omega\)-categories with a tensor product, which we will denote by \(\otimes\).  
+
+We recall the definition:
+\begin{defn}A \dfn{tensor base} (dually called a pro-monoidal structure in \cite{dayconvolution}) is on a small category \(A\) is given by the following data:
+\begin{enumerate}
+\item [(i)] A functor \(H:A^\op \times A \times A \to \cat{Set}\).  We will, by abuse of notation, write \(H(a,b,c)\) as \(H(a,b\otimes c\).
+\item [(ii)] A functor \(I:A^\op \to \cat{Set}\).
+\end{enumerate}
+together with maps
+\begin{enumerate}
+\item [(1)] A natural isomorphism \[\lambda_a: \int^X I(X) \times H(-,X\otimes a) \cong \Hom_A(-,a)\]
+\item [(2)] A natural isomorphism \[\rho_a: \int^X I(X) \times H(-,a\otimes X) \cong \Hom_A(-,a)\]
+\item [(3)] A natural isomorphism \[\gamma_{abc}: \int^X H(-,a\otimes X)\times H(X,b\otimes c) \cong \int^X H(X,a\otimes b)\times H(-,X\otimes c).\]
+Satisfying coherence conditions (see \cite{dayconvolution}).  
+\end{enumerate}
+\end{defn}
+\begin{prop}The tensor product on strict \(\omega\)-categories induces a tensor base on \(\Theta\), which then extends uniquely to a biclosed monoidal product on \(\cellset\).  
+\end{prop}
+\begin{proof} See \cite{dayconvolution}.
+\end{proof}
+\subsection{A construction of the stable cylinder}
+We define a strict \(\omega\)-category \(T\) as follows:
+
+Let \(X_0=\partial D_1\).  We define \(X_n\) by a pushout diagram:
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ E_n\times \partial D_n & X_{n-1} \\
+   E_n \times D_n &   X_n\\};
+\path[->, font=\scriptsize]
+(b-1-1) edge (b-1-2)
+        edge (b-2-1)
+(b-2-1) edge (b-2-2)
+(b-1-2) edge (b-2-2);
+\end{tikzpicture},
+\end{equation*}
+where \(E_n\) is defined to be the subset of \(\Hom(\partial D_n, X_{n-1})\) comprising those maps \(\partial D_n\to X_{n-1}\) not admitting an extension to a map \(D_n\to X_{n-1}\).  
+
+These determine an evident inductive system:
+ \begin{equation*}
+\begin{tikzpicture}
+\matrix (a) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ X_0 & X_1 & X_2 & \dots & X_n & X_{n+1} & \dots \\};
+\path[right hook->, font=\scriptsize]
+(a-1-1) edge node[auto]{\(\scriptstyle \iota_0\)} (a-1-2)
+(a-1-2) edge node[auto]{\(\scriptstyle \iota_1\)} (a-1-3)
+(a-1-3) edge node[auto]{\(\scriptstyle \iota_2\)} (a-1-4)
+(a-1-4) edge node[auto]{\(\scriptstyle \iota_{n-1}\)} (a-1-5)
+(a-1-5) edge node[auto]{\(\scriptstyle \iota_n\)} (a-1-6)
+(a-1-6) edge node[auto]{\(\scriptstyle \iota_{n+1}\)} (a-1-7);
+\end{tikzpicture},
+\end{equation*}
+the colimit of which, we call \(T\).  We will also denote, by abuse of notation, its nerve simply by \(T\) as well.  
+
+\begin{prop} As a strict \(\omega\)-category, T is contractible.
+\end{prop}
+\begin{proof}Given any map \(\partial D_n \to T\), it factors through the subobject \(X_{n-1}\).  If it admits a lift into \(X_{n-1}\), then we are done, and if not, then we may fill it canonically in \(X_n\).  
+\end{proof}
+\begin{prop} The map \(\partial D_1\to T\) is a cofibration of strict \(\omega\)-categories.  
+\end{prop}
+\begin{proof} It is very clearly a relative cell complex by construction.
+\end{proof}
+
+We note readily that tensoring with \(T\) on the righthand side gives a cylinder functor on the category of cellular sets.  Taking the union of the (accessible) localizer generated by this cylinder together with \(\mathsf{W}_{\Sp},\) we obtain an accessible localizer \(\mathsf{W}_T\).  In the next section, we will give a simpler presentation of this localizer and show that it is equivalent.
+
+\section{A cartesian presentation for $\mathsf{W}_T$}
+Let \(\mathsf{W}\) be a \(\Theta\)-localizer.  We may define a new localizer \(\mathsf{W}_{\operatorname{Stab}}\) by letting it be the smallest class of maps containing \(\mathsf{W}\) that is stable under the operation \(f\mapsto \Delta_1[f]\).  
+
+
+
+
+We will define a prism construction that will eventually be shown to equal \(D_n\otimes D_1\).  
+
+\begin{defn}We define the prism \(D_n \to \mathbf{P}(D_n) \leftarrow D_n\) to be the strict \(\omega\)-category defined by the following recursive formula:
+\begin{enumerate}
+\item [(i)] For \(n=0\), we set \[\mathbf{P}(D_0)=D_1,\] where the structure maps are given bythe source and target inclusions: \[D_0\overset{\sigma}{\to} D_1 \overset{\tau}{\leftarrow} D_0\]
+\item [(ii)] For \(n>0\) \[\mathbf{P}(D_n)=\varinjlim(\Delta_2[D_{n-1},D_0] \overset{\delta^{02}}{\leftarrow} \Delta_1[D_{n-1}] \to \Delta_1[\mathbf{P}(D_{n-1})] \leftarrow \Delta_1[D_{n-1}] \overset{\delta^{02}}{\to}  \Delta_2[D_0,D_{n-1}]),\]
+where the left and right structure maps are induced by the maps \[D_n=\Delta_1[D_{n-1}]\overset{\delta^{01}}{\to}\Delta_2[D_{n-1},D_0]\] and \[D_n=\Delta_1[D_{n-1}]\overset{\delta^{12}}{\to}\Delta_2[D_0,D_{n-1}],\] respectively.  
+\item[(iii)] For all \(n\geq 0\), there exists a common retraction of the structure maps \(\mathbf{P}(D_n) \to D_n\) by induction, since assuming the existence for \(n=k\), we may collapse the internal \(\Delta_1[\mathbf{P}(D_{k})]\) to \(\Delta_1[D_{k}]=D_{k+1}\), then since this map is a common retraction we have that the two maps into \(\Delta_1[\mathbf{P}(D_{k})]\) become identities, and therefore, the resulting object is simply the product \(D_{k+1}\times D_1\), which admits such a retraction in an obvious way.  Then it suffices to show the existence for \(n=0\), but this is obvious.  
+\end{enumerate}
+\end{defn}
+
+We can see that these can be arranged to form a coglobular object \(\mathbf{P}\). We note that this coglobular object is precisely the coglobular object co-representing the strict \(\omega\)-category of connections (cylinders), in the sense of \cite{metayer-resolution}, and therefore, by the construction in that paper, of the functorial strict \(\omega\)-category structure on \(\Gamma(-)_n=\Hom(\mathbf{P}(D_n),-)\), the extension by coglobular sums of this functor is a categorical \(\G\)-extension.  By the theorem of Ara, it necessarily follows that this functor extends to a functor \(\Theta\to \cat{\omega-cat}\).  It therefore can be promoted to a colimit-preserving functor \(\cellset \to \cat{\omega-cat}\).  Further, the restriction of this functor along the cellular nerve also preserves colimits, since it has a right adjoint given by \(\Gamma\).  We write this functor as \((-)\otimes D_1:\cat{\omega-Cat}\to \cat{\omega-Cat}\).  
+
+
+We define a family of strict \(\omega\)-categories \(\Q_n\) by recursion
+\begin{enumerate}
+\item [(i)] For \(n=0\): \[Q_0=D_0\]
+\item [(ii)] For \(n>0\) \[Q_n=Q_{n-1}\otimes D_1\]
+\end{enumerate}
+
+We see that together with the canonical structure maps described in the previous subsection, this this defines a cocubical object in the category of strict \(\omega\)-categories.  We obtain by the usual nerve and realization formalism a pair of adjoint functors: \[Q:\widehat{Box} \rightleftarrows \cat{\omega-Cat}:N_{\Box}.\]  
+
+
+
+We notice that for a strict \(\omega\)-category \(X\), \(\Delta_1[X]\) can be obtained from \(X\otimes D_1\) by folding in the top and bottom of the prism, that is to say, by forming the colimit of the diagram \[\partial D_1 \leftarrow X\otimes \partial D_1 \hookrightarrow X\otimes D_1\] and that this operation is natural in \(X\).  We will use this to establish control of the righthand side of the tensor product.   
+\begin{defn}
+For \(n\geq 2\), we define \((-)\otimes D_n\) to be the functor obtained by the pushout
+\[X\otimes D_n = \varinjlim(X\otimes \partial D_1 \leftarrow (X \otimes D_{n-1})\otimes \partial D_1\to (X \otimes D_{n-1})\otimes D_1).\]  This time, the source and target maps are inherited from \(D_{n-1}\), and are therefore definable by recursion.  
+\end{defn}
+This gives a new coglobular object in the category of endofunctors on the category of strict \(\omega\)-categories.  
+ 
+We will give a combinatorial description of a bifunctor \(\otimes:\G\times \G \to \cat{\omega-cat}\), which we will subsequently extend to a bifunctor \(\Theta\times\Theta\to \cat{\omega-cat}\) formally via coglobular sums. 
+
+
+There is an evident functor \(S_n:\Theta\to \Theta\) defined by the formula \([t]\mapsto [n]([t],\dots,[t]),\) which makes sense by the previous proposition (that is, we identify \([n]([t],\dots,[t])\) with its image under the isomorphism \(\widehat{\Delta\wr\Theta}\to\cellset\).  Composing with the Yoneda embedding, we obtain a functor \(\mathfrak{S}_n:\Theta\to \cellset\).  
+
+For every object \([t]\) of \(\Theta\), we see that there exists a fixed map \(f^n_{t}:\coprod_{n+1} \Theta[0]\to \mathfrak{S}_n([t])\) such that for any map \(g:[t]\to [s]\), we have that \(\mathfrak{S}_n(g)\circ f^n_t =f^n_s\).  Then \(\mathfrak{S}_n\) factors through the coslice category \(\overcat{\coprod_{n+1}\Theta[0]}{\cellset}\).  
+
+Let \(\mathcal{S}_n\Theta\to \overcat{\coprod_{n+1}\Theta[0]}{\cellset}\) be the left factor of this factorization.  Since \(\overcat{\coprod_{n+1}\Theta[0]}{\cellset}\) is cocomplete, the functor \(\mathcal{S}_n\) lifts to a colimit-preserving functor \(\Sigma_n:\cellset \to \overcat{\coprod_{n+1}\Theta[0]}{\cellset}\).  This functor admits an evident right adjoint \(\Map^n\) described by the usual formula, that is, given an \(n+1\)-pointed cellular set \((X,f:\coprod_{n+1} \Theta[0]\to X)\),
+\[\Map^n(X,f)_t=\Hom_{\overcat{\coprod_{n+1}\Theta[0]}{\cellset}}((\Sigma_n([t]),f^n_t),(X,f)).\]
+
+\begin{rem} An \(n+1\)-pointed cellular set \((X,f)\) will usually be given by the data of a cellular set \(X\) together with a family of \(n+1\) vertices \(x_0,\dots,x_n\in X_0\).  If \(f:\coprod_{n+1} \Theta[0]\to X)\) is the morphism classifying the elements \(x_0,\dots,x_n\), we will, by abuse of notation, write \(\Map^n(X,f)\) as \(\Map_X(x_0,\dots, x_n\).   
+\end{rem}
+
+The remainder of this section will be devoted to showing that the functors \(\Sigma_n\) are left Quillen functors from the category of cellular sets equipped with the Cisinski-Joyal model structure to the category of \(n+1\)-pointed cellular sets equipped with the cosliced Cisinski-Joyal model structure.
+
+Since the cofibrations, fibrations, and weak equivalences of \(\overcat{\coprod_{n+1}\Theta[0]}{\cellset}\) are, respectively, those maps that are carried to cofibrations, fibrations, and weak equivalences by the functor \(\pi_n:\overcat{\coprod_{n+1}\Theta[0]}{\cellset}\to \cellset\), it will suffice to show that \(L_n=\pi_n\circ \Sigma_n\) preserves monomorphisms and weak equivalences.  
+
+We give an adaptation of Rezk's intertwining functor \(V\), originally used in \cite{rezk-theta-n-spaces}, to our situation.  It's fairly easy to see by construction that \(\Delta\wr \Theta\cong\Theta\), so we obtain maps \(Y_\Theta:\Delta\wr \Theta\cong \Theta \hookrightarrow\widehat{\Theta}\) and \(\id_\Delta \wr Y_\Theta\: \Delta\wr \Theta \hookrightarrow \Delta \wr \widehat{\Theta}\).  Taking the left Kan extension of \(Y_\Theta\) along \(\id_\Delta \wr Y_\Theta\), we obtain an intertwining functor \(V: \Delta \wr \widehat{\Theta}\to \widehat{\Theta}\) that takes simplices filled by cellular sets to cellular sets.
+
+We will show that under the circumstances relevant to the theory of \(\omega\)-quasicategories, we may use \(V\) to construct \emph{interior hom-objects,}\footnote{Contrast this with the notion of an \emph{internal hom-object.}} which admit unique (up to a contractible space of choices) composition maps for \(\omega\)-quasicategories.  We obtain these by means of a \emph{parameterized desuspension functor}, which we will construct as adjoints for generalized suspension functors.  
+
+We begin with a lemma:
+
+
+
+Then we construct a functor \(\nu:\Delta\wr \cellset\to \widehat{\Delta\wr \Theta}\) by taking the left Kan extension of the Yoneda embedding \(Y_{\Delta\wr \Theta}:\Delta\wr \Theta\hookrightarrow \widehat{\Delta\wr\Theta}\) along the wreath product map \(\id_\Delta\wr Y_\Theta:\Delta\wr \Theta \hookrightarrow \Delta\wr \cellset\). Composing this functor \((\id_\Delta\wr Y_\Theta)_!\) with the isomorphism of presheaf categories \(\widehat{\xi}:\widehat{\Delta\wr \Theta}\cong \cellset\)induced by the isomorphism of categories \(\xi:\Delta \wr \Theta\cong \Theta\) to obtain a functor \(V:\Delta\wr \cellset\to \cellset\). 
+
+
+
+
+\begin{lemma}\label{intertwinerdecomp} For any family of cellular sets \(A_1,\dots A_n\), the diagram
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ V[n](A_1,\dots,A_n) & V[1](A_1)\times\dots\times V[1](A_n) \\
+   V[n](\Theta[0],\dots,\Theta[0]) &  V[1](\Theta[0])\times\dots\times V[1](\Theta[0]) \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge (b-1-2)
+        edge (b-2-1)
+(b-2-1) edge node[auto]{\(\scriptstyle \eta_n \)} (b-2-2)
+(b-1-2) edge node[auto]{\(\scriptstyle V[1](c_{A_1})\times\dots \times V[1](c_{A_n})\)} (b-2-2);
+\end{tikzpicture}
+\end{equation*}
+is cartesian, where the maps \(c_{A_i}\) are the terminal maps \(A_i\to \Theta[0]\) and \(\eta_n\) is the \(n\)-simplex of the \(n\)-cube parameterized by the path 
+\[(0,0,\dots,0,0)\to (1,0,\dots,0,0)\to (1,1,\dots,0,0)\to \dots \to (1,1,\dots,1,0)\to (1,1,\dots,1,1).\]
+\end{lemma}
+\begin{proof}
+This follows easily by using Yoneda's lemma to check the compatibility conditions on the maps from objects \(\Theta[t]\) of \(\Theta\) into the pullback. 
+\end{proof}
+
+\begin{lemma}
+The map \[\eta_n : V[n](\Theta[0],\dots,\Theta[0])\to V[1](\Theta[0])\times\dots\times V[1](\Theta[0]\] is a fibration for the minimal model structure.
+\end{lemma}
+\begin{proof}
+
+The functor \(\iota^\ast:\cellset \to \widehat{\Delta}\) preserves limits and colimits, so by the above discussion, we see that it is a left Quillen functor between the minimal model structure on \(\cellset\) and the minimal model structure on \(\widehat{\Delta}\) because it sends maps \(j\sm f\) where \(f\) is a monomorphism to maps \(k\sm \iota^\ast(f)\) where \(k:\ast \to \mathfrak{N}(G_2)\) generates the set of generating minimal \(\Delta\)-anodynes under pushout-products with monomorphisms.  Then its right adjoint, \(\iota_\ast\) preserves minimal fibrations and minimal trivial fibrations.  Then to establish the lemma, it suffices to show that the map \(\beta_n:\Delta[n]\to \Delta[1]\times \dots\times \Delta[1]\) is a minimal fibration, since \(\eta_n=\iota^\ast(\beta_n)\).   
+
+However, since \(\beta_n\) is the nerve of a functor \(\alpha_n:[n]\to [1]\times\dots\times [1]\), so it is therefore automatically an inner fibration by \cite{lurie-book}.  To prove that it is a minimal fibration, it suffices to show that it is a fibration for the Joyal model structure on \(\widehat{\Delta}\).  By proposition [??] of \cite{joyal-quategory}, it suffices to show that \(\alpha_n\) is a pseudofibration between categories, that is, a functor \(F:C\to D\) such that for any \(c\) in \(C\) and any isomorphism \(g:d\to F(c)\), there exists an isomorphism \(f:c'\to c\) such that \(F(f)=g\).  
+
+Luckily, the categories \([n]\) and \([1]\times \dots\times [1]\) contain no non-identity isomorphisms, and this condition is satisfied trivially.  
+\end{proof}
+
+The lemma above proves that the cartesian diagram in \eqref{intertwinerdecomp} is homotopy-cartesian for the minimal model structure on \(\cellset\), since the minimal model structure on any presheaf category is always right-proper.  
+
+\begin{lemma}\label{prodpullback} The natural map \(V[1](A\times B)\to V[1](A)\times_{V[1]([0])} V[1](B)\) is an isomorphism for any cellular sets \(A\) and \(B\).  
+\end{lemma}
+\begin{proof}
+placeholder.
+\end{proof}
+
+Recall from \cite{cisinski-book} that the minimal model structure is specified by a complete homotopy structure, and it is therefore possible to specify the trivial cofibrations as the class of anodynes \(\operatorname{llp}(\operatorname{rlp}(\Lambda_{\mathfrak{I}}(S_{\mathfrak{I}},\mathcal{M})))\) where \(T\) is the set of generating anodynes given by Cisinski's  \(\Lambda\) construction, \(\Lambda_{\mathfrak{I}}(S_{\mathfrak{I}},\mathcal{M})\) where \(\mathfrak{I}=(I,\partial^0,\partial^1)\) is an injective separated segment,\footnote{For example, we can choose \(\mathfrak{I}\) to be Lawvere's segment \(\mathfrak{L}=(\mathbb{L},\partial^0,\partial^1)\) where \(\mathbb{L}\) is the subobject classifier of \(\widehat{\Theta}\) together with the two distinct points \(\partial^0,\partial^1\) of \(\mathbb{L}\) classifying the two distinct subobjects \(\emptyset \subseteq \ast\) and \(\ast\subseteq \ast\) of the terminal object \(\ast\) of \(\widehat{\Theta}\).}
+the set \(S_\mathfrak{I}=\{\partial^0,\partial^1\}\) is the the set comprising the two distinguished points of \(I\), and \(\mathcal{M}\) is the cellular model of \(\Theta\) specified by the regular skelletique structure of \(\Theta\) comprising the boundary inclusions \(\partial T\hookrightarrow T\) for each object \(T\) of \(\Theta\).
+
+We have a canonical full embedding \(\iota:\Delta\to\Theta\) onto the subcategory of the objects of \(\Theta\) of height at most \(1\). This induces an adjunction 
+\[\iota^\ast:\cellset \leftrightarrows \widehat{\Delta}:\iota_\ast\]
+where the pullback \(\iota^\ast\) preserves monomorphisms as it is also right adjoint to the realization functor \(\iota_!:\widehat{\Delta}\to \cellset\).    
+
+Let \(G_2\) denote the strictly contractible groupoid with two objects and two mutually inverse maps between them. Then the nerve \(\mathfrak{N}(G_2)\) is well-known to be an injective simplicial set.  We let \(\Xi=\iota_\ast(\mathfrak{N}(G_2))\).  
+
+Let \(f:A\hookrightarrow B\) be a monomorphism in \(\cellset\).  Then given a map \(A\to \Xi\), a lift \(B\to \Xi\) of the map \(A\to \Xi\) along the inclusion \(f\) corresponds by adjunction to a lifting \(\iota^\ast(B)\to \mathfrak{N}(G_2)\) of the adjunct map \(\iota^\ast(A)\to \mathfrak{N}(G_2)\) along the map \(\iota^\ast(f):\iota^\ast(A)\to \iota^\ast(B)\).  However, since \(\iota^\ast\) preserves monomorphisms, the map \(\iota^\ast(f)\) is monomorphic, and since \(\mathfrak{N}(G_2)\) is an injective simplicial set, there exists a lift \(h': \iota^*(B)\to \mathfrak{N}(G_2)\), which gives a lift \(h:B\to \Xi\) of the map \(A\to \Xi\) along \(f\).  This implies that \(\Xi\) is an injective cellular set.  
+
+Further, \(\Xi\) inherits two maps \[\partial^i=\iota_\ast(\partial_{\mathfrak{N}(G_2)}^i):[0]\to \Xi\] for \(i\in \{0,1\}\), which are clearly disjoint.   This gives \(\Xi\) the structure of an injective separated segment for \(\cellset\).  Since \(\partial^0\) can be mapped to \(\partial^1\) along the canonical automorphism of \(\Xi\) switching its two vertices, we will let \(j=\partial^0\) be the representative section, since for any object \(X\) of \(\Theta\), \(X^j=X^{\partial^0}\) is a trivial fibration if and only if \(X^{\partial^1}\) is as well.
+
+\begin{prop}
+The functor \(L_0\) of \eqref{leftadjointness} is a left Quillen functor with respect to the minimal model structure on the lefthand side and with respect to the cosliced minimal model structure on the righthand side.
+\end{prop}
+\begin{proof}
+From a slightly modified form of proposition 1.4.20 of \cite{cisinski-book}, we see that \(L_0^{-1}(W)\), where \(W\) is the class of weak equivalences of \(L(\emptyset)\downarrow \widehat{\Delta\wr\Theta}\), is a \(\Theta\)-localizer if and only if there exists a cylinder \(I\) on \(\Theta\) such that the map \(L_0(I\otimes X)\to L_0(X)\) belongs to \(W\) for every presheaf \(X\) on \(\Theta\).  If this is the case, the identity functor \(\id:\cellset\to\cellset\) is a left-quillen functor from the minimal model structure to the model structure determined by \(L_0^{-1}(W)\), and the functor \(L_0\) is obviously a left-Quillen functor from that model structure to the model strucutre on \(L(\emptyset)\downarrow \widehat{\Delta\wr\Theta}\), which implies that \(L_0\) is itself left-Quillen functor from the minimal model structure on \(\cellset\) to the induced model structure on \(L(\emptyset)\downarrow \widehat{\Delta\wr\Theta}\).  We will show that the cylinder associated with the separated segment \(\Xi\) is exactly such a cylinder functor.
+
+Our strategy is to establish that \(L_0(\Xi)\to L_0([0])\) is a trivial fibration using the decomposition in \eqref{intertwinerdecomp} to reduce to the case of the map \(V[1](\Xi)\to V[1]([0])\).  Once this is shown to be the case, lemma \eqref{prodpullback} will imply that \(L_0(X\times \Xi)\to (X)\) is the pullback of a trivial fibration, thereby establishing this proposition.  
+
+(Unfinished proof - \(V[1](\Xi)\to [1]\) is a trivial fibration of strict 2-categories and is therefore a trivial fibration.)
+\end{proof} 
+
+\begin{prop}The functor \(L_0\) is a left Quillen functor from the Cisinski-Joyal model structure on the category of cellular sets to the cosliced Cisinski-Joyal model structure on the category of cellular sets under \(L(\emptyset)\).   
+\end{prop}
+\begin{proof}
+(Unfinished proof - Tweak 1.4.20 of \cite{cisinski-book} to make it relative (easy) and show that every spine inclusion maps to a weak equivalence in the coslice category) 
+\end{proof}
+
+\begin{prop} Let \(\Sigma_n:\cellset\to\cellset\) be the functor defined by the formula \(X\mapsto V[n](X,\dots,X\).  Then the induced functor \(\mathfrak{L}_n:\cellset \to \overcat{\Sigma_n(\emptyset)}{\cellset}\) is a left Quillen functor.  
+\end{prop}
+\begin{proof} The preservation of cofibrations and weak equivalences follows easily from the preceding lemmata, so it suffices to prove that \(\mathfrak{L}_n\) is indeed a left adjoint.  
+\end{proof}
+
+\begin{defn} We let \(\Map^n:\overcat{\Sigma_{n}(\emptyset)}{\cellset}\to \cellset\) denote the right adjoint of the functor \(\mathfrak{L}_n\), and we call it the \dfn{\(n+1\)-ary mapping functor}.  Given a map \(f:\Sigma_n(\emptyset)\to X\) classifying elements \(x_0,\dots,x_n\) of \(X([0])\) in \(\cellset\), we write \(\Map^n(X,f)\) as \(\Map_X(x_0,\dots,x_n\).  As the name suggests, we will see that these objects play the role of the \(n+1\)-ary mapping objects when \(X\) is an \(\omega\)-quasicategory.  
+\end{defn}
+\begin{cor} For any family of vertices \(x_0,\dots,x_n\) of an \(\omega\)-quasicategory \(X\), the object \(\Map_X(x_0,\dots,x_n)\) is an \(\omega\)-quasicategory.  Further, a Cisinksi-Joyal weak equivalence \(f:X\to Y\) between \(\omega\)-quasicategories induces a weak equivalence on mapping objects \(\Map_X(x_0,\dots,x_n)\to\Map_Y(f(x_0),\dots,f(x_n))\).  
+\end{cor}
+\begin{proof} This follows immediately from the fact that \(\Map^n\) is a right Quillen functor.  
+\end{proof}
+
+\subsection{The enriched homotopy $\omega$-category of an $\omega$-quasicategory}
+
+Let \(\delta:[m]\to [n]\) be a morphism in \(\Delta\), and let \(F_\delta:\overcat{\Sigma_m(\emptyset)}{\cellset}\to \overcat{\Sigma_n(\emptyset)}{\cellset}\) be the functor defined by the formula 
+\[(\Sigma_m(\emptyset)\to X) \mapsto (\Sigma_n(\emptyset)\to \varinjlim( \Sigma_n(\emptyset)\leftarrow \Sigma_m(\emptyset)\to X ))\]
+where the arrow \(\Sigma_\delta(\emptyset):\Sigma_m(\emptyset)\to \Sigma_n(\emptyset)\) is the obvious arrow induced by \(\delta\).  This functor has an apparent right adjoint \(G_\delta\) given by precomposition with \(\Sigma_\delta(\emptyset)\).  
+
+Then we have for each \(\delta:[m]\to [n]\) an evident natural transformation \(\gamma:F_\delta \circ \mathfrak{L}_m\to \mathfrak{L}_n\) induced by the naturality of the transformation \(\Sigma_\delta\).  The adjunction isomorphisms induce a natural transformation in the opposite direction between the adjoints \(\zeta_\delta:\Map^n\to \Map^m\circ G_\delta\).  In particular, for any cellular set \(X\), we obtain maps \(\Map_X(x_0,\dots,x_n)\to \Map_X(x_{i-1},x_i)\) for each \(1\leq i\leq n\), which assemble to form a single map \[\Map_X(x_0,\dots,x_n)\to \Map_X(x_0,x_1) \times \dots \times \Map_X(x_{n-1},x_n).\]  We will show that when \(X\) is an \(\omega\)-quasicategory, this map is a weak equivalence. 
+
+\begin{prop} Given a cellular set \(X\), and a map \(\Sigma_n(\emptyset)\to X\) classifying points \(x_0,\dots,x_n\), we have that \(\Map_X(x_0,\dots,x_n)([t])\) can be identified with the set 
+\[\varprojlim\left (\{(x_0,\dots,x_n)\}\to X([0])^{n+1} \leftarrow X([n]([t],\dots,[t]))\right )\]
+\end{prop} 
+
+Then we give a sort of ``enriched replacement'' for \(\Map_X(x_0,\dots,x_n)\) as a bicellular set \(M_X(x_0,\dots,x_n)\) defined by the formula 
+\[\varprojlim \left ([t]\mapsto \{(x_0,\dots,x_n)\}\to X^{\Sigma_n(\emptyset)} \leftarrow X^{\Sigma_n(\Theta[t])}\right ),\]
+where exponentiation denotes the internal function object for the category of cellular sets.  We see immediately that \[\Map_X(x_0,\dots,x_n)([t])=\Hom_{\cellset}(\Theta[0],M_X(x_0,\dots,x_n)([t])).\]
+
+Let \(A_1,\dots, A_n\) and \(B_1,\dots, B_m\) be two families of cellular sets.  Let \(L:\widehat{\Theta}\to \widehat{\Theta}\) be the functor defined by the formula \[L(X)=V[n+1+m](A_1,\dots, A_n, X, B_1,\dots, B_m).\]  
+
+\begin{prop}
+The functor \(L\) preserves monomorphisms and trivial cofibrations for the minimal model structure.
+\end{prop}
+\begin{proof}  
+The functor \(L\) clearly preserves monomorphisms, so it suffices to show that it preserves weak equivalences.  Let \(f:A\to B\) be a weak equivalence for the minimal model structure.  Because the minimal model structure is always cartesian-closed, together with the previous lemma and \eqref{intertwinerdecomp}, it will suffice to show that the functor \(X\mapsto V[1](X)\) preserves minimal weak equivalences.  
+
+We first show that \(V[1](j): V[1]([0])\to V[1](\Xi)\) is a weak equivalence.  To see this, it suffices to show that \(V[1](c):V[1](\Xi)\to V[1]([0])\) is a trivial fibration.  We prove this using a similar method to the one used to show that \(\Xi\) is injective.  It is clear that the map \(V[1](c)\) belongs to the image of the inclusion \(\Mod(\Theta)\hookrightarrow \cellset\) of the category of strict \(\omega\)-categories into the category of cellular sets.  The map \(V[1](c)\) is a trivial fibration if and only if it has the right lifting property with respect to every boundary inclusion \(\partial_t:\bound{t}\hookrightarrow \Theta[t]\) for all objects \([t]\) of \(\Theta\), but since it is a strict \(\omega\)-functor between strict \(\omega\)-categories, we will see that it suffices to prove the existence of such lifts for \([t]=D_i\) for \(i\geq 0\), that is, we only need to show that there exist lifts of boundary inclusions for the globes \(D_i\).  
+
+To prove this, fix a morphism \(F:A\to B\) between strict \(\omega\)-categories admitting lifts for all commutative diagrams \(\partial_{D_i}\to F\), and suppose we are given some commutative diagram \(\partial_t\to F\) where \([t]\) is not a globe.  Since \([t]\) is not a globe, there is a canonical inclusion map \(\operatorname{Sp}[t]\hookrightarrow \bound{t}\), such that the map \(\Sp[t]\hookrightarrow \Theta[t]\) factors through the map \(\bound{t}\hookrightarrow \Theta[t]\).  Since \(A\to B\) is a morphism of strict \(\omega\)-categories, it strictly preserves all compositions, which are also unique, so we 
+
+In particular, since the inclusion \(\Mod(\Theta)\hookrightarrow \cellset\) admits a left adjoint, the component of the unit transformation \(\eta_t: \bound{t}\to \operatorname{cat}(\bound{t})\) can be described as follows: Since \(\bound{t}\)  is the inclusion of \(\bound{t}\) into the strict \(\omega\)-category obtained by gluing an extra copy of the cospine to \(\Theta[t]\) along the inclusion of the boundary of the cospine.  Since \(f\) admits all lifts for boundary inclusions of globes, there exists an \(n+1\)-globe filling the hole in the image of \(\operatorname{cat}(\bound{t})\). Then by composing along this new \(n+1\)-globe, we obtain a lift of \(\Theta[t]\).  
+
+This establishes that \(V[1](c)\) is a trivial fibration, since it obviously satisfies the required lifting property for globes (and more generally, it establishes that any iteration of the suspension on \(c:\Xi\to \ast\) is a trivial fibration).   This gives us that \(V[1](j)\) is anodyne for the minimal model structure.   However, we can say more.  Since 
+\end{proof}
+
+\subsection{The combinatorial join of cellular sets}
+We give a na\"ive extension of the join for simplicial sets to a join for cellular sets, which we will use to prove some important facts.
+
+Let \(\Theta^a\) denote the augmented cell category, which is obtained by formally adjoining an initial object \([-1]\) to \(\Theta\).  This category admits a monoidal product \(\boxplus\) defined as follows: For \([t]=[n_t](t_1,\dots,t_{n_t})\) and \([s]=[n_s](s_1),\dots,s_{n_s})\), we define \([t]\boxplus [s]\) to be \([n_t+1+n_s](t_1,\dots,t_{n_t},0,s_1,\dots,s_{n_s})\).  This is defined in the obvious way on arrows.  
+
+This extends via the Day convolution to a biclosed monoidal product, \(\star^a\) on augmented cellular sets.  The inclusion \(\iota:\Theta\hookrightarrow \Theta^a\) induces an adjunction \[\iota^\ast:\psh{\Theta^a}\rightleftarrows \cellset:\iota_\ast\].  We define a bifunctor \(\star:\cellset\times\cellset \to \cellset\) by the formula
+\[A\star B=\iota^\ast(\iota_\ast(A)\star^a \iota_\ast(B)).\]
+
+This bifunctor is obviously associative from the associativity of the augmented join, and it admits a unit object \(\emptyset\).  This makes it a monoidal product.  It is not biclosed, but it does admit something like a biclosed structure.
+\begin{prop} The functors \[A\star (-):\cellset \to \cellset\] and \[(-)\star A:\cellset\to \cellset\] are parametric left adjoints.
+\end{prop}
+\begin{proof}It suffices to show that the functors create connected colimits. Let \(F:D\to \cellset\) be a connected diagram.  We will show that \(\iota_\ast(\varinjlim F)=\varinjlim(\iota_\ast F\).  We notice that \[\iota_\ast(\varinjlim F)_t=\varinjlim ((\iota_\ast F)_t)=\varinjlim F_t\] for all objects \([t]\) of \(\Theta\).  Also, \(\iota_\ast(\varinjlim F)_{-1}=\{0\}\), since \(\Theta\) is a cosieve in \(\Theta^a\).  Since \(F\) is connected, \(\iota_\ast F\) is also connected.  Therefore, \(\varinjlim(\iota_\ast F)_{-1}=\varinjlim((\iota_\ast F)_{-1})\) is the connected colimit of a constant functor, which means that its colimit is equal to the constant value \((\iota_\ast F(d))_{-1}=\{0\}\).
+
+Then \[\varinjlim(A\star F)=\varinjlim(\iota^\ast(\iota_\ast(A)\star_a \iota_\ast F))=\iota^\ast(\iota_\ast(A) \star_a \varinjlim (\iota_\ast F))=\iota^\ast(\iota_\ast(A) \star_a \iota_\ast(\varinjlim F))=A\star \varinjlim F,\] so the functor \(A\star(-)\) is a parametric left adjoint.  The case of \((-)\star A\) is identical.   
+\end{proof}
+
+For a simplicial presheaf \(X\) on \(\Theta\), we see that \(X_{\Delta_0}\) is a cellular set.  It is clear that this functor is the right half of the adjoint pair
+\[(-)\times \Delta_0:\cellset \rightleftarrows \psh{\Theta\times \Delta}: (-)_{\Delta_0}\] induced by the inclusion \(\Theta\times \{0\}\hookrightarrow \Theta\times\Delta\).  We will, by abuse of notation, simply denote \(X_{\Delta_0}\) by the simpler expression \(X_0\) unless otherwise noted.  
+
+\begin{lemma} If \(X\) is a stable Segal space, then \(X_0\) is an inner-fibrant cellular set.  That is, the terminal map \(X_0\to \Theta[0]\) has the right lifting property with respect to smash products of spine inclusions with arbitrary monomorphisms, or equivalently, that the induced maps \(X_0^{\Theta[t]} \to X_0^{\Sp[t]}\) are trivial fibrations for every \([t]\) in \(\Theta\).   
+\end{lemma}
+\begin{proof} 
+Fixing an object \([t]\) of \(\Theta\), and a monomorphism \(A\to B\) of cellular sets, we see that diagonal fillers for the the diagram 
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ A & X_0^{\Theta[t]} \\
+B &  X_0^{\Sp[t]} \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge  (b-1-2)
+        edge  (b-2-1)
+(b-2-1) edge  (b-2-2)
+(b-1-2) edge  (b-2-2);
+\end{tikzpicture}
+\end{equation*}
+are in bijective correspondence with diagonal fillers
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ A\times \Theta[t] \cup B\times \Sp[t] & X_0 \\
+B\times \Theta[t]    \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge  (b-1-2)
+        edge  (b-2-1);
+\end{tikzpicture},
+\end{equation*}
+which themselves correspond under adjunction to diagonal fillers for the corresponding diagram
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ (A\times \Theta[t]\times \cup B\times \Sp[t])\times \Delta_0 & X \\
+B\times \Theta[t]\times \Delta_0    \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge  (b-1-2)
+        edge  (b-2-1);
+\end{tikzpicture}.
+\end{equation*}
+However, since the functor \((-)\times \Delta_0\) preserves limits and colimits of cellular sets, we see that we can rewrite \((A\times \Theta[t]\times \cup B\times \Sp[t])\times \Delta_0\) as \[(A\times \Delta_0) \times (\Theta[t]\times \Delta_0) \cup (B\times \Delta_0)\times (\Sp[t]\times\Delta_0)\] and similarly, \(B\times \Theta[t]\) can be rewritten as \[(B\times \Delta_0) \times (\Theta[t]\times \Delta_0).\]  Finally, applying the triple adjunction again, we see that the diagonal fillers of the previous diagram correspond bijectively with diagonal fillers for the diagram
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=4em,
+column sep=4em, text height=1.5ex, text depth=0.25ex]
+{ A\times \Delta_0 & X^{\Theta[t]\times \Delta_0} \\
+B \times \Delta_0&  X_0^{\Sp[t]\times \Delta_0} \\};
+\path[->, font=\scriptsize]
+(b-1-1) edge  (b-1-2)
+        edge  (b-2-1)
+(b-2-1) edge  (b-2-2)
+(b-1-2) edge  (b-2-2);
+\end{tikzpicture}.
+\end{equation*} 
+Because the functor \((-)\times \Delta_0\) preserves all limits and colimits, it must also preserve monomorphisms,implying that the induced map \(A\times \Delta_0 \hookrightarrow B\times \Delta_0\) is monic.  
+
+Finally, since \(X\) is a stable Segal space, the map \(X^{\Theta[t]\times \Delta_0}\to X^{\Sp[t]\times \Delta_0}\)  is by definition a trivial fibration.  This proves that the maps \(X_0^{\Theta[t]}\to X_0^{\Sp[t]}\) are trivial fibrations for all objects \([t]\) of \(\Theta\), implying that \(X_0\) is a prefibrant cellular set.  
+\end{proof}
+
+
+\appendix
+
+\chapter{Cisinski-Joyal fibrant cellular sets}
+We devote this appendix to proving an analogue of Joyal's fibrancy theorem for quasi-categories in the context of cellular sets.  We will make use of some auxiliary model structures, and the theorem will result a fortiori by means of a left Bousfield localization.
+\section{Morphisms of cellular sets}
+We introduce several classes of monomorphisms of cellular sets, which correspond in a naive way to the various flavors of horns.  We will give explicit generators for these classes of maps and thereby prove that they are closed under pushout-products by monomorphisms while giving explicit lifting conditions which have so far eluded us in the general case.  Of supreme importance here will be Berger's prismatic decomposition of a product of representable cellular sets.
+
+\begin{defn} We define the \(\omega\)-cell \(D_\omega\) to be the directed union of the \(D_i\) along the canonical source inclusions. 
+\end{defn}
+
+\begin{thm} Every representable cellular set admits a \(D_\omega\)-contraction.
+\end{thm}
+\begin{proof}  
+It will suffice to show that \([t]\) admits a \(D_n=D_{\heit([t])}\) contraction, since any \(D_{n}\) contraction extends to \(D_{n+1}\)-contraction simply by retracting the larger disk down to the smaller one.  
+
+However, this question can be answered entirely in the category of \(n\)-categories.  We will give an explicit \(n\)-functor \([t]\times D_n\to [t]\) that gives an \(n\)-natural transformation from the constant functor \([t]\to \{0\}\hookrightarrow [t]\) on the first vertex to the identity functor \([t]\to [t]\).  
+
+We write this map schematically as 
+\begin{equation*}
+\begin{tikzpicture}
+\matrix (b) [matrix of math nodes, row sep=3em,
+column sep=3em, text height=1.5ex, text depth=0.25ex]
+{ 0 & 0 & \dots & 0 & 0\\
+  0& 1 & \dots & m-1 & m\\};
+\path[->, font=\scriptsize]
+(b-1-1) edge (b-1-2)
+        edge (b-2-1)
+(b-1-2) edge (b-1-3)
+        edge (b-2-2)
+(b-1-3) edge (b-1-4)
+				edge (b-2-3)
+(b-1-4) edge (b-1-5)
+        edge (b-2-4)
+(b-1-5) edge (b-2-5)
+(b-2-1) edge (b-2-2)
+(b-2-2) edge (b-2-3)
+(b-2-3) edge (b-2-4)
+(b-2-4) edge (b-2-5);
+\end{tikzpicture},
+\end{equation*}
+where the vertical arrow \(0\to i\) for each \(1\leq i \leq m\) is shorthand for the \(n\)-cell classifying the height \(n\) cospine of the subcomplex \([i](t_1,\dots,t_i)\).  Applying Berger's prismatic decomposition of the product, we will describe where each component goes.  The components are ordered by the vertices of \([t]\), where \([\vee_j(t)]=[n_t+1](t_1,\dots, t_j, D_{n-1},t_{j+1},\dots, t_m)\) is the component at index \(j\).  
+
+Starting things off, when \(j=0\), we construct an auxiliary object
+ By induction, assume that the statement holds for all \(k< \heit([t])\).  We may assume that every input sector of \([t]\) has height equal to \([t]\), since if we can find a contraction for the minimal uniform-height object containing \([t]\), the contraction must take \([t]\) to itself on the bottom of the cylinder, since that map is the identity and the minimal uniform-height extension of \([t]\) has the same vertices as \([t]\).
+ 
+\end{proof}
+
+
+\begin{defn} If \(S_0\) and \(S_1\) are two classes of morphisms of cellular sets, we let \(S_0 \Box S_1\) denote the class of lower righthand corner maps \[f_0\Box f_1: A_0 \times B_1 \coprod_{A_0\times B_0} A_1 \times B_0 \hookrightarrow A_1\times B_1,\] where \(f_i \in S_i\) for \(i\in \{0,1\}\).   
+
+If \(S\) is a class of monomorphisms, and \(\operatorname{Cof}\) is the class of all monomorphisms, we denote \(S\Box \operatorname{Cof}\) by \(\check{S}\), and we call it the \dfn{closure of \(S\) under pushout-products with cofibrations}.  
+\end{defn} 
+
+\begin{defn} If \(S\) is a class of monomorphisms, we denote \(\operatorname{llp}(\operatorname{rlp}(\check{S}))\) by \(S^{\operatorname{s}}\) and call it the \dfn{cartesian saturation of \(S\)}.  
+\end{defn}
+
+\begin{defn} Recall that \(\mathsf{Sp}\) denotes the set of spine inclusions.  We define the \(i\) vertex-inclusion morphism to be the map \(\partial^{i}:\Delta[0]\hookrightarrow \Delta_1\) for \(i=0\)  (resp. \(i=1\)). 
+
+We define four classes of morphisms:
+\begin{enumerate}
+\item[(i)] The class of maps \(\mathsf{A}_1=(\{\partial^{0},\partial^{1}\}\cup \mathsf{Sp})^{\operatorname{s}}\) is called the class of \dfn{\(1\)-anodyne} morphisms.
+\item[(ii)] The class of maps \(\mathsf{L}_1=(\{\partial^{0}\}\cup \mathsf{Sp})^{\operatorname{s}}\) is called the class of \dfn{\(1\)-left-anodyne} morphisms.
+\item[(iii)] The class of maps \(\mathsf{R}_1=(\{\partial^{1}\}\cup \mathsf{Sp})^{\operatorname{s}}\) is called the class of \dfn{\(1\)-right-anodyne} morphisms.
+\item[(iv)] The class of maps \(\mathsf{M}=\mathsf{L}_0 \cap \mathsf{R}_0\) is called the class of \dfn{mid-anodyne} morphisms.
+\end{enumerate}
+\end{defn}
+
+\begin{lemma} The class \(\mathsf{M}\) is precisely \(\mathsf{Sp}^{\operatorname{s}}\).
+\end{lemma}
+\begin{proof} 
+\end{proof}
+
+\subsection{Horns and anodynes}
+We will introduce special cellular horns which we can use to give explicit lifting conditions that generate the different classes of anodynes.
+
+\begin{defn}Given a cellular set \([t]=[n_t](t_1,\dots,t_{n_t})\) and \(0\leq i\leq n_t\), we define \([\vee_i(t)]\) to be the cellular set \[[n_t+1](t_1,\dots,t_i,D_\omega,t_{i+1},\dots,t_{n_t})\], which we call the \dfn{partition of \([t]\) at \(i\)}.  There is an obvious codegeneracy \([\vee_i(t)]\to [t]\), which admits two canonical sections \(\delta^{i}:[t]\hookrightarrow [\vee_i(t)]\) and \(\delta^{i+1}:[t]\hookrightarrow [\vee_i(t)]\) obtained by skipping either the vertex \(i\) or \(i+1\) respectively.  These are the faces \(d_i[\vee_i(t)]\) and \(d_{i+1}[\vee_i(t)]\) respectively.  
+
+We define \begin{align*}\CMcal{L}[\vee_i(t)]&=\Theta[\vee_i(t)] - d_i \Theta[t] \hookrightarrow \Theta[\vee_i(t)],\intertext{and} \CMcal{R}[\vee_i(t)]&=\Theta[\vee_i(t)] - d_{i+1} \Theta[\vee_i(t)] \hookrightarrow \Theta[t]\end{align*} to be the inclusion of the \dfn{left (resp. right) horn} of the partition of \([t]\) at \(i\). 
+
+We will refer to the set of all left (resp. right) horn inclusions relative to any partition as the set of \dfn{left (resp. right) horn inclusions}.    
+\end{defn}
+
+\begin{thm} A morphism has the right lifting property with respect to the left (resp. right) horn inclusions if and only if it has the right lifting property with respect to the class of all left (resp. right) anodyne maps.  
+\end{thm}
+\begin{proof} We will prove the lefthand case.  The righthand case follows by duality. 
+
+Using Berger's prism decomposition of the product of two representable cellular sets \cite{berger-cellular-nerve}, we can see that \(\Theta[t] \times \Delta_1[D_\omega]\) is the union of all of the partitions of \([t]=[n_t](t_1,\dots,t_n)\), where the intersection of two consecutive partitions is given by \[[\vee_i(t)]\cap [\vee_{i+1}[t]=d_{i+1}[\vee_i(t)]=d_{i+1}[\vee_{i+1}(t)].\]  
+
+For the \(\Rightarrow\) direction, working cell-by-cell, we may reduce to the cases where the monomorphism in the pushout product in question is a boundary inclusion \(\partial\Theta[t]\hookrightarrow \Theta[t]\).  
+
+We let \(X_{n_t+1}=\{0\}\times \Theta[t] \cup \Delta_1[D_\omega]\times \partial \Theta[t]\).  Then by descending induction, we suppose that \(X_{i+1}\) contains \(\CMcal{L}[\vee_i(t)]\).  Then we let \[X_i=X_{i+1}\coprod_{\CMcal{L}[\vee_i(t)]} \Theta[\vee_i(t)].\] We see that \(X_i\) contains contains \(d_i[\vee_{i-1}(t)]= d_i[\vee_{i}(t)]\), and therefore that it contains \(\CMcal{L}[\vee_{i-1}(t)]\), since \(X_{n_t+1}\) contains all faces of \([\vee_{i-1}(t)]\) with the exception of \(d_i[\vee_{i-1}(t)]\) and \(d_{i-1}[\vee_{i-1}(t)]\).  Therefore, proceeding downwards, we see that \(X_0=\Delta[1]\times \Theta[t]\), and that the map \(X_{n_t+1}\hookrightarrow X_0\) is constructed as a successive pushout of left horn inclusions.
+
+Conversely, it will suffice to exhibit a left horn inclusion \[\CMcal{L}[\vee_{i}(t)]\hookrightarrow \Theta[\vee_{i}(t)]\] as a retract of \[\{0\}\times \Theta[\vee_{i}(t)]\cup \Delta[1]\times \CMcal{L}[\vee_{i}(t)] \hookrightarrow \Delta[1]\times \Theta[\vee_{i}(t)].\]  
+
+We define maps \[\Theta[\vee_{i}(t)]\xrightarrow{f} \Delta[1]\times \Theta[\vee_{i}(t)] \xrightarrow{g} \Theta[\vee_{i}(t)]\] as follows:  The map \(f\) is simply the inclusion \[\Theta[\vee_{i}(t)]=\{1\}\times \Theta[\vee_{i}(t)]\hookrightarrow \Delta[1]\times \Theta[\vee_{i}(t)].\]
+
+We define \(g\) on vertices by letting 
+\[g(j,m)=
+\begin{cases}i &\text{for \(j=0\) and \(m=i+1\)}\\
+ m & \text{otherwise}.
+\end{cases}\]
+On the \(t_k\), this map is simply the identity for all \(k\).  We leave it to the reader to see that this indeed retracts the pushout product back onto the horn.
+\end{proof}
+
+\begin{lemma} Any right horn inclusion \(\CMcal{R}[\vee_{i}(t)]\hookrightarrow \Theta[\vee_i(t)]\) with \(i<n_t\) is left-anodyne.  Similarly, any left horn inclusion with \(i>0\) is right-anodyne.  
+\end{lemma}
+\begin{proof}We prove the case for right horns.  The righthand case follows by duality.  
+
+
+\end{proof}
+
+\begin{thm} A morphism has the right lifting property with respect to the mid-horn inclusions if and only if it has the right lifting property with respect to the class of all mid-anodyne maps.  
+\end{thm}
+\begin{proof}
+\end{proof}
