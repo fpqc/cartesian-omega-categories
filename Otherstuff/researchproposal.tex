@@ -1,0 +1,468 @@
+\documentclass[a4paper,9pt]{amsart}
+
+%\usepackage[notref,notcite]{showkeys}
+
+%Put numbers to the left of ``Theorem'', etc.
+\swapnumbers
+
+% AMS-LaTeX packages
+\usepackage{amssymb,amsfonts}
+\usepackage{commath}
+\usepackage{verbatim}
+\usepackage{mathrsfs}
+\usepackage{eucal}
+\usepackage[alphabetic]{amsrefs}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows}
+
+
+
+% a ``backwards'' colon
+\def\noloc{\;{:}\,}
+
+% defining equals
+\newcommand{\defeq}{\overset{\mathrm{def}}=}
+
+% to force a paragraph break at the start of theorems and proofs
+\newcommand{\forcepar}{\mbox{}\par}
+
+
+
+
+
+% Don't force the bottoms of the pages to be at the same spot:
+\raggedbottom
+
+% Allow worse line breaks while this work is in progress.
+\tolerance=3000
+% We'll get fewer ``underfull hbox'' messages with this set.
+\hbadness=4000
+% We'll get fewer ``overfull hbox'' messages with this set.
+\hfuzz=1pt
+\vfuzz=2pt
+
+
+% For temporary questions.  For example, \margnote{This is something
+% I'm confused about.} puts that message in the margin.
+
+
+
+
+% To get ``linear'' numbering of subsections and theorems.
+
+
+\theoremstyle{plain}   %% This is the default, anyway
+
+% Standard theorem types.
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{claim}[thm]{Claim}
+\newtheorem{conj}[thm]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}   
+\newtheorem{note}[thm]{Note}   
+\newtheorem{exam}[thm]{Example}
+\newtheorem{ques}[thm]{Question}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{exer}[thm]{Exercise}
+\newtheorem{warning}{Warning}
+\renewcommand{\therem}{}
+\newcommand{\wrgr}{\ensuremath{\int}}
+
+\theoremstyle{plain}
+
+
+%%% standard operators for mathematics
+
+
+
+% general categorical things
+\DeclareMathOperator{\id}{id}
+\newcommand{\Sp}{{\operatorname{Sp}}}
+\newcommand{\In}{{\operatorname{In}}}
+\newcommand{\coSp}{{\operatorname{coSp}}}
+\newcommand{\Sc}{{\operatorname{Sc}}}
+\newcommand{\Sd}{{\operatorname{Sd}}}
+\newcommand{\Loc}{{\operatorname{Loc}}}
+\DeclareMathOperator{\Pb}{Pb}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator*{\coliml}{colim}
+\DeclareMathOperator{\Cok}{Cok}
+\DeclareMathOperator{\cok}{cok}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\El}{El}
+\DeclareMathOperator{\Cat}{\mathbf{Cat}}
+\newcommand{\op}{{\operatorname{op}}}
+\newcommand{\ob}{{\operatorname{ob}}}
+\newcommand{\Aut}{{\operatorname{Aut}}}
+\newcommand{\End}{{\operatorname{End}}}
+\newcommand{\Hom}{{\operatorname{Hom}}}
+\newcommand{\Thetap}{\ensuremath{\Theta_{\operatorname{pcat}}}}
+\newcommand{\bound}[1]{\ensuremath{{\partial\Theta[#1]}}}
+\newcommand{\cellset}{\ensuremath{\widehat{\Theta}}}
+\newcommand{\sintcell}{\ensuremath{\widehat{\Delta\wr\Theta}}}
+\newcommand{\btensor}{\overline{\Box}}
+
+
+% shortcuts for arrows
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\xra}{\xrightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lla}{\longleftarrow}
+\newcommand{\xla}{\xleftarrow}
+
+% category theory
+\newcommand{\cat}[1]{{\operatorname{\mathbf{#1}}}}
+\newcommand{\overcat}[2]{{(#1\downarrow #2)}}
+\newcommand{\bltri}{\blacktriangleleft}
+
+
+% bifunctors
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Mod}{Mod}
+
+% homotopy theory
+\DeclareMathOperator{\ho}{Ho}
+\DeclareMathOperator{\HMap}{H}
+\DeclareMathOperator{\hocolim}{hocolim}
+\DeclareMathOperator{\holim}{holim}
+\DeclareMathOperator*{\hocoliml}{hocolim}
+\DeclareMathOperator*{\holiml}{holim}
+
+% macros for standard mathematical notations
+\newcommand{\realiz}[1]{\ensuremath{\left\lvert#1\right\rvert}}
+\newcommand{\len}[1]{\ensuremath{\lvert#1\rvert}}
+\newcommand{\psh}[1]{\ensuremath{\widehat{#1}}}
+\newcommand{\tensor}[1]{\ensuremath{\underset{#1}{\otimes}}}
+\newcommand{\pullback}[1]{\ensuremath{\underset{#1}{\times}}}
+\newcommand{\union}[1]{\ensuremath{\underset{#1}{\cup}}}
+\newcommand{\fsum}[1]{\ensuremath{\underset{#1}+}}
+\newcommand{\fdiff}[1]{\ensuremath{\underset{#1}-}}
+\newcommand{\powser}[1]{\ensuremath{[\![#1]\!]}}
+\newcommand{\ndiv}{\ensuremath{\not|}}
+\newcommand{\pairing}[2]{\ensuremath{\langle#1,#2\rangle}}
+
+% some standard rings and fields
+\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\C}{\ensuremath{\mathcal{C}}}
+\newcommand{\D}{\ensuremath{\mathcal{D}}}
+\newcommand{\G}{\ensuremath{\mathbb{G}}}
+\newcommand{\W}{\ensuremath{\mathsf{W}}}
+\newcommand{\sW}{\ensuremath{\mathcal{W}}}
+
+% topology
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\map}{map}
+\DeclareMathOperator{\heit}{ht}
+\newcommand{\eev}{\wedge}
+\newcommand{\sm}{\wedge} % smash product
+
+% for defined words
+\newcommand{\dfn}{\textbf}
+
+
+
+%%%
+\begin{document}
+\title{Thesis proposal}
+\author[H. Gindi]{Harry Gindi}
+\author[D.-C. Cisinski]{Denis-Charles Cisinski}
+\date{\today}
+
+%%% the title
+\maketitle
+
+\section{Background}
+
+\subsection{Grothendieck's program}
+After his retirement from IH\'ES, Grothendieck spent a lot of time thinking about the work Quillen, specifically the dramatic resolution of the theory of cotangent cohomology by Quillen (and in a less direct way, the somewhat more ad-hoc theory of Andr\'e).  We feel that this incident was a major influence on Grothendieck's way of thinking during this period of time. Just weeks before Grothendieck was set to publish his monograph \emph{Cat\'egories cofibr\'ees additives et complexe cotangent relatif} constructing the \(2\)-truncated relative cotangent complex, Grothendieck received word that Quillen had constructed a complex that gave the right cohomology in all degrees using the homotopical methods he had developed.  Grothendieck mentioned this in the introduction to the book, and he expressed some disappointment that by the time the book was printed, it would already be obsolete.  
+
+However, the theory described in that book is interesting for a special reason: All of the simplicial machinery we might expect to appear is absent, where it is replaced by \(2\)-categorical machinery of a very different flavor.  Indeed, if we think of a simplicial module on a commutative ring as an additive functor from the additive category representing that ring to the category of abelian groups, then shouldn't a \(2\)-categorical module be exactly what Grothendieck guessed it was? That is, shouldn't it be a pseudo-functor from the ring into the category of ``abelian-group categories''?  Using the Grothendieck construction, we obtain Grothendieck's notion of a cofibered additive category.  
+
+It seems reasonable to assume that Grothendieck worked out what a \(3\)-truncated cotangent complex might look like if it were built categorically, but even if he did not, the comparison is already striking.  Not having been there, we nonetheless have no doubt that it was this that set Grothendieck on the path he takes at the beginning of \emph{\`A la poursuite des champs}, which is, fittingly, a letter to Dan Quillen himself.  
+
+In that letter, and in the period following its composition, Grothendieck sketched out a theory in which \(\infty\)-groupoids are modeled by homotopy types.  Indeed, the original statement of the famous homotopy hypothesis gives the condition that in any theory of weak \(\omega\)-groupoids, the category of weak \(\omega\)-groupoids considered up to the relation of equivalence should be itself equivalent to the homotopy category of spaces up to weak homotopy equivalence. 
+
+However, \emph{\`A la poursuite des champs} was never intended to be a book for publication.  It is composed mainly of letters and research logs by Grothendieck, and it was only made available through private circulation, which was obviously quite low in those days, considering both how specialized the material is and its form as sheets of photocopied and mimeographed material.  We're not really certain on the history in the last decade of the last century, but it appears to be the case that the Australian and French schools of category theorists (Street, Power, Batanin, Penon, B\'enabou, among a host of others) had roughly worked out the combinatorics of strict higher-categorical pasting and coherence theorems for higher categories in low dimension.  In developing weak higher categories, this work culminated in large part with Batanin's theory of globular operads.  The algebras of a free globular operad with a contraction form the category of higher categories, and for this category, Batanin conjectured that the \(\omega\)-groupoids (\(\omega\)-categories with all cells invertible) considered up to weak homotopy equivalence (where a weak homotopy equivalence is a map inducing isomorphisms on all homotopy groupoids) form a category equivalent to the category of homotopy types.  
+
+This major generalization of the homotopy hypothesis is one of the goals of those of us who are currently working on Grothendieck's program.  There is work going in two directions: From one side, there are efforts to make the algebraic side of the proposed equivalence as combinatorial/homotopical as possible, and similarly, there are efforts from the homotopical side to get the theory to behave as algebraically as possible.  The work by Dimitri Ara and Georges Maltsiniotis has advanced the algebraic side dramatically toward the hypothesis, by proving that Batanin's theory is equivalent to the one given by Maltsiniotis based on incomplete notes by Grothendieck, which has weak \(\omega\)-categories as combinatorial objects as certain presheaves on a category satisfying a particular property.  On the homotopical side, we have worked out the basics of a theory of homotopy-coherent models for strict \(\omega\)-categories.  The form of the conjecture that we find compelling is that our homotopy-coherent models for strict \(\omega\)-categories can be realized as strict algebras for homotopy-coherent globular operads and vice-versa up to equivalence.  This has the interesting corollary that we should expect a single homotopical theory of weak \(\omega\)-categories and an infinite family of equivalent algebraic models.  
+
+\subsection{Homotopical and combinatorial models for higher categories}
+Based on the earlier work of Boardman and Vogt, Joyal introduced the theory of quasicategories as a way of dealing with constructions in homotopy theory that were modeled by homotopy-coherent diagrams.  Jacob Lurie then extended much of ordinary category theory to these quasicategories, which he and others have envisioned as a theory of \((\infty,1)\)-categories. However, as the theory of \((\infty,1)\)-categories became more and more well-understood, it became clear that it was perhaps less interesting than had been previously suspected. One major problem with the theory is that much of the richness we would expect in a theory of higher categories was simply not present. Limits and colimits are defined using cocones and cones.  Arrows that are equivalences are parameterized by maps out of the nerve of a freestanding isomorphism.  We have no notions of laxness, and we even have the property that every weighted limit or colimit can be obtained as the conical limit of an easily modified diagram.   
+
+Moreover, since the notion of an \((\infty,2)\)-category is not a priori defined, we can't perform (homotopy coherent) 2-categorical operations on the category of \((\infty,1)\)-categories, which forces us to take the ``local'' view  of important things like Kan extensions, adjunctions, representability, and things that are generally understood using strict \(2\)-categories.  Interesting and important higher-categorical algebraic structures like monads, operads, monoidal products, braiding, symmetry, etc. are shoehorned into what amounts to a ``thickened'' theory of \(1\)-categories, and these kinds of maneuvers make much of the theory unwieldy. 
+
+We give an example of this: To define the Grothendieck correspondence for diagrams of spaces indexed by an \((\infty,1)\)-category, Lurie first obtains a rather large family of simplicial Quillen adjunctions \[\operatorname{St}_\phi:(\psh{\Delta}\downarrow X)_{\operatorname{Dex}} \rightleftarrows  (\psh{\Delta}^{\mathcal{X}})_{\operatorname{Proj}}\] indexed by triples \((X, \phi, \mathcal{X})\) consisting of a simplicial set \(X\), a simplicially enriched category \(\mathcal{X}\), and a map \(\phi:\mathfrak{C}[X]\to \mathcal{X}\).  Lurie shows in \cite{htt} that when this map is a weak equivalence of simplicially enriched categories, the image of the simplicially enriched subjecategory of \((\psh{\Delta}^{\mathcal{X}})_{\operatorname{Proj}}\) spanned by the cofibrant-fibrant objects under the right adjoint \((\operatorname{St}_\phi,\operatorname{Un}_\phi)\) is weakly equivalent as a simplicially enriched category to the simplicially-enriched subcategory of  \((\psh{\Delta}\downarrow X)_{\operatorname{Dex}} \) spanned by its fibrant objects.  Then by a theorem regarding simplicial model categories, this implies that the Quillen adjunction is a Quillen equivalence.  
+
+However, from the point of view of a theory of \((\infty,2)\)-categories, we never really need to leave to an external theory in order to formulate the \((\infty,1)\)-categorical Grothendieck construction.  In fact, we have a number of different ways that we can do it.  One way to do it is to find a fibrant object that models the  \((\infty,1)\)-category of spaces and then either define the Grothendieck construction by means of an oplax colimit or by means of the pullback of the generalized universal fibration, which can easily be defined using an (op)lax version of the join construction. However, this leaves us with the problem of how to deal with higher and higher dimensional versions of \((\infty, n)\)-categories to be able to easily perform \(n+1\)-dimensional operations on \((\infty,n)\)-categories.  We should think about the Grothendieck construction as encoding \(n+1\)-dimensional data as \(n\)-dimensional data.  
+
+
+
+
+
+
+
+\section{Motivation}
+In \cite{gindipaper}, building on a conjecture of Cisinski and Joyal, we introduced a model category of \((\infty,\infty)\)-categories, that is to say, a homotopical theory of weak \(\omega\)-categories.  However, unlike the theory of \((\infty,1)\)-categories as introduced by Joyal, we were forced to rely on a presentation that is rather difficult to work with.  Moreover, we were unable to find an equivalent presentation where every anodyne can be obtained as a relative cell complex with respect to the class of lower-righthand-corner maps obtained from the pushout-product of a unique primitive anodyne with an injection.  First, we note that we have proven that the correct class cannot be obtained using the cartesian product.  We have found a counterexample to a related claim by Berger in \cite{berger-cellular-nerve}, and it was this counterexample that really sparked our interest in the subject.
+
+The specific mistake in \emph{loc. cit.} that gave us a really massive amount of insight into the problem occurs in the argument that the category of cellular sets admits a model structure that is equivalent to the model structure on simplicial sets.  This theorem was actually proved several years later by Cisinski and Maltsiniotis by completely different methods.  The argument proceeds by first stating how the situation obviously satisfies all but one condition for the model structure to exist, and Berger attempts to prove that the cylinder functor given by taking the cartesian product with \(\Delta[1]\) satisfies the property that every representable object is contractible with respect to the cylinder.  He gives a complicated argument and leaves the rest to the reader.  Being the diligent mathematicians that we are, we attempted to finish the proof.  After struggling with the proof for a few days, we realized that it was not a proof at all and quickly designed a counterexample, which we will state here: The globular \(2\)-disk \(D^2\) does not have a contraction homotopy.  This can be seen quite easily as soon as we realize that the product \(\Delta[1]\otimes D^2\) decomposes into two parts connected along the diagonal circle along the cylinder.  However, since they are attached along a \(2\)-disk, and the necessary contraction homotopy would be given by a map \(\Delta[1]\times D^2\to D^2\).  This, however, is a map of strict \(\omega\)-categories (in fact, strict \(2\)-categories), and we see that any map that collapses either the top or the bottom of the cylinder must also collapse the diagonal disk, and therefore neither disk can map in via the identity.  
+
+\subsection{Applications to computer science and logic}
+Higher categories play an important role in intensional type theory, and indeed, much of the work showing that cartesian-closed \((\infty,1)\)-categories give the semantics for those intensional dependent type theories satisfying Voevodsky's univalence axiom and should therefore be of immediate interest to computer scientists.  Theories of weak \(\omega\)-categories are unique in that they model theories where every property of every cell is witnessed by explicit cells in higher dimensions, without making assumptions on the reversibility of processes.  Indeed, the very notion of reversibility in a weak \(\omega\)-category is defined in a corecursive manner. Philippe Gaucher has published a number of papers using strict \(\omega\)-categories as models for concurrency, and the local po-spaces of Fajstrup, Goubault, and Raussen are distinctly \(\omega\)-categorical, where the local closed orderings on the spaces play the role of the direction of time but also give a clear \(\omega\)-categorical structure, and it can be seen that they are working with rough approximations of geometric realizations of weak \(\omega\)-categories together with ordering data to maintain the directions of their arrows.  
+
+In rewriting theory, polygraphs have been shown to give the solution to some higher-dimensional rewriting problems, and the associated notion of a polygraph for weak \(\omega\)-categories is expected to be the solution for rewriting problems of a far more general nature, where things like identity and associativity constraints actually become terms of the rewriting problem.  While we are not experts on such rewriting problems, we can clearly see the role that they play in computer science and logic. 
+
+That so many ad-hoc notions approximating a theory of weak \(\omega\)-categories have appeared in computer science and in logic is very strong evidence that the theory ought to be developed further, since there is clearly work already being done that requires it.  
+
+
+\section{Current aims}
+\subsection{The lax tensor product and cellular homotopy}
+After our discovery of the unfortunate mistake, we tried tons of ways to obtain some level of control on the higher-dimensional homotopies without giving up the cartesian product.  Ultimately, these efforts all failed, and we were forced to try something new.  We had begun sketching out what the product should look like in several simple low-dimensional cases.  After a while trying to figure out the combinatorics of the hypothetical tensor product, we did a bit of research and found a copy of Sjoerd Crans's thesis, which describes a biclosed monoidal product on the category of strict \(\omega\)-categories.  This was exactly what we were after, but the whole framework of pasting theory that Crans used was extremely complicated.  However, after another few months had passed, we finally came upon the papers of Steiner, who had apparently developed a very elegant pasting theory based on finite-dimensional chain complexes of free \(\mathbf{Z}\)-modules \cite{steiner-2004}.   With a firm grasp on what the tensor product was, we set to work trying to prove a number of claims, some of which we later found counterexamples for.  We state our conjectures on the two remaining critical open questions regarding the tensor product:  
+\begin{conj} Let \(\otimes\) denote the lax tensor product of cellular sets obtained by extending the lax tensor product of strict \(\omega\)-categories using the Day convolution.  Then the model structure on \(\cellset\) generated by the set of all spine inclusions \(\Sp[t] \hookrightarrow \Theta[t]\) for \([t]\in \Theta\) can also be generated by the set of all maps \[\partial[t] \otimes \Delta[2] \cup_{\partial[t] \otimes \Lambda^1[2]} \Theta[t] \otimes \Lambda^1[2] \hookrightarrow \Theta[t] \otimes \Delta[2],\] for \([t]\in \Theta\).
+Morever, the test model structure on \(\cellset\) can be generated by the set of all maps  \[\partial[t] \otimes \Delta[1] \cup_{\partial[t] \otimes \Lambda^\varepsilon[1]} \Theta[t] \otimes \Lambda^\varepsilon[1] \hookrightarrow \Theta[t] \otimes \Delta[1],\] with \([t]\in \Theta\) and \(\varepsilon \in \{0,1\}\).  
+\end{conj}
+
+We learned more recently that Oury \cite{ourythesis} formulated a recursive definition of an inner horn of an object \([t]\) of \(\Theta\) using corner tensors. This leads us to our next conjecture: 
+\begin{conj}  The Oury inner horn inclusions for objects \([t]\) of \(\Theta\) generate the same model structure as the spine inclusions. 
+\end{conj} 
+
+These conjectures together would give a very flexible description of the model category of weak \(\omega\)-categories.  
+
+\section{The shadow model structure: Real life or fantasy?}
+
+There are a number of observations that we have made that suggest that there is another model structure on cellular sets with the same weak equivalences (and therefore representing the same \((\infty,1)\)-category), but with a smaller class of cofibrations and a larger class of fibrations.  When we we were figuring out how to repair the original Cisinski-Joyal model structure, Cisinski himself suggested a scheme where the cofibrations were generated by the anodynes and the globular boundary inclusions, which would give a model in which all strict \(\omega\)-categories were fibrant, but like in the case of strict \(\omega\)-categories, we would have to take cofibrant replacements of the objects which were not cofibrant in this new sense, and therefore would suggest that it followed the usual pseudo-functors-as-anafunctors paradigm that we see in the strict and weak-algebraic versions.  It would be this model structure for which the \(\Theta\)-nerve is a Quillen embedding.  
+
+The fact that the strict and weak-algebraic versions both share this property means that the shadow model structure, whether or not it exists as an actual model structure, should play an important role in any sort of realization of the generalized homotopy hypothesis giving an equivalence of homotopy theories between the algebraic theories of weak \(\omega\)-categories and our homotopical one.  
+\section{The realization of $\psh{\Theta}_{\omega}$ as an \(\omega\)-category}
+
+One of the most aesthetically pleasing properties of a theory of weak \(\omega\)-categories is the sheer finality of it.  We can finally treat the category of weak \(\omega\)-categories as a weak \(\omega\)-category itself.  There are no surprises arising from further layers of complexity like we have in the case of \(\cat{Cat}\), where understanding the category of categories really means understanding a particular \(2\)-category, as well as notions of \(2\)-categorical universal constructions, since this is the structure that \(\Cat\) is canonically equipped with.  
+
+We have a pretty simple idea of how to ``canonically equip'' our cellularly-enriched categories with the structures of weak \(\omega\)-categories. 
+
+Let  \(\iota\) be the obvious embedding of \(\Theta\) in \(\Cat_\Theta\) obtained from the embedding of \(\Theta\) in the category of \(\omega\)-categories and the hom-wise \(\Theta\)-nerve functor. The really striking thing about this case is that the category of categories enriched in cellular sets is actually a subcategory of the category of all cellular sets.  Unlike in the lower-dimensional cases, we can still easily hit the highest-height cells with representables,  so we don't really need to resort to desingularization tricks in order to at least extract data from the enriched objects.  Unfortunately, the extension of \(\iota\) to all of \(\cellset\) is rather badly behaved and fails to preserve cofibrations.  Unfortunately there is not yet much else we can say with that particular model.
+
+However, we do have a chance of finding something interesting if we try to use something like Rezk's classifying-diagram functor.  The idea is to keep track of homotopy-equivalences in the cellular categories such that the whole enriched homotopy category can be reconstructed.  We propose a formula for this functor:
+
+ If \(\mathcal{C}\) is a cellularly-enriched category, we define its simplicial-cellular nerve: \[\mathfrak{N}_{\Delta\Theta}(\mathcal{C})_{[i][t]}=\Hom(P[i] \times \iota[t], \mathcal{C}), \] where \(P:\Delta\to \omega\cat{-Cat}\) is some functor sending an \(n\)-simplex to a coinductively weakly-contractible strict \(\omega\)-category with \(n+1\) objects.  That such a functor exists is neither surprising nor difficult to prove, so we will defer typing it up for now.  The point is that by inspection, a map from \(P([n])\) to a cellularly enriched category must land in the subcategory consisting of homotopy equivalences.  Moreover, we can see that when the cellular category is fibrant, the resulting cellular space is Segal, since it clearly admits lifts with respect to all spine inclusions.  
+
+\begin{rem}  There are several variations of this functor that we might choose, where the version above is the simplest.  First, we may wish to It may be the case that the classifying diagram  should be formed with the lax or oplax tensor product or even some as-yet undiscovered  homotopical model for the pseudo-tensor-product.  Since pseudonatural and lax-natural equivalences ought to all model  the same idea, it suggests to us that the lax or pseudo versions of the classifying diagram should give Segal objects as output for more than just the fibrant objects.  
+\end{rem}
+
+If we recall Rezk's definition of the \(\operatorname{h}\cellset_\Delta\)-enriched homotopy category of a Segal space, we see that the function objects between points \(x\) and \(y\) in a cellular space \(X\) are cellular spaces obtained by pulling back the natural map of cellular spaces \(X[1]\to X[0]^2\) over a point classifying those two vertices.  Then if \([t]\) belongs to \(\Theta\), the evaluation of the mapping space \(\Map_{\mathfrak{N}_{\Delta\Theta}(\mathcal{C})}(x,y)\) of the simplicial-cellular nerve of a cellular category \(\mathcal{C}\) at the object \([t]\) gives the space whose vertices are maps \(\iota(D_1[t]) \to \mathcal{C}\) where the vertices map to \((x,y)\) and whose simplices give composable sequences of natural homotopy-equivalences between them. Passing to the homotopy category, we see that all of the the points of the mapping objects correspond to components connected by \(P\) homotopy-equivalence.  
+
+The homotopy-category construction given directly for the enriched category has mapping objects given by cellular sets up to \(\omega\)-categorical homtopy equivalence.  The way that these two homotopy categories are related to one another arises from one of the Quillen adjunctions between the category of cellular sets modeling weak \(\omega\)-categories and its simplicial completion, which happens to be exactly the model category of coinductively-complete Segal spaces.  Applying one of the appropriate functors relating to the simplicial completion, we find that the two homotopy categories are naturally equivalent.  
+
+While this approach to the problem of exhibiting the structure of a weak \(\omega\)-category on \(\omega\)-Cat may not be nearly as powerful as something like Lurie's proof of straigthening and unstraightening, we think that giving a quick and dirty construction might give us a way to talk about things like adjunctions and fibrations from directly within the theory itself.  
+
+For instance, in analogy with the theory of \(1\)-fibrations, we might be able to give an explicit construction of a universal fibration above the weak \(\omega\)-category of weak \(\omega\)-categories.  The total space of the universal fibration over \(\Cat\) is given by the category of lax-pointed categories, whose objects are pointed categories \((A,a)\), and whose morphisms are given by pairs \((F,f)\), where \(F:A\to B\) is a functor and \(f:F(a)\to b\) is a morphism of \(B\).  It happens to be the case that this category can be constructed using the adjoint of the lax join described by Steiner.  Because Steiner's operations can be extended from the category of strongly loop-free unital augmented directed complexes to the category of cellular sets using the Day convolution, we have a nice combinatorial way to deal with lax ideas.   Our hope is that a similar idea should work for weak \(\omega\)-categories, but we haven't yet tried to prove it.
+
+\section{Target: The homotopy hypothesis for Batanin weak \(\omega\)-categories}
+Since Ara and Maltsiniotis have constructed for each globular operad a \(\mathbb{G}\)-extension (a functor from the globe category \(\mathbb{G}\to X\) to a category \(X\) containing all globular sums from \(\mathbb{G}\) (which can be visualized as well-formed pasting diagrams of globes)) whose category of globular presheaves (presheaves sending pushouts to pullbacks) is naturally equivalent to the category of algebras over the original globular operad, and since under appropriate conditions on the globular operad (equivalent to asking that the associated \(\mathbb{G}\) is a cofibrant replacement of \(\Theta\), in the sense of Ara), the associated category of algebras is thought to be weakly equivalent (under some notion of weak equivalence) to the category of algebras for any other globular operad meeting those conditions.  
+
+Our model for weak \(\omega\)-categories instead looks at homotopy-algebras over just \(\Theta\), which corresponds to the terminal globular operad (globular presheaves on \(\Theta\) are exactly strict \(\omega\)-categories). Our aim is to prove that every globular operad satisfying the Batanin contractibility condition has a category of algebras that is in some way weakly equivalent to the category of homotopy-algebras over \(\Theta\).  Put in more familiar terms, we would like to show that the algebras for any resolution of the terminal operad are equivalent to the homotopy-algebras on the operad itself.
+
+This would establish the homotopy hypothesis \emph{a fortiori} for the Batanin-Grothendieck theories of higher categories.  The main difficulty in obtaining such a result comes from finding the appropriate model structure on \(\Theta\)-presheaves, which is equivalent to the choice of cylinder object as mentioned before.  There is already a well-defined notion of weak equivalence between algebras for globular operads, which uses a more elaborate version of the theory of polygraphs (or can be stated in terms of a cofibrant replacement comonad that comes equipped naturally on the category of algebras of a globular operad. Richard Garner has demonstrated that this technique canonically produces the correct notion of morphism for bicategories and tricategories (the definitions relating to tricategories appearing in Gordon, Power, and Street make use of lower-dimensional coherence theorems and therefore the definitions, while equivalent, are not very canonical-looking), and states it in the case of general globular operad modeling weak \(\omega\)-categories.). 
+
+\newpage
+%%% bibliography
+\begin{bibdiv}
+\begin{biblist}
+%\bibselect{bibdatabase}
+
+\bib{ara-thesis}{thesis}{
+	author={Ara, D.},
+	title={Sur les \(\infty\)-groupo\"{i}des de Grothendieck},
+	organization={Universit\'{e} Paris Did\'{e}rot (Paris 7)},
+	date={2010}
+	}
+\bib{ara-new}{article}{
+  author={Ara, D.},
+  title={Higher quasi-categories vs higher Rezk spaces},
+	eprint={arXiv:1206.4354 [math.AT]}
+}
+
+\bib{berger-cellular-nerve}{article}{
+  author={Berger, C.},
+  title={A cellular nerve for higher categories},
+  journal={Adv. Math.},
+  volume={169},
+  date={2002},
+  number={1},
+  pages={118--175},
+  issn={0001-8708},
+  review={\MR {1916373 (2003g:18007)}},
+}
+
+\bib{berger-iterated-wreath}{article}{
+  author={Berger, C.},
+  title={Iterated wreath product of the simplex category and iterated loop spaces},
+  journal={Adv. Math.},
+  volume={213},
+  date={2007},
+  number={1},
+  pages={230--270},
+  issn={0001-8708},
+  review={\MR {2331244 (2008f:55010)}},
+}
+
+\bib{cisinski-book}{book}{
+author={Cisinski, D.-C.},
+title={Les pr\'efaisceaux comme mod\`eles des types d'homotopie},
+publisher={Soc. Math. France},
+date={2006},
+series={Ast\'erisque},
+volume={308},
+}
+
+\bib{cisinski-decalage}{article}{
+	author={Cisinski, D.-C.},
+	author={Maltsiniotis, G.},
+	title={La cat\'egorie \(\Theta\) de Joyal est une cat\'egorie test},
+	journal={J. Pure Appl. Algebra},
+	date={2011},
+	volume={215},
+	pages={962--982},
+}
+
+\bib{gindipaper}{article}{
+  author={Gindi, H.},
+  title={A homotopy theory of weak \(\omega\)-categories},
+  date={2012},
+  status={preprint},
+}
+
+
+\bib{joyal-theta-note}{article}{
+  author={Joyal, A.},
+  title={Disks, duality, and \(\Theta\)-categories},
+  date={1997-09},
+  status={preprint},
+}
+
+\bib{joyal-quategory}{article}{
+  author={Joyal, A.},
+  title={The theory of quasi-categories and its applications},
+  conference={ title={Advanced Course on Simplicial Methods in Higher Categories}, 
+	address={Bellaterra, Spain},
+	book={ 
+	title={Course notes for the Advanced Course on Simplicial Methods in Higher Categories}, 
+	address={Bellaterra, Spain}, 
+	organization={Centre de Recerca Matem�tica}, 
+	},
+	note={Available online},},
+  date={2008},
+  pages={150--496},
+	}
+	
+\bib{htt}{book}{
+	author={Lurie, J.},
+	title={Higher Topos Theory},
+	publisher={Princeton University Press},
+	date={2006},
+	series={Annals of Mathematics Studies},
+	volume={170},
+	}
+	
+\bib{lmw}{article}{
+	author={Lafont, Y.},
+	author={M\'etayer, F.},
+	author={Worytkiewicz, K.},
+	title={A folk model structure on omega-cat},
+	journal={Adv. Math.},
+	date={2007},
+	volume={224},
+}
+
+\bib{maltsiniotishomotopy}{book}{
+author={Maltsiniotis, G.},
+title={La th\'eorie de l'homotopie de Grothendieck},
+publisher={Soc. Math. France},
+date={2005},
+series={Ast\'erisque},
+volume={301},
+}
+
+\bib{ourythesis}{book}{
+author={Oury, D.},
+title={Duality for Joyal's category \(\Theta\) and homotopy concepts for \(\Theta_2\)-sets},
+date={2010},
+}
+
+
+\bib{rezk-segal-spaces}{article}{
+  author={Rezk, C.},
+  title={A model for the homotopy theory of homotopy theory},
+  journal={Trans. Amer. Math. Soc.},
+  volume={353},
+  date={2001},
+}
+
+\bib{rezk-theta-n-spaces}{article}{
+  author={Rezk, C.},
+  title={A Cartesian presentation of weak \(n\)-categories},
+  journal={Geom. Topol.},
+  volume={14},
+  date={2010},
+  number={1},
+  pages={521--571},
+  issn={1465-3060},
+  review={\MR {2578310}},
+  doi={10.2140/gt.2010.14.521},
+}
+
+\bib{rezk-theta-n-spaces-correction}{article}{
+  author={Rezk, C.},
+  title={Correction to "A Cartesian presentation of weak \(n\)-categories"},
+  journal={Geom. Topol.},
+  volume={14},
+  date={2010},
+  number={1},
+  pages={2301-2304},
+  doi={10.2140/gt.2010.14.2301},
+}
+
+\bib{street}{article}{
+	author={Street, R.},
+	title={The petit topos of globular sets},
+	journal={J. Pure Appl. Algebra},
+	date={2000},
+	volume={154},
+	pages={299--315},
+	}
+	
+\bib{steiner-2004}{article}{
+author={Steiner, R.},
+title={Omega-categories and chain complexes}, 
+journal={Homology, Homotopy, Appl},
+volume={6},
+date={2004}, 
+number={1},
+pages={175-200},
+}
+
+\bib{steiner-2007}{article}{
+author={Steiner, R.},
+title={Simple omega-categories and chain complexes}, 
+journal={Homology, Homotopy, Appl},
+volume={9},
+date={2007}, 
+number={1},
+pages={175-200},
+}
+
+
+\end{biblist}
+\end{bibdiv}
+\end{document}
+

@@ -1,0 +1,517 @@
+\documentclass[10pt]{amsart}
+
+%\usepackage[notref,notcite]{showkeys}
+
+%Put numbers to the left of ``Theorem'', etc.
+\swapnumbers
+
+% AMS-LaTeX packages
+\usepackage{amssymb,amsfonts}
+\usepackage{verbatim}
+\usepackage{mathrsfs}
+\usepackage{eucal}
+\usepackage[alphabetic]{amsrefs}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows}
+
+
+% Compile diagrams into seperate files.  (This is usually not worthwhile.)
+%\CompileMatrices
+
+\title[Lax tensor cylinders]{Notes on Batanin cells and the lax Gray tensor product}
+\author[H. Gindi]{Harry Gindi}
+\address{Department of Mathematics \\ University of Michigan \\ Ann Arbor, MI 48109}
+\email{harry.gindi@gmail.com}
+\date{\today}
+\subjclass{ 18A30, 18B40, 18C10, 18C30, 18C35, 18D05,
+18D50, 18E35, 18G50, 18G55, 55P10, 55P15, 55Q05, 55U35, 55U40}
+\keywords{lax tensor, weak $\omega$-category, prism decomposition, pasting theory}
+
+
+% For temporary questions.  For example, \margnote{This is something
+% I'm confused about.} puts that message in the margin.
+\newcommand{\margnote}[1]{\mbox{}\marginpar{\tiny\hspace{0pt}#1}}
+
+
+
+% To get ``linear'' numbering of subsections and theorems.
+\numberwithin{equation}{section}
+
+% why does this work?
+\makeatletter
+  \let\c@subsection\c@equation
+\makeatother
+
+\theoremstyle{plain}   %% This is the default, anyway
+
+% Standard theorem types.
+\newtheorem{thm}[subsection]{Theorem}
+\newtheorem{prop}[subsection]{Proposition}
+\newtheorem{cor}[subsection]{Corollary}
+\newtheorem{lemma}[subsection]{Lemma}
+\newtheorem{claim}[subsection]{Claim}
+\newtheorem{conjecture}[subsection]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem{rem}[subsection]{Remark}    
+\newtheorem{note}[subsection]{Note}   
+\newtheorem{example}[subsection]{Example}
+\newtheorem{ques}[subsection]{Question}
+\newtheorem{defn}[subsection]{Definition}
+\newtheorem{exer}[subsection]{Exercise}
+\newtheorem{warning}[subsection]{Warning}
+\renewcommand{\therem}{}
+\renewcommand{\int}{\ensuremath{\wr}}
+
+\theoremstyle{plain}
+
+
+%%% standard operators for mathematics
+
+% general categorical things
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Sc}{Sc}
+\DeclareMathOperator{\Sd}{Sd}
+\DeclareMathOperator{\Pb}{Pb}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator*{\coliml}{colim}
+\DeclareMathOperator{\Cok}{Cok}
+\DeclareMathOperator{\cok}{cok}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\El}{El}
+\DeclareMathOperator{\Cat}{\mathbf{Cat}}
+\newcommand{\op}{{\operatorname{op}}}
+\newcommand{\ob}{{\operatorname{ob}}}
+\newcommand{\Aut}{{\operatorname{Aut}}}
+\newcommand{\End}{{\operatorname{End}}}
+\newcommand{\Hom}{{\operatorname{Hom}}}
+\newcommand{\Thetap}{\ensuremath{\Theta_{\operatorname{pcat}}}}
+\newcommand{\slt}{\ensuremath{<_{\mathbf{N}}}}
+\newcommand{\sleq}{\ensuremath{\leq_{\mathbf{N}}}}
+\newcommand{\bound}[1]{\ensuremath{{\partial\Theta[#1]}}}
+\newcommand{\cellset}{\ensuremath{\widehat{\Theta}}}
+\newcommand{\sintcell}{\ensuremath{\widehat{\Delta\int\Theta}}}
+
+% shortcuts for arrows
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\xra}{\xrightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lla}{\longleftarrow}
+\newcommand{\xla}{\xleftarrow}
+
+% category theory
+\newcommand{\cat}[1]{{\operatorname{\mathbf{#1}}}}
+\newcommand{\overcat}[2]{{(#1\downarrow #2)}}
+\newcommand{\bltri}{\blacktriangleleft}
+
+
+% bifunctors
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Mod}{Mod}
+
+% homotopy theory
+\DeclareMathOperator{\ho}{Ho}
+\DeclareMathOperator{\hocolim}{hocolim}
+\DeclareMathOperator{\holim}{holim}
+\DeclareMathOperator*{\hocoliml}{hocolim}
+\DeclareMathOperator*{\holiml}{holim}
+
+% macros for standard mathematical notations
+\newcommand{\realiz}[1]{\ensuremath{\left\lvert#1\right\rvert}}
+\newcommand{\len}[1]{\ensuremath{\lvert#1\rvert}}
+\newcommand{\psh}[1]{\ensuremath{\widehat{#1}}}
+\newcommand{\set}[2]{\ensuremath{{\{\,#1\mid#2\,\}}}}
+\newcommand{\tensor}[1]{\ensuremath{\underset{#1}{\otimes}}}
+\newcommand{\pullback}[1]{\ensuremath{\underset{#1}{\times}}}
+\newcommand{\union}[1]{\ensuremath{\underset{#1}{\cup}}}
+\newcommand{\fsum}[1]{\ensuremath{\underset{#1}+}}
+\newcommand{\fdiff}[1]{\ensuremath{\underset{#1}-}}
+\newcommand{\powser}[1]{\ensuremath{[\![#1]\!]}}
+\newcommand{\ndiv}{\ensuremath{\not|}}
+\newcommand{\pairing}[2]{\ensuremath{\langle#1,#2\rangle}}
+
+% some standard rings and fields
+\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\C}{\ensuremath{\mathcal{C}}}
+\newcommand{\G}{\ensuremath{\mathbb{G}}}
+
+% topology
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\map}{map}
+\DeclareMathOperator{\heit}{ht}
+\newcommand{\eev}{\wedge}
+\newcommand{\sm}{\wedge} % smash product
+
+% for defined words
+\newcommand{\dfn}{\textbf}
+
+% a ``backwards'' colon
+\def\noloc{\;{:}\,}
+
+% defining equals
+\newcommand{\defeq}{\overset{\mathrm{def}}=}
+
+% to force a paragraph break at the start of theorems and proofs
+\newcommand{\forcepar}{\mbox{}\par}
+
+
+% Wide margins.
+\setlength{\textwidth}{6.05in}
+\setlength{\oddsidemargin}{.225in}
+\setlength{\evensidemargin}{.225in}
+
+% Only sections appear in table of contents.
+\setcounter{tocdepth}{1}
+
+% Don't force the bottoms of the pages to be at the same spot:
+\raggedbottom
+
+% Allow worse line breaks while this work is in progress.
+\tolerance=3000
+% We'll get fewer ``underfull hbox'' messages with this set.
+\hbadness=4000
+% We'll get fewer ``overfull hbox'' messages with this set.
+\hfuzz=1pt
+
+%%
+\begin{document}
+
+%%% abstract
+\begin{abstract}
+Placeholder
+\end{abstract}
+
+%%% the title
+\maketitle
+
+%%% table of contents
+%\tableofcontents
+
+
+%%%%%
+%\section{Introduction}
+%One of the most important foundational results in combinatorial homotopy theory is the fact that a product of simplices \(\Delta_m \times \Delta_n\) can be tiled by a family of \(n+m\)-simplices indexed by the maximal directed paths in the through the lattice of vertices of the product. This is one of the main results necessary to establish the equivalence between the fibrant simplicial sets defined using the cylinder functor obtained by taking the cartesian product with \(\Delta_1\) and those simplicial sets satisfying Dan Kan's lifting condition. 
+
+%While a similar statement holds for Batanin cells \cite{berger-cellular-nerve} with respect to the cartesian product, it turns out that this is in no way sufficient to construct a usable homotopy theory on the category of cellular sets.  The reason for this is that given any Batanin cell of height greater than \(1\), it does not admit a contraction homotopy with respect to the cylinder obtained by taking the cartesian product with \(\Delta_1\).  The simplest case is for the \(2\)-disk \(D^2\), where any attempt at forming a contraction homotopy \(\Delta_1 \times D^2\to D^2\) fails by merit of the fact that the diagram in question must commute strictly, so any contraction of the top (resp. bottom) of the cylinder must also contract the bottom (resp. top) of the cylinder as well.  
+
+%It has long been known that the lax Gray tensor product of strict \(2\)-categories \emph{does} allow us to find the necessary contraction for a \(2\)-disk, and it is not too hard to see that this statement extends to all Batanin cells of height at most \(2\).  However, what is not at all obvious is how to obtain a decomposition of a tensor product of Batanin cells similar to the tiling of a simplicial prism.  The cartesian product has a universal property defined in terms of maps into each of the factors of the product, but unfortunately there is no such universal property for the tensor product.
+
+%In our unpublished paper developing the homotopy theory of weak \(\omega\)-categories, we eventually hit a rather solid wall with respect to relating our approach (which is closely related to the approach taken by Rezk in \cite{rezk-theta-n-spaces}) with the approach suggested by Berger in \cite{berger-cellular-nerve} using his generalization of the notion of an inner horn.  
+
+%Ultimately, after a rather substantial amount of running around in circles, we realized, with the help of the formalism developed in the preprint version of \cite{lmw} (which essentially gives a combinatorial construction of the tensor cylinder on an \(n\)-disk), that the only way to move forward was to tackle this problem.  
+
+%However, much of the older literature regarding the tensor product is extremely complicated, to the point that it is practically impossible to even get an explicit description of the tensor product of even a pair of \(2\)-cells, let alone a decomposition theorem.  However, the brilliant theory of augmented directed complexes developed in \cite{steiner-2004} really brought us back on track.  This paper owes an enormous amount to Steiner's theory, and we felt that it might be worth mentioning this in the introduction.
+
+%We have covered the cases of tensor products of the form \(D^1\otimes [t]\) and those of the form \(\Delta_2\otimes [t]\).  These are directly analogous to the classical ``cartesian prism''  of combinatorial homotopy theory and to the product with the ``principal inner horn inclusion'' respectively.     We hope that, among other things, this paper will attract some much-needed attention to the general case.  
+
+\section{Batanin spines}
+\begin{defn} A globular set is a sequence of sets \(\{T_i\}_{i\in \mathbf{N}}\) together with a family of maps \(s_i,t_i:T_i\to T_{i-1}\) for \(i\geq 1\) such that for \[s_is_{i+1}=s_it_{i+1} \qquad \text{and}\qquad t_i\circ s_{i+1} = t_i \circ t_{i+1}.\]
+\end{defn}
+For notational convenience, for \(j\geq k \geq 0\), we define \[s_j^k=s_{k+1}s_k\cdots s_j \qquad \text{and} \qquad t_j^k=t_{k+1}t_k\cdots t_j.\]
+\begin{defn} A \dfn{continuously graded linearly ordered interval} is defined to be a finite linearly ordered set \(X=[x_0<\cdots<x_n]\) together with a grading function \(f:X\to \mathbf{N}\) such that \(f(x_0)=f(x_n)=0\) and \(f(x_{i+1})-f(x_i)=\pm 1\).
+\end{defn}
+We associate a globular set \(|x|\) to a continuously graded linearly ordered interval \((X,f)\) by letting \([x]_n=f^{-1}(n)\), and by letting \(s_n\) (resp. \(t_n\)) send an element \(x\) to the greatest lower bound (resp. least upper bound) \(x^\prime < x\) (resp. \(x<x^\prime\) such that \(f(x^\prime)=f(x)-1\).  We call a globular set obtained in this way a \dfn{Batanin spine}. 
+
+We notice that Batanin spines are determined by the peaks and valleys of the gradings of their associated continuously graded linearly ordered intervals.  This gives rise to the notation \(|p_0>v_1<p_1>\cdots<p_{n-1}>v_n<p_n|\), which we call the peak-valley notation for a Batanin spine.  Given a Batanin spine \(|p_0>v_1<p_1>\cdots<p_{n-1}>v_n<p_n|\), we define the \dfn{Reedy dimension} to be \(p_0 -v_1 + p_1 -\dots + p_{n-1} - v_n +p_n\).  
+
+\section{Augmented directed complexes}
+We briefly recall the basic theory discussed in \cite{steiner-2004}, but we strongly feel that the reader should read the original paper for a more detailed and less formal discussion.
+\begin{defn} An \dfn{augmented directed complex} is given by the data of:
+\begin{enumerate} 
+\item[i] A \(\mathbf{Z}\)-augmented chain complex of abelian groups \[\mathbf{Z} \xleftarrow{\varepsilon} K_0\xleftarrow{\partial} K_1 \xleftarrow{\partial}\dots\]
+\item[ii] A sequence of distinguished submonoids \((K_i)^\ast \subseteq K_i\)
+\end{enumerate}
+A morphism of augmented directed complexes \(K\to K^\prime\) is defined to be a map of \(\mathbf{Z}\)-augmented chain complexes \(f:K\to K^\prime\) such that \(f((K_i)^\ast)\subseteq (K^\prime_i)^\ast\).  
+\end{defn}
+\begin{defn}
+We say that an augmented directed complex \dfn{admits a basis} \(B\subseteq \coprod_i K_i\) if each of the chain groups \(K_i\) is a free abelian group on the set \(K_i\cap B\) with the property that \((K_i)^\ast\) is the submonoid generated by \((K_i)^\ast\cap B\).  
+\end{defn}
+The choice of distinguished submonoids of the chain groups equips each chain group with the structure of a partially ordered abelian group, where we say that \(a\geq b\) in \(K_i\) if and only if \(a-b \in (K_i)^\ast\).  If \(K\) admits a basis, then the basis elements of \(K_i\) are the minimal nonzero elements of \((K_i)^\ast\) with respect to the restriction of this partial order structure. This implies that if such a basis exists, then it is unique. Moreover, this partial order is a lattice, where any two elements \(a,b \in K_i\) have a greatest lower bound \(a\wedge b\) and a least upper bound \(a\vee b\).  
+
+If \(x\in K_i\) for some \(i\geq 0\), we write \(x\in K\).  If \(K\) admits a basis, then we define \(\partial^+ x\) to be the sum of the basis elements appearing in \(\partial x\) with positive coefficients, and we define \(\partial^- x\) to be the sum of the basis elements appearing in \(\partial x\) with negative coefficients.
+\begin{defn}If \(K\) is an augmented directed complex with a basis \(B\), we define the \dfn{precell} \(\langle x\rangle\) associated with \(x\in K_i\) to be the recursively-defined \(\mathbf{N}\times \{-,+\}\)-sequence where 
+\[
+\langle x \rangle^\alpha_j=
+\begin{cases}0& \text{if \(j>i\)}\\
+x&\text{if\(j=i\)}\\
+\partial^\alpha \langle x \rangle^\alpha_{j+1} & \text{if \(j<i\)}\end{cases}.\]
+If \(x\) belongs to the basis \(B\) of \(K\), we call the precell \(\langle x \rangle\) an \dfn{atom}.
+\end{defn}
+\begin{defn} If \(K\) is an augmented directed complex admitting a basis \(B\), we say that \(K\) is \dfn{unital} if \(\varepsilon (\langle b \rangle^\alpha_0)=1\) for every \(b\) in \(B\) and \(\alpha \in \{-,+\}\).  
+\end{defn}
+\begin{example} Given a globular set \(T\), we may construct an unital augmented directed complex \(C(T)\) with basis \(\coprod_{i} T_i\) by letting \(C(T)_i=F_{\operatorname{Ab}}(T_i)\) be the free abelian group on \(T_i\) (with \((C(T)_i)^\ast\) equal to the submonoid of nonnegative elements), and by letting \(\partial(x)=t_i(x)-s_i(x)\) for any \(x \in T_i\) with \(i\geq 1\).  For any \(x\in T_0\), we let \(\varepsilon(x)=1\).  It is easy to see that this gives a unital augmented directed complex with basis \(\coprod_{i} T_i\).
+\end{example}
+\begin{defn} If \(K\) is an augmented directed complex admitting a basis \(B\), given two elements \(b,b^\prime \in B\), we say that \(b \prec b^\prime\) (\(b\) precedes \(b^\prime\)) if \(\partial^+(b) \geq b^\prime\) or \(b\leq \partial^-(b^\prime)\).    
+\end{defn}
+\begin{defn} If \(K\) is an augmented directed complex admitting a basis \(B\), we say that \(K\) is \dfn{strongly loop-free} (resp. \dfn{linearly loop-free}) if there exists an partial (resp. linear) ordering \(\leq_{\mathbf{N}}\) of \(B\) such that \(b <_{\mathbf{N}} b^\prime\) whenever \(b\prec b^\prime\).  We say that such an ordering is \dfn{canonical} if it is the transitive reflexive closure of \(\prec\).  
+\end{defn}
+We will focus primarily on those augmented directed complexes that are linearly loop-free and unital, but there are a few strongly loop-free augmented directed complexes that we may encounter as well.  We will give a few important examples:
+\begin{example} Let \(|t|\) be a Batanin spine.  Then we define \([t]=C\left(|t|\right)\) to be its associated augmented directed complex.  As we have seen, this is unital, but it is also linearly loop-free, since the transitive reflexive closure of the precedence ordering is linear.  We call these objects of the form \([t]\) \dfn{Batanin cells}.  We define the category \(\Theta\) to be the full subcategory of the category of augmented directed complexes spanned by the Batanin cells.  Given a Batanin cell \([t]\), we define the \dfn{Reedy dimension} of \([t]\) to be the Reedy dimension of the Batanin spine that generates it.
+\end{example}
+\begin{example} The normalized chain complex of the combinatorial \(n\)-simplex has a basis given by its set of faces.  It is not hard to see that the augmented directed complex whose distinguished submonoids are generated by the faces of appropriate dimension is strongly loop-free and unital.   
+\end{example}
+\section{Tensor products of augmented directed complexes}
+The category of augmented directed complexes inherits a tensor product from the category of augmented chain complexes, defined as follows:
+\begin{enumerate}
+\item[i] The chain groups\[(K\otimes K^\prime)_n=\bigoplus_{i+j=n} K_i\otimes K^\prime_j\]
+\item[ii] The differential \(\partial(a\otimes b)=\partial(a)\otimes b + (-1)^{\heit(a)}(a\otimes \partial(b)\).
+\item[iii] The augmentation \(\varepsilon(a\otimes b)=\varepsilon(a)\varepsilon(b)\).
+\end{enumerate}
+This becomes an augmented directed complex by letting \((K\otimes K^\prime)_n^\ast\) be the submonoid of \((K\otimes K^\prime)\) generated by the tensors \((a\otimes b)\) where \(a\in K_i^\ast\) and \(b\in K_{n-i}^\ast\).
+\begin{lemma} If \(K\) and \(K^\prime\) are strongly (resp. linearly) loop-free unital augmented directed complexes, then so too is \(K\otimes K^\prime\).  
+\end{lemma}
+\begin{proof} Clear.
+\end{proof}
+\section{Cellular sets, $\omega$-categories, and augmented directed complexes}
+Recall that a cellular set is a presheaf of sets on the category \(\Theta\) of Batanin cells.  Given an augmented directed complex \(K\), define a cellular set \(\mathfrak{N}(K)_t=\operatorname{Hom}([t],K)\), which we call the cellular nerve of \(K\).  If \([t]\) is a Batanin cell, we let \(\Theta[t]\) denote its associated representable cellular set.  It follows from the theorems of Steiner that when \(K\) is strongly loop-free and unital, this factors as the composite of the cellular nerve for an \(\omega\)-category together with Steiner's functor from augmented directed complexes to strict \(\omega\)-categories.  
+
+It follows from Berger's density theorem that \(\Theta\) embeds densely in the category of strict \(\omega\) categories, which implies that the cellular nerve is a fully faithful reflective embedding of the category of strict \(\omega\)-categories into the category of cellular sets.   
+\subsection{The cospine of a Batanin cell}
+Viewing a Batanin cell \([t]\) as a strict \(\omega\)-category, we see that it has one maximal composite obtained by composing everything in sight.  This is represented by a unique map \(D^{\heit([t])}\to [t]\), which we call the \dfn{Batanin cospine} of the Batanin cell. 
+
+We say that a map between Batanin cells \([s]\to [t]\) is \dfn{spinal} if the induced map carries the spine of \(\Theta[s]\) into the spine of \(\Theta[t]\).  
+
+Similarly, a map between Batanin cells \([s]\to [t]\) is \dfn{cospinal} if the cospine of \([s]\) is carried surjectively onto the cospine of \([t]\).  
+
+In particular, it is a result of Berger that every monomorphism in \(\Theta\) factors uniquely as a cospinal map followed by a spinal one. The geometric interpretation of this idea is that given a monomorphism of Batanin cells \([s]\to [t]\), the image of \([s]\) is embedded as some family of composites of the elements of the spine in \([t]\).  The factorization then factors this map as the cospinal inclusion of \([s]\) into the smallest spinal \(\Theta\)-subobject containing the image of the cospine of [s].  
+\subsection{Facets of a Batanin cell}
+A face of a Batanin cell \([t]\) is a monomorphism \([s] \to [t]\), where \([s]\) is a Batanin cell.  If \([s]\) is a face of \([t]\), we let the \dfn{codimension} of \([s]\) in \([t]\) be \(\dim([t])-\dim([s])\).  A face of codimension \(1\) in \([t]\) is called a \dfn{facet}.  
+
+We define the boundary \(\partial \Theta[t]\) of \(\Theta[t]\) to be the union of the facets of \([t]\).  Moreover, given a facet \(\kappa\) of \([t]\), we define \(\Lambda^\kappa[t]\) to be the union of all of the facets except \(\kappa\). 
+
+We say that a horn \(\Lambda^\kappa[t]\) is \dfn{inner} if \(\kappa\) is the inclusion of a cospinal facet.  We say that it is \dfn{outer} if \(\kappa\) is the inclusion of spinal facet.  
+
+We also have a ``squelettique'' structure on \(\Theta\), which is an extension of the notion of a Reedy structure. Our Reedy function is the aforementioned Reedy dimension. Our set of dimension-increasing maps is the set of non-identity monomorphisms.   Our set of dimension-decreasing maps is just the set of split epis.  We also have a unique factorization into these two types of maps, and we have that every dimension-decreasing map (degeneracy) is determined up to isomorphism by its set of sections.  
+
+Not only is \(\Theta\) squelettique, it is \dfn{regular squelettique}, which means that every isomorphism in \(\Theta\) is an identity, and further, that the image of any map \([s]\to [t]\) is itself representable.  
+
+
+\section{Statement of the conjectures}
+We make two detailed conjectures and one less detailed one in order or perceived difficulty:
+\begin{conjecture}
+For every Batanin cell \([t]\), the map \[D^1\otimes \partial\Theta[t] \coprod_{\{\varepsilon\}\otimes \partial\Theta[t]} \{\varepsilon\} \otimes \Theta[t]\hookrightarrow D^1\otimes \Theta[t]\] for \(\varepsilon \in \{0,1\}\) is a relative cell complex with respect to the set of all horn inclusions.  
+\end{conjecture}
+This conjecture at least seems within reach using the final result of this paper.  Also,
+\begin{conjecture}
+For every Batanin cell \([t]\), the map \[\Delta[2]\otimes \partial\Theta[t] \coprod_{\Lambda^1[2]\otimes \partial\Theta[t]} \Lambda^1[2] \otimes \Theta[t]\hookrightarrow D^1\otimes \Theta[t]\] is a relative cell complex with respect to the set of inner horn inclusions.  
+\end{conjecture}
+This conjecture is currently beyond my reach and is probably the most important to my research. Finally, we have
+\begin{conjecture} There exists a combinatorial formula for decomposing a general tensor product of Batanin cells as the union of its set of maximal representable subobjects together with some ordering telling us the order in which we should glue them. 
+\end{conjecture} 
+This is a sort of vague conjecture, but it is also important for a number of reasons.  
+
+\section{Motivation}
+Cisinski and Maltsiniotis have proven that \(\Theta\) is a strict test category as well as being regular squelettique.  This implies that we may generate the ``test model structure'' on \(\cellset\) by finding a cylinder and looking at corner maps with monomorphisms.  Unfortunately, as I noted in my e-mail, this simply fails with the cartesian product, since the objects are not contractible with respect to the cartesian cylinder.  This decisively disproves Berger's purported construction of the model structure in question and leads us to consider more exotic cylinders.  After analyzing precisely how things failed in low-dimensional cases, I actually built some low-dimensional Gray tensor products (first as cones, then realizing that they were obtained as quotients of cylinders).
+
+Moreover, the contractibility problems with the \(D^1\)-cylinder lead to even worse problems in a tensor product with \(\Delta[2]\).  This makes the tensor product rather unavoidable.
+
+
+
+\section{Strategy}
+My strategy for the case covered at the end of these notes is to compute the tensor product in terms of its suspended copies of its Hom-objects, and then to attach these together initial-to-terminal vertex such that they form paths from the initial to the terminal vertex.  Once all appropriate choices of vertices are used up, we compute how these hom-objects (up to a product from whiskering) attach together.
+
+Then my technique is to attach these products to one another, when it makes sense, to build the hom-objects between vertices in the cylinder.  It is then the chains of these hom-objects that are used in shuffles, and decomposition occurs using induction on dimension.  The difficulty with tensor products with higher-length objects is that the decomposition of the hom-objects becomes far more complicated, since our top-to-bottom ordering fails to generalize.  
+
+\section{Core decompositions for tensor products of suspended Batanin cells}
+
+\begin{lemma} Suppose \([s]=[1]([s_0])\) and \([t]=[1]([t_0])\) are suspended Batanin cells.  Then \([s]\otimes [t]\) decomposes as a union of the exterior shuffles, \([2]([s_0],[t_0])\), \([2]([t_0],[s_0])\) together with the object \[\Delta_1\left[ [s_0]\times \{x^-_0\} \times [t_0]\coprod_{[s_0]\otimes \{x^-_0\}\otimes [t_0]} [s_0]\otimes D^1 \otimes [t_0] \coprod_{[s_0]\otimes \{x^+_0\} \otimes [t_0]} [s_0]\times \{x^+_0\} \times [t_0]\right].\]  We denote this component by \(\operatorname{Core}([s]\otimes[t])\).  
+\end{lemma}
+\begin{proof} Let \(\{b_i^j\}\) be the basis for \([s_0]_i\), and let \(\{c_i^j\}\) be the basis for \([t_0]_i\). We write the basis of \([s]_0\) as \((x^-_0, x^+_0),\) and the basis of \([s]_{i+1}\) as \(\{x^j_{i+1}=b_i^j\}\).  Similarly, write the basis of \([t]_0\) as \((y^-_0, y^+_0)\), and the basis of \([t]_{i+1}\) as \(\{y^j_{i+1}=c^j_i\}\).  Lastly, let \((a^-_0, a_1, a^+_0)\) be the basis for \(D^1\). The basis for \(\Delta_1\left[[s_0] \otimes D_1 \otimes [t_0]\right]_0\) is given by the elements \(e^-,e^+\), and the basis for \(\Delta_1\left[[s_0] \otimes D_1 \otimes [t_0]\right]_{i+1}\) is equal to the set of basis elements of \(([s_0] \otimes D_1 \otimes [t_0])_i\).  
+
+We will now construct a map \[\eta: \Delta_1\left[[s_0] \otimes D_1 \otimes [t_0]\right] \to [s] \otimes [t]\].
+
+We will define the map \(\eta\) explicitly on the basis: 
+\begin{align*}
+e^\alpha \mapsto& x^\alpha_0 \otimes y^\alpha_0\\
+b_j^\beta \otimes a_i^\alpha \otimes c^\gamma_k\mapsto&
+\begin{cases} 
+x_0^\alpha \otimes y^\gamma_1 + x_1^\beta\otimes y_0^{\neg \alpha} & \text{if \(i=k=j=0\)}\\
+x^\beta_{j+1}\otimes y_0^{\neg \alpha} & \text{if \(i=k=0\) and \(j>0\)}\\
+x^\alpha_0 \otimes y^\gamma_{k+1} & \text{if \(i=j=0\) and \(k>0\)}\\
+x_{j+1}^{\beta} \otimes y^\gamma_{k+1} &\text{if \(i=1\)}\\
+0 & \text{otherwise}
+\end{cases}
+\end{align*}
+
+We show that this map is compatible with the boundary maps, and we denote the generic basis element by \( b_j^\beta \otimes a_i^\alpha \otimes c^\gamma_k\).  We begin with the case \(i=j=k=0\).
+\begin{align*}\partial( b_j^\beta \otimes \eta(a_0^\alpha \otimes c^\gamma_k)) &= \partial(x_0^\alpha \otimes y_1^\gamma + x_1^\beta \otimes y_0^{\neg\alpha})
+\\&=x_0^\alpha \otimes y^+_0 - x_0^\alpha \otimes y^+_0 + x_0^+ \otimes y_0^{\neg \alpha} - x_0^- \otimes y_0^{\neg \alpha} 
+\\&= x_0^+ \otimes y_0^+ - x_0^- \otimes y_0^- = \eta(e^+ - e^-)=\eta(\partial( b_j^\beta \otimes a_0^\alpha \otimes c^\gamma_k)).  
+\intertext{Now consider the case where \(i=j=0\) and \(k>0\):}
+\partial(b_j^\beta \otimes \eta(a_0^\alpha \otimes c^\gamma_k))&=\partial(x^\alpha_0 \otimes y^\gamma_{k+1})=x^\alpha_0 \otimes y_k^+ - x^\alpha_0 \otimes y_k^- 
+\\&= \eta(b_0^\beta \otimes a_0^\alpha \otimes c^+_k - b_0^\beta \otimes a_0^\alpha \otimes c^-_k)= \eta(\partial(b_0^\beta \otimes a_0^\alpha \otimes c^\gamma_{k+1}))
+\intertext{The case where \(i=k=0\) and \(j>0\) is  similar, so consider the case where \(i=0\) and \(j,k>0\).} 
+\eta(\partial(b_j^\beta \otimes a_0^\alpha \otimes c^\gamma_k)&=\eta(a_0^\alpha \otimes (b_{j-1}^+ - b_{j-1}^-) \otimes c^\gamma_k + (-1)^j( b_j^\beta \otimes a_0^\alpha \otimes (c^+_{k-1}-c^-_{k-1}))).
+\end{align*}
+If both \(j,k>1\), then every term must vanish, since each individual term of the boundary has subscripts on \(b\) and \(c\) exceeding \(0\).   If \(j>1\) and \(k=1\) (or dually), then two of the terms of the boundary vanish under \(\eta\) (for the reason noted above), since they still satisfy the property that \(j-1>0\) and \(k>0\).  The other two terms cancel under \(\eta\), since \(j>0\) and \(k=0\), which means that
+\begin{align*}\eta((-1)^j(b_j^\beta \otimes a_0^\alpha \otimes c_0^+)-\eta(b_j^\beta \otimes a_0^\alpha \otimes c_0^-)&=x^\beta_{j+1} \otimes y_0^{\neg \alpha} - x^\beta_{j+1} \otimes y_0^{\neg \alpha}=0
+\end{align*}
+Then we look at the final subcase to check the condition when \(j=k=1\).  
+\begin{align*}
+\eta(\partial(b_1^\beta \otimes a_0^\alpha \otimes c^\gamma_1)&=\eta((b_0^+ - b_0^-) \otimes a_0^\alpha \otimes c^\gamma_1 + -b_1^\beta \otimes a_0^\alpha \otimes (c^+_0-c^-_0)),
+\intertext{but the terms cancel with themselves under \(\eta\) as in the previous case. Now, for the final case, simply assume that \(i=1\). }
+\eta(\partial(b_j^\beta \otimes a_1\otimes c_k^\gamma))&= \eta((b_{j-1}^+ - b_{j-1}^-) \otimes a_1 \otimes c_k^\gamma \\&+(-1)^j ( b_j^\beta \otimes (a_0^+ - a_0^-)\otimes c_k^\gamma -(a_1\otimes b_j^\beta \otimes (c_{k-1}^+ - c_{k-1}^-)))) 
+\\&= (x_j^+ - x_j^-) \otimes y_{k+1}^\gamma + (-1)^{j}(0-(x^\beta_{j+1}\otimes (y^+_k-y^-_k))) \\&= \partial(x_{j+1}^\beta) \otimes y^\gamma_{k+1} + (-1)^{j+1}(x^\beta_{j+1} \otimes \partial(y^\gamma_{k+1})\\&=\partial(x_{j+1}^\beta \otimes y^\gamma_{k+1})\partial(\eta(b^\beta_j \otimes a_1 \otimes y^\gamma_k)).  
+\end{align*}
+Then we see that the image of this map is the core, and that together with the outer shuffles, it covers \([s]\otimes [t]\).  Since the outer shuffles are attached to the core in a way such that no new composites arise, this gives a decomposition.
+\end{proof}
+
+The lemma implies, for instance, that if \([t]\) is a suspended batanin cell, that \(D^1\otimes [t]\) decomposes into a union of its outer shuffles together with a copy of \(\Delta_1[D^1\otimes [t]]\).  
+
+\section{Decompositions for the tensor cylinder on a Batanin cell}
+
+Given a pair of vertices \(x,y\) in a strict \(\omega\)-category \(X\), let \([x,y]\) denote \(\Gamma(X,(x,y))\). 
+
+\begin{thm} Fix a Batanin cell \([t]=[n]([t_1],\dots,[t_n])\).  Then \(D^1\otimes [t]\) admits a full decomposition into  components of dimension \[\operatorname{dim}([t])+1.\]    
+\end{thm}
+\begin{proof} Let \(p_0,\dots,p_n\) be the vertices of \([t]\), let \((x_0^-,x_1,x_0^+)\) be the basis of \(D^1\), and by abuse of notation, let \(p_i^\alpha\) denote the vertex \(\langle x_0^\alpha\otimes p_i\rangle\) for \(\alpha\in \{-,+\}\).  We will give a decomposition of \(D^1\otimes [t]\) into components indexed by pairs such that \(0\leq i\leq j\leq n\).    
+
+We let the \((i,j)\) component be \[[n+1-j+i]([t_1],\dots,  [t_i], [p^-_i,p^+_j], [t_{j+1}],\dots, [t_n])\]  Notice that when \(i=k\), these are the outer shuffles, and when \(k=i+1\), these are exactly given by \([n]([t_1],\dots,[t_i],D^1\otimes [t_{i+1}],\dots,[t_n]).\)  
+
+Then notice that \[[p^-_i,p^+_j]=([t_{i+1}]\times \dots \times [t_{j-1}] \times (D^1\otimes [t_j]))\coprod_{[t_{i+1}]\times \dots \times [t_j]} \dots \coprod_{[t_{i+1}]\times \dots \times [t_j]} ((D^1\otimes [t_{i+1}])\times [t_{i+2}]\times \dots [t_j])\] because \([t_{k-1}] \times (x_0^+ \otimes [t_k]) = (x_0^-\otimes [t_{k-1}]) \times [t_k]\) for \(i+1<k\leq j\).    
+
+
+Then we show that given any family \([t_1],\dots,[t_n]\) such that \(D^1\otimes [t_i]\) is a union of Batanin cells of dimension \(\operatorname{dim}([t_i]) +1\) for each \(1\leq i\leq n\), \dfn{the partial tensor column}, \[([t_{1}]\times \dots \times [t_{n-1}] \times (D^1\otimes [t_n]))\coprod_{[t_{1}]\times \dots \times [t_n]} \dots \coprod_{[t_1]\times \dots \times [t_n]} ((D^1\otimes [t_1])\times [t_2]\times \dots [t_n])\] is a union of Batanin cells of dimension \(\operatorname{dim}([t_1]) + \dots + \operatorname{dim}([t_n]) +n\). 
+
+There exists an obvious map from the partial tensor column to the cartesian column \[[n]\times [t_1]\times \dots \times [t_n],\] obtained by first looking at the universal maps \(f_i\)
+\[
+f_i:\prod_{j\neq i}[t_j] \times (D^1\otimes [t_i]) \to
+\prod_{j\neq i}[t_j] \times (D^1\times [t_i]),\] which is isomorphic to \[D^1\times \prod_{j=1}^n[t_j].\] However, since \[[n]\times \prod_{j=1}^n[t_j]\cong (D^1\coprod_{D^0} \dots \coprod_{D^0} D^1)\times [t_1]\times \dots \times [t_n],\] and since the cartesian product is a left adjoint, we have that the cartesian column can be expressed as an iterated pushout of the objects \[\prod_{j\neq i}[t_j] \times (D^1\times [t_i]).\] It is clear that the symmetry isomorphisms don't cause a problem, so this implies that the \(f_i\) give the cartesian column the structure of a cone over the diagram defining the partial tensor column.  By the universal property of colimits, we obtain our map.  We note that this map is obtained by collapsing the structure cells belonging to the partial tensor column.
+
+We will make use of the component shuffles of the cartesian column to describe the components of the partial  tensor column.   Since the map is given by collapsing structure cells, we see that the shuffles are actually components of the partial tensor column.  Using the fact that \(\Theta\) is an iterated wreath product of the simplex category, we write \([t_i]=\Delta_{m_i}[[t^0_{i1}],\dots [t^0_{im_i}]]\) for each \(i\), which is equivalent to writing \[[t_i]=[t_{i1}]\coprod_{D_0} \dots \coprod_{D_0} [t_{im_i}],\] where \([t_{ik}]=\Delta_1[[t^0_{ik}]]\).  These are the terms that we will use to express the shuffles of \[\prod_{i=1}^n [t_i].\]  That is, we will express a shuffle \([s]\) as a total order \(\lhd_{[s]}\) on the set \[\bigcup_{i=1}^n \{[t_{ik}]\}_{k=1}^{m_i}\] with the property that \([t_{ik}] \lhd_{[s]} [t_{ik^\prime}]\) whenever \(k<k^\prime\).    
+
+We will show that the other components of the partial tensor column can be expressed by using a notion of an admissible extension of a shuffle \([s]\) of \([t_1]\times \dots \times [t_n],\) which we describe as follows: 
+
+Given a shuffle \([s]\) of the product, we say that a linear order \(\ll\) on the set \[\left(\{t_{ik}\}_{\substack{1\leq i\leq n\\1\leq k \leq m_i}}\right) \coprod \left(\{c_i^\alpha\}_{\substack{1\leq i \leq n \\ \alpha\in\{-,+\}}}\right)\] \dfn{admissibly extends} \([s]\) if the following properties hold:
+\begin{enumerate}
+\item[(i)] The restriction of \(\ll\) to the subset \(\{t_{ik}\}_{\substack{1\leq i\leq n \\1\leq k \leq m_i}}\) is equal to \(\lhd_{[s]}\).  
+\item[(ii)] For all \(1\leq i\leq n\), \(c_i^- \ll c_i^+\).
+\item[(iii)] For all pairs \(1\leq i \leq j \leq n\), \(c_j^+ \ll c_i^-\).
+\item[(iv)] If \(c_j^- \ll [t_{ik}] \ll c_j^+\) then \(i=j\).  
+\end{enumerate}
+For \(0<j<n\), we denote the strict \(\ll\)-interval \((c_j^+,c_{j+1}^-)\) by \(Q^{j+1}_j\), and for \(j=0\) (resp. \(j=n\)), let \(Q_j^{j+1}\) denote the set of strict lower bounds of \(c_1^-\) (resp. the set of strict upper bounds of \(c_n^+\)).  Also, for \(1\leq j\leq n\), let \(R_j\) denote the strict \(\ll\)-interval \((c_j^-,c_j^+)\).  
+
+Then given a shuffle \([s]\) together with with an admissible extension \((E,\ll)\), we define a component of the partial tensor column as follows: Let \([q_j^{j+1}]\) denote the iterated pushout of the elements of \(Q^{j+1}_j\) along their appropriate source and target vertices with respect to the order.  Further, define \([r^0_j]\) to be the iterated pushout of the elements of \([R_j]\) along their source and target vertices with respect to the order. Then let \([r_j]\) denote the suspension of the \(\operatorname{Hom}\) object between the initial and terminal vertices of \(D^1\otimes r^0_j\) that we discussed earlier.  Then let \([s_E]\) be the iterated pushout along source and target vertices \[[q_0^1]\coprod_{D^0} [r_1] \coprod_{D^0} [q_1^2]\coprod_{D^0}\dots \coprod_{D^0} [q^{n}_{n-1}] \coprod_{D^0} [r_n] \coprod_{D^0} [q_n^{n+1}].\]  Then \([s_E]\) admits an obvious map into the partial tensor column, and moreover, if we let \([s_E]\) range over all pairs \(([s],E)\) of a shuffle equipped with an admissible extension, we see that these give a decomposition of the partial tensor column.
+
+However, by induction on dimension, it is clear that the \([s_E]\) decompose into components of dimension \(\operatorname{dim}([t_1]) + \dots + \operatorname{dim}([t_n]) +n\).  This proves the theorem.
+\end{proof}
+
+%We now provide the promised repair of Berger's cylinder theorem:
+%\begin{thm} The lower-righthand corner map \(D^1\otimes \partial \Theta[t] \coprod_{\{\varepsilon\}\otimes \partial \Theta[t]} \{\varepsilon\} \otimes \Theta[t]\hookrightarrow D^1\otimes \Theta[t]\) is a relative \(H\)-cell complex, where \(H\) denotes the set of horn inclusions. 
+%\end{thm}
+%\begin{proof}By induction, suppose that the claim holds for \(\Theta[s]\) of dimension smaller than that of \(\Theta[t]\).  Then starting from the top-right, we attach the first outer shuffle along the obvious horn inclusion. This includes the top of the suspended copy of the cylinder \(D^1\otimes \Theta[t_n]\), and the boundary component \(D^1\otimes \partial \Theta[t]\) contained the rest of its suspended boundary. Then since \(\Theta[t_n]\) has dimension smaller than that of \(\Theta[t]\), we may attach the suspended cylinder and write it as an iterated sequence of 
+%\end{proof}
+%We now treat a second special case that is important for the homotopy theory of weak \(\omega\)-categories.  
+
+%\begin{thm} Fix a Batanin cell \([t]=[n]([t_1],\dots,[t_n])\).  Then the tensor product \([2] \otimes [t]\) decomposes into a union of Batanin cells of dimension \(\operatorname{dim}([t])+2\).  
+%\end{thm}
+%\begin{proof} Let \((x_0^0 < x_1^- > x_0^1 < x_1^+ > x_0^2)\) be the basis for \([2]\).  
+%It's easy to see that when \([t]\) is suspended (that is, when \(n=1\)), we have a decomposition of the tensor product into the following parts:
+%\begin{enumerate}
+%\item[(i)] Three obvious outer shuffles.
+%\item[(ii)] Two components obtained by attaching the core of the top copy (resp. bottom copy) of the cylinder to the edge \(x_1^+\otimes e^+\) at the vertex \(x_0^1 \otimes e^+\) (resp. to the edge \(x_1^-\otimes e^-\) at the vertex \(x_0^1\otimes e^-\)).  
+%\item[(iii)] A core component given by \([2]\otimes [t]_1\) obtained by concatenating the subobjects obtained from (ii) by whiskering along the edges we attached.
+%\end{enumerate}
+
+%\end{proof}
+
+%%% bibliography
+\begin{bibdiv}
+\begin{biblist}
+%\bibselect{bibdatabase}
+
+\bib{ara-thesis}{thesis}{
+	author={Ara, D.},
+	title={Sur les \(\infty\)-groupo\"{i}des de Grothendieck},
+	organization={Universit\'{e} Paris Did\'{e}rot (Paris 7)},
+	date={2010}
+	}
+
+\bib{berger-cellular-nerve}{article}{
+  author={Berger, C.},
+  title={A cellular nerve for higher categories},
+  journal={Adv. Math.},
+  volume={169},
+  date={2002},
+  number={1},
+  pages={118--175},
+  issn={0001-8708},
+  review={\MR {1916373 (2003g:18007)}},
+}
+
+\bib{berger-iterated-wreath}{article}{
+  author={Berger, C.},
+  title={Iterated wreath product of the simplex category and iterated loop spaces},
+  journal={Adv. Math.},
+  volume={213},
+  date={2007},
+  number={1},
+  pages={230--270},
+  issn={0001-8708},
+  review={\MR {2331244 (2008f:55010)}},
+}
+
+\bib{cisinski-book}{book}{
+author={Cisinski, D.-C.},
+title={Les pr\'efaisceaux comme mod\`eles des types d'homotopie},
+publisher={Soc. Math. France},
+date={2006},
+series={Ast\'erisque},
+volume={308},
+}
+
+\bib{lmw}{article}{
+author={Lafont, Y. AND Metayer, F. AND Worytkiewicz, K.},
+title={A folk model structure on omega-cat}, 
+journal={Preprint},
+date={2007},
+}
+
+
+\bib{rezk-theta-n-spaces}{article}{
+  author={Rezk, C.},
+  title={A Cartesian presentation of weak \(n\)-categories},
+  journal={Geom. Topol.},
+  volume={14},
+  date={2010},
+  number={1},
+  pages={521--571},
+  issn={1465-3060},
+  review={\MR {2578310}},
+  doi={10.2140/gt.2010.14.521},
+}
+
+\bib{steiner-2004}{article}{
+author={Steiner, R.},
+title={Omega-categories and chain complexes}, 
+journal={Homology, Homotopy, Appl},
+volume={6},
+date={2004}, 
+number={1},
+pages={175-200},
+}
+
+\bib{steiner-2007}{article}{
+author={Steiner, R.},
+title={Simple omega-categories and chain complexes}, 
+journal={Homology, Homotopy, Appl},
+volume={9},
+date={2007}, 
+number={1},
+pages={175-200},
+}
+
+
+\end{biblist}
+\end{bibdiv}
+\end{document}
+
+
