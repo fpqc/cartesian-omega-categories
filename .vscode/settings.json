@@ -1,0 +1,13 @@
+{
+    // Controls if the editor should automatically close brackets after opening them
+    "editor.autoClosingBrackets": true,
+    "editor.wordWrap": "on",
+    
+      // Build LaTeX after saving LaTeX source file.
+    // This property defines whether LaTeX Workshop will execute the LaTeX toolchain command(s) to build the project after new LaTeX contents are saved.
+    "latex-workshop.latex.autoBuild.onSave.enabled": false,
+  
+    // Delete LaTeX auxillary files after building project.
+    // This property defines whether LaTeX Workshop will clean up all unnecessary files after building the project.
+    "latex-workshop.latex.clean.enabled": true
+}
